@@ -1,0 +1,217 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Definições de gradientes e estilos -->
+  <defs>
+    <linearGradient id="systemGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e3f2fd;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#bbdefb;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="actorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fff3e0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffe0b2;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Título do sistema -->
+  <text x="600" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#1565c0">
+    Sistema de Gestão Hospitalar
+  </text>
+  
+  <!-- Retângulo do sistema -->
+  <rect x="200" y="60" width="800" height="680" rx="10" ry="10" 
+        fill="url(#systemGradient)" stroke="#1976d2" stroke-width="2" filter="url(#shadow)"/>
+  
+  <!-- Atores -->
+  
+  <!-- Recepcionista -->
+  <g id="recepcionista" transform="translate(80, 200)">
+    <!-- Cabeça -->
+    <circle cx="0" cy="-10" r="8" fill="url(#actorGradient)" stroke="#ff6f00" stroke-width="1.5"/>
+    <!-- Corpo -->
+    <line x1="0" y1="-2" x2="0" y2="25" stroke="#ff6f00" stroke-width="2"/>
+    <!-- Braços -->
+    <line x1="-12" y1="8" x2="12" y2="8" stroke="#ff6f00" stroke-width="2"/>
+    <!-- Pernas -->
+    <line x1="0" y1="25" x2="-8" y2="35" stroke="#ff6f00" stroke-width="2"/>
+    <line x1="0" y1="25" x2="8" y2="35" stroke="#ff6f00" stroke-width="2"/>
+    <!-- Label -->
+    <text x="0" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e65100">
+      Recepcionista
+    </text>
+  </g>
+  
+  <!-- Administrador -->
+  <g id="administrador" transform="translate(80, 400)">
+    <!-- Cabeça -->
+    <circle cx="0" cy="-10" r="8" fill="url(#actorGradient)" stroke="#388e3c" stroke-width="1.5"/>
+    <!-- Corpo -->
+    <line x1="0" y1="-2" x2="0" y2="25" stroke="#388e3c" stroke-width="2"/>
+    <!-- Braços -->
+    <line x1="-12" y1="8" x2="12" y2="8" stroke="#388e3c" stroke-width="2"/>
+    <!-- Pernas -->
+    <line x1="0" y1="25" x2="-8" y2="35" stroke="#388e3c" stroke-width="2"/>
+    <line x1="0" y1="25" x2="8" y2="35" stroke="#388e3c" stroke-width="2"/>
+    <!-- Label -->
+    <text x="0" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2e7d32">
+      Administrador
+    </text>
+  </g>
+  
+  <!-- Médico -->
+  <g id="medico" transform="translate(80, 600)">
+    <!-- Cabeça -->
+    <circle cx="0" cy="-10" r="8" fill="url(#actorGradient)" stroke="#7b1fa2" stroke-width="1.5"/>
+    <!-- Corpo -->
+    <line x1="0" y1="-2" x2="0" y2="25" stroke="#7b1fa2" stroke-width="2"/>
+    <!-- Braços -->
+    <line x1="-12" y1="8" x2="12" y2="8" stroke="#7b1fa2" stroke-width="2"/>
+    <!-- Pernas -->
+    <line x1="0" y1="25" x2="-8" y2="35" stroke="#7b1fa2" stroke-width="2"/>
+    <line x1="0" y1="25" x2="8" y2="35" stroke="#7b1fa2" stroke-width="2"/>
+    <!-- Label -->
+    <text x="0" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#6a1b9a">
+      Médico
+    </text>
+  </g>
+  
+  <!-- Casos de Uso -->
+  
+  <!-- Home (Página Inicial) -->
+  <ellipse cx="300" cy="120" rx="70" ry="25" fill="white" stroke="#1976d2" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="300" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#0d47a1">
+    Home (Página Inicial)
+  </text>
+  
+  <!-- Controlar Cadastro de Paciente -->
+  <ellipse cx="400" cy="200" rx="85" ry="30" fill="white" stroke="#1976d2" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="400" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#0d47a1">
+    Controlar Cadastro
+  </text>
+  <text x="400" y="208" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#0d47a1">
+    de Paciente
+  </text>
+  
+  <!-- Controlar Convênios -->
+  <ellipse cx="650" cy="200" rx="70" ry="25" fill="white" stroke="#1976d2" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="650" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#0d47a1">
+    Controlar Convênios
+  </text>
+  
+  <!-- Cadastrar Médico -->
+  <ellipse cx="500" cy="300" rx="65" ry="25" fill="white" stroke="#1976d2" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="500" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#0d47a1">
+    Cadastrar Médico
+  </text>
+  
+  <!-- Agendar Consulta -->
+  <ellipse cx="350" cy="400" rx="70" ry="25" fill="white" stroke="#1976d2" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="350" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#0d47a1">
+    Agendar Consulta
+  </text>
+  
+  <!-- Cadastrar Endereço -->
+  <ellipse cx="600" cy="350" rx="70" ry="25" fill="white" stroke="#1976d2" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="600" y="355" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#0d47a1">
+    Cadastrar Endereço
+  </text>
+  
+  <!-- Relacionamentos (Associações) -->
+  
+  <!-- Recepcionista para Home -->
+  <line x1="92" y1="200" x2="240" y2="120" stroke="#555" stroke-width="1.5"/>
+  
+  <!-- Recepcionista para Controlar Cadastro de Paciente -->
+  <line x1="92" y1="200" x2="315" y2="200" stroke="#555" stroke-width="1.5"/>
+  
+  <!-- Recepcionista para Controlar Convênios -->
+  <line x1="92" y1="200" x2="580" y2="200" stroke="#555" stroke-width="1.5"/>
+  
+  <!-- Recepcionista para Agendar Consulta -->
+  <line x1="92" y1="200" x2="280" y2="400" stroke="#555" stroke-width="1.5"/>
+  
+  <!-- Recepcionista para Cadastrar Endereço -->
+  <line x1="92" y1="200" x2="530" y2="350" stroke="#555" stroke-width="1.5"/>
+  
+  <!-- Administrador para Home -->
+  <line x1="92" y1="400" x2="240" y2="120" stroke="#555" stroke-width="1.5"/>
+  
+  <!-- Administrador para Controlar Cadastro de Paciente -->
+  <line x1="92" y1="400" x2="315" y2="200" stroke="#555" stroke-width="1.5"/>
+  
+  <!-- Administrador para Controlar Convênios -->
+  <line x1="92" y1="400" x2="580" y2="200" stroke="#555" stroke-width="1.5"/>
+  
+  <!-- Administrador para Cadastrar Médico -->
+  <line x1="92" y1="400" x2="435" y2="300" stroke="#555" stroke-width="1.5"/>
+  
+  <!-- Administrador para Agendar Consulta -->
+  <line x1="92" y1="400" x2="280" y2="400" stroke="#555" stroke-width="1.5"/>
+  
+  <!-- Administrador para Cadastrar Endereço -->
+  <line x1="92" y1="400" x2="530" y2="350" stroke="#555" stroke-width="1.5"/>
+  
+  <!-- Médico para Home -->
+  <line x1="92" y1="600" x2="240" y2="120" stroke="#555" stroke-width="1.5"/>
+  
+  <!-- Casos de uso relacionados (Include/Extend) -->
+  
+  <!-- Casos de uso de validação (representados como relacionamentos internos) -->
+  <ellipse cx="800" cy="450" rx="60" ry="20" fill="#fff9c4" stroke="#f57f17" stroke-width="1" stroke-dasharray="5,5"/>
+  <text x="800" y="455" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e65100">
+    Validar Dados
+  </text>
+  
+  <ellipse cx="850" cy="280" rx="65" ry="20" fill="#fff9c4" stroke="#f57f17" stroke-width="1" stroke-dasharray="5,5"/>
+  <text x="850" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e65100">
+    Validar Sessão
+  </text>
+  
+  <!-- Relacionamentos Include (tracejado) -->
+  <line x1="370" y1="120" x2="785" y2="280" stroke="#f57f17" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="590" y="190" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e65100">
+    &lt;&lt;include&gt;&gt;
+  </text>
+  
+  <line x1="400" y1="230" x2="740" y2="450" stroke="#f57f17" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="580" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e65100">
+    &lt;&lt;include&gt;&gt;
+  </text>
+  
+  <line x1="500" y1="325" x2="740" y2="450" stroke="#f57f17" stroke-width="1" stroke-dasharray="3,3"/>
+  
+  <!-- Legenda -->
+  <g transform="translate(220, 600)">
+    <rect x="0" y="0" width="200" height="120" fill="white" stroke="#666" stroke-width="1" rx="5"/>
+    <text x="100" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333">
+      Legenda
+    </text>
+    
+    <!-- Ator -->
+    <circle cx="20" cy="40" r="6" fill="url(#actorGradient)" stroke="#333" stroke-width="1"/>
+    <line x1="20" y1="46" x2="20" y2="60" stroke="#333" stroke-width="1"/>
+    <text x="40" y="55" font-family="Arial, sans-serif" font-size="10" fill="#333">
+      Ator
+    </text>
+    
+    <!-- Caso de Uso -->
+    <ellipse cx="20" cy="80" rx="15" ry="8" fill="white" stroke="#1976d2" stroke-width="1"/>
+    <text x="40" y="85" font-family="Arial, sans-serif" font-size="10" fill="#333">
+      Caso de Uso
+    </text>
+    
+    <!-- Associação -->
+    <line x1="120" y1="40" x2="160" y2="40" stroke="#555" stroke-width="1.5"/>
+    <text x="140" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">
+      Associação
+    </text>
+    
+    <!-- Include -->
+    <line x1="120" y1="80" x2="160" y2="80" stroke="#f57f17" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="140" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">
+      Include
+    </text>
+  </g>
+  
+</svg>
