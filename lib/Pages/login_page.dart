@@ -32,7 +32,7 @@ class LoginPage extends StatelessWidget {
               // ),
               const SizedBox(height: 8),
               const Text(
-                'DIEGO ÁQUILA teste 1 ',
+                'DIEGO ÁQUILA teste 2 ',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 24,

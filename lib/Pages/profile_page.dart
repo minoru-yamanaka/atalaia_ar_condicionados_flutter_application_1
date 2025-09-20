@@ -1,3 +1,5 @@
+import 'package:atalaia_ar_condicionados_flutter_application/Config/app_colors.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Config/app_text_style.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -8,7 +10,8 @@ class ProfilePage extends StatelessWidget {
     const primaryColor = Color(0xFFF58524);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
+      backgroundColor: AppColors.backgroundColorPages,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -28,7 +31,7 @@ class ProfilePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
-              children: const [
+              children: [
                 // --- AVATAR ---
                 CircleAvatar(
                   radius: 50,
@@ -50,8 +53,11 @@ class ProfilePage extends StatelessWidget {
                 SizedBox(height: 8),
                 Text(
                   'Building beautiful and functional apps.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, color: Colors.black54),
+                  style: AppTextStyle.titleAppBar.copyWith( 
+                    fontSize: 14,),
+                  // textAlign: TextAlign.center,
+                  // style: TextStyle(fontSize: 14, color: Colors.black54),
+                  
                 ),
               ],
             ),
