@@ -1,0 +1,295 @@
+import React, { useState, useEffect } from 'react';
+import { Sun, Users, Computer, MapPin, Building, Wrench, Phone, MessageSquare, Menu, X, ShoppingCart, Calculator, Info, Settings } from 'lucide-react';
+
+// Mock data for products
+const products = [
+  { id: 1, name: 'Ar-Condicionado Split Inverter 9.000 BTUs', price: 'R$ 2.199,90', image: 'https://placehold.co/600x400/f0f0f0/333?text=Split+9k+BTUs' },
+  { id: 2, name: 'Ar-Condicionado de Janela 7.500 BTUs', price: 'R$ 1.499,90', image: 'https://placehold.co/600x400/f0f0f0/333?text=Janela+7.5k+BTUs' },
+  { id: 3, name: 'Ar-Condicionado Portátil 12.000 BTUs', price: 'R$ 3.299,90', image: 'https://placehold.co/600x400/f0f0f0/333?text=Portátil+12k+BTUs' },
+  { id: 4, name: 'Filtro de Ar Universal', price: 'R$ 49,90', image: 'https://placehold.co/600x400/f0f0f0/333?text=Filtro+de+Ar' },
+  { id: 5, name: 'Suporte para Unidade Externa', price: 'R$ 89,90', image: 'https://placehold.co/600x400/f0f0f0/333?text=Suporte' },
+];
+
+// Mock data for services
+const services = [
+    { id: 1, name: 'Instalação Padrão', description: 'Instalação completa de equipamentos split de até 12.000 BTUs.' },
+    { id: 2, name: 'Manutenção Preventiva', description: 'Limpeza de filtros, verificação de gás e componentes.' },
+    { id: 3, name: 'Higienização Completa', description: 'Desmontagem e limpeza química para eliminar ácaros e bactérias.' },
+    { id: 4, name: 'Recarga de Gás', description: 'Recarga de gás refrigerante para todos os modelos.' },
+];
+
+
+const AppHeader = ({ title, onMenuClick }) => (
+    <header className="bg-white shadow-md sticky top-0 z-20">
+        <div className="max-w-md mx-auto p-4 flex justify-between items-center">
+            <h1 className="text-xl font-bold text-gray-800">{title}</h1>
+            <button onClick={onMenuClick} className="p-2">
+                <Menu className="text-gray-600" />
+            </button>
+        </div>
+    </header>
+);
+
+const BottomNavBar = ({ activePage, setActivePage }) => {
+    const navItems = [
+        { id: 'catalogo', icon: ShoppingCart, label: 'Catálogo' },
+        { id: 'calculadora', icon: Calculator, label: 'Calculadora' },
+        { id: 'servicos', icon: Wrench, label: 'Serviços' },
+        { id: 'empresa', icon: Info, label: 'Empresa' },
+        { id: 'contato', icon: Phone, label: 'Contato' },
+    ];
+
+    return (
+        <nav className="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-2px_5px_rgba(0,0,0,0.1)] z-20">
+            <div className="max-w-md mx-auto flex justify-around">
+                {navItems.map(item => (
+                    <button
+                        key={item.id}
+                        onClick={() => setActivePage(item.id)}
+                        className={`flex flex-col items-center justify-center p-2 w-full text-xs transition-colors duration-200 ${
+                            activePage === item.id ? 'text-[#021F50]' : 'text-gray-500'
+                        }`}
+                    >
+                        <item.icon size={22} />
+                        <span className="mt-1">{item.label}</span>
+                    </button>
+                ))}
+            </div>
+        </nav>
+    );
+};
+
+const ProductCatalogPage = () => {
+    const handleWhatsAppClick = (productName) => {
+        const message = encodeURIComponent(`Olá! Tenho interesse no produto: ${productName}. Poderia me dar mais informações?`);
+        // Em um app real, usaria Linking.openURL(`whatsapp://send?phone=SuaEmpresaTelefone&text=${message}`);
+        console.log(`Abrir WhatsApp com a mensagem: ${message}`);
+        alert('Simulando abertura do WhatsApp!');
+    };
+
+    return (
+        <div className="p-4 space-y-4">
+            {products.map(product => (
+                <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                    <img src={product.image} alt={product.name} className="w-full h-40 object-cover" />
+                    <div className="p-4">
+                        <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
+                        <p className="text-xl font-bold text-gray-900 my-2">{product.price}</p>
+                        <button 
+                            onClick={() => handleWhatsAppClick(product.name)}
+                            className="w-full bg-[#021F50] text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl"
+                        >
+                            Comprar no WhatsApp
+                        </button>
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+};
+
+const BtuCalculatorPage = () => {
+    const [area, setArea] = useState(10);
+    const [people, setPeople] = useState(1);
+    const [devices, setDevices] = useState(1);
+    const [sun, setSun] = useState('manha');
+    const [result, setResult] = useState(null);
+
+    const calculateBtus = () => {
+        let baseBtus = 600;
+        let totalBtus = area * baseBtus;
+        totalBtus += (people -1) * baseBtus;
+        totalBtus += devices * baseBtus;
+
+        if (sun === 'tarde' || sun === 'dia-todo') {
+            totalBtus += 800;
+        }
+        
+        setResult(Math.ceil(totalBtus / 1000) * 1000); // Arredonda para o milhar mais próximo
+    };
+
+    useEffect(() => {
+        calculateBtus();
+    }, [area, people, devices, sun]);
+    
+
+    return (
+        <div className="p-4">
+            <div className="bg-white rounded-lg shadow-md p-6 space-y-6">
+                <h2 className="text-2xl font-bold text-center text-gray-800">Calculadora de BTUs</h2>
+                
+                <div>
+                    <label className="font-semibold text-gray-700 flex items-center justify-between">
+                        <span>Área do ambiente (m²)</span>
+                        <span className="text-lg font-bold text-[#021F50]">{area} m²</span>
+                    </label>
+                    <input type="range" min="5" max="100" value={area} onChange={(e) => setArea(e.target.value)} className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" style={{accentColor: '#021F50'}}/>
+                </div>
+
+                <div>
+                    <label className="font-semibold text-gray-700 flex items-center justify-between">
+                       <span>Número de pessoas</span>
+                       <span className="text-lg font-bold text-[#021F50]">{people}</span>
+                    </label>
+                    <input type="range" min="1" max="10" value={people} onChange={(e) => setPeople(e.target.value)} className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" style={{accentColor: '#021F50'}}/>
+                </div>
+
+                <div>
+                    <label className="font-semibold text-gray-700 flex items-center justify-between">
+                        <span>Aparelhos eletrônicos</span>
+                        <span className="text-lg font-bold text-[#021F50]">{devices}</span>
+                    </label>
+                    <input type="range" min="0" max="10" value={devices} onChange={(e) => setDevices(e.target.value)} className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" style={{accentColor: '#021F50'}}/>
+                </div>
+                 <div>
+                    <label className="font-semibold text-gray-700 mb-2 block">Incidência Solar</label>
+                    <div className="flex space-x-2">
+                        {['manha', 'tarde', 'dia-todo'].map(val => (
+                            <button key={val} onClick={() => setSun(val)} className={`flex-1 p-2 rounded-md text-sm font-medium transition-colors ${sun === val ? 'bg-[#021F50] text-white' : 'bg-gray-200 text-gray-700'}`}>
+                                {val.replace('-', ' ')}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                {result && (
+                    <div className="text-center bg-blue-50 p-4 rounded-lg border border-blue-200 mt-6">
+                        <p className="text-gray-600">Capacidade recomendada:</p>
+                        <p className="text-4xl font-extrabold text-[#021F50]">{result.toLocaleString('pt-BR')} BTUs</p>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
+
+const CompanyPage = () => (
+    <div className="p-4 space-y-4">
+        <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center"><Building className="mr-3 text-[#021F50]" /> Sobre Nós</h2>
+            <p className="text-gray-600">Somos uma empresa dedicada a oferecer as melhores soluções em climatização para residências e empresas, garantindo conforto e bem-estar o ano todo.</p>
+        </div>
+        <div className="bg-white rounded-lg shadow-md p-6">
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">Missão</h3>
+            <p className="text-gray-600">Proporcionar ambientes climatizados com excelência, utilizando tecnologia de ponta e um atendimento personalizado.</p>
+        </div>
+         <div className="bg-white rounded-lg shadow-md p-6">
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">Visão</h3>
+            <p className="text-gray-600">Ser a empresa referência em climatização na nossa região, reconhecida pela qualidade, inovação e satisfação do cliente.</p>
+        </div>
+        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+             <h2 className="text-xl font-bold text-gray-800 p-6 flex items-center"><MapPin className="mr-3 text-[#021F50]" /> Nossa Localização</h2>
+            <div className="w-full h-64 bg-gray-300 flex items-center justify-center">
+                <p className="text-gray-500">[Simulação do Google Maps]</p>
+            </div>
+             <div className="p-4 text-center text-gray-600">
+                <p>Rua Exemplo, 123 - Bairro Modelo</p>
+                <p>Sua Cidade, SEU ESTADO - CEP 00000-000</p>
+             </div>
+        </div>
+    </div>
+);
+
+
+const ServicesPage = () => {
+    const handleScheduleClick = (serviceName) => {
+        alert(`Simulando agendamento para o serviço: ${serviceName}.`);
+    };
+
+    return (
+        <div className="p-4 space-y-4">
+             {services.map(service => (
+                <div key={service.id} className="bg-white rounded-lg shadow-md p-6 transform hover:shadow-xl transition-shadow duration-300">
+                    <h3 className="text-xl font-semibold text-gray-800">{service.name}</h3>
+                    <p className="text-gray-600 mt-2 mb-4">{service.description}</p>
+                     <button 
+                        onClick={() => handleScheduleClick(service.name)}
+                        className="w-full bg-[#021F50] text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition-colors duration-300 shadow-lg"
+                    >
+                        Solicitar Agendamento
+                    </button>
+                </div>
+            ))}
+        </div>
+    );
+};
+
+
+const ContactPage = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        alert('Formulário enviado! (Simulação)');
+        e.target.reset();
+    };
+
+    return (
+        <div className="p-4">
+            <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 space-y-4">
+                <h2 className="text-2xl font-bold text-center text-gray-800 mb-4">Fale Conosco</h2>
+                <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nome</label>
+                    <input type="text" id="name" required className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#021F50] focus:border-[#021F50]" />
+                </div>
+                 <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="email" required className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#021F50] focus:border-[#021F50]" />
+                </div>
+                <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700">Mensagem</label>
+                    <textarea id="message" rows="4" required className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#021F50] focus:border-[#021F50]"></textarea>
+                </div>
+                 <button 
+                    type="submit"
+                    className="w-full bg-[#021F50] text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center hover:bg-opacity-90 transition-colors duration-300 shadow-lg"
+                >
+                    Enviar Mensagem
+                </button>
+            </form>
+        </div>
+    );
+};
+
+const PageRenderer = ({ page }) => {
+    switch (page) {
+        case 'catalogo': return <ProductCatalogPage />;
+        case 'calculadora': return <BtuCalculatorPage />;
+        case 'empresa': return <CompanyPage />;
+        case 'servicos': return <ServicesPage />;
+        case 'contato': return <ContactPage />;
+        default: return <ProductCatalogPage />;
+    }
+};
+
+export default function App() {
+    const [activePage, setActivePage] = useState('catalogo');
+    const [pageTitle, setPageTitle] = useState('Catálogo de Produtos');
+
+    useEffect(() => {
+        const titles = {
+            catalogo: 'Catálogo de Produtos',
+            calculadora: 'Calculadora de BTUs',
+            empresa: 'Nossa Empresa',
+            servicos: 'Serviços',
+            contato: 'Fale Conosco',
+        };
+        setPageTitle(titles[activePage]);
+    }, [activePage]);
+
+    return (
+        <div className="font-sans bg-gray-100 flex justify-center items-center min-h-screen">
+            <div className="relative w-full max-w-md h-[800px] bg-gray-50 overflow-y-auto shadow-2xl rounded-3xl border-8 border-gray-800">
+                {/* Mock phone notch */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-6 bg-gray-800 rounded-b-xl z-30"></div>
+                
+                <AppHeader title={pageTitle} onMenuClick={() => alert("Menu clicked!")} />
+
+                <main className="pb-20 pt-2">
+                    <PageRenderer page={activePage} />
+                </main>
+                
+                <BottomNavBar activePage={activePage} setActivePage={setActivePage} />
+            </div>
+        </div>
+    );
+}
+
