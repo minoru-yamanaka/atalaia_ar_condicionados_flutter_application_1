@@ -1,3 +1,4 @@
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/page00.dart';
 import 'package:flutter/material.dart';
 import 'projects_page.dart';
 import 'profile_page.dart';
@@ -16,6 +17,7 @@ class _MainScreenState extends State<MainScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
     ProjectsPage(),
     ProfilePage(),
+    Page00(),
     Text('Messages Page'), // Tela de Mensagens (placeholder)
   ];
 
@@ -33,10 +35,16 @@ class _MainScreenState extends State<MainScreen> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          BottomNavigationBarItem(icon: Icon(Icons.pages), label: 'Page00'),
           BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Messages'),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: const Color(0xFFF58524), // Cor do ícone ativo
+       selectedItemColor: const Color(0xFFF58524), // Cor do ícone ativo
+        // ADICIONADO: Define uma cor para os ícones inativos para que fiquem visíveis.
+        unselectedItemColor: Colors.grey,
+
+        // OPCIONAL: Adicione uma cor de fundo explícita para a barra, se desejar.
+        // backgroundColor: Colors.white,
         onTap: _onItemTapped,
       ),
     );
