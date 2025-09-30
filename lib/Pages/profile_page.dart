@@ -1,5 +1,6 @@
 import 'package:atalaia_ar_condicionados_flutter_application/Config/app_colors.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Config/app_text_style.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/login_page.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -142,7 +143,11 @@ class ProfilePage extends StatelessWidget {
                         ),
                         onPressed: () {
                           // Ação de logout
-                        },
+                          // Navega para a tela principal e remove a tela de login da pilha
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) => const LoginPage()),
+                          );
+                        },  
                         child: const Text('Logout', style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
                     ),
