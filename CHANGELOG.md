@@ -13,14 +13,14 @@ O formato deste arquivo é baseado no [Keep a Changelog](https://keepachangelog.
 
 ---
 ### 🗓️ Semana 1 - en andamento 
-- Criação de um Trello/Chanchelog para este projeto; -> minoru criou o Chanchelog.md 
-- Briefing; -> minoru add 
-- Levantamento de requisitos;
-- Criar a arquitetura da informação para o aplicativo (levando em consideração área administrativa acessada com login e senha e área do cliente que não precisa de login).
+- Criação de um Trello/Chanchelog para este projeto. -> minoru criou o Chanchelog.md;
+- [add modelos de documentação. -> minoru;]()
+- [Briefing. -> marcos add;](/Documentacao/briefing_atalaia_ar_condicionado.pdf)
+- [Levantamento de requisitos. -> gustavo entregou;](/Documentacao/Levantamento_de_requisitos.docx)
+- [Criar a arquitetura da informação para o aplicativo levando em consideração área administrativa acessada com login e senha e área do cliente que não precisa de login. -> link do Figma do projeto](https://www.figma.com/design/pRyyqKx1kwcuNtLsZtpgCh/Atalaia-%E2%80%93-Kit-de-Prototipagem-do-App?node-id=101-306&t=tcAW7hjZgMIoE6oN-1)
 - Desenvolvimento do protótipo (utilizar referências);
     - https://statics.teams.cdn.office.net/evergreen-assets/safelinks/2/atp-safelinks.html -> marcos;
     - https://github.com/minoru-yamanaka/SOS_Pinguim_Site_Climatizacao/blob/main/style.css -> minoru;
-- Apresentação (slides) e ensaio de Pitch.
 
 ---
 
@@ -31,7 +31,7 @@ O formato deste arquivo é baseado no [Keep a Changelog](https://keepachangelog.
 ---
 
 ### 🗓️ Semana 3 - 
-- À definir 
+- Apresentação (slides) e ensaio de Pitch.
 ---
 
 ### 🗓️ Semana 4 -
