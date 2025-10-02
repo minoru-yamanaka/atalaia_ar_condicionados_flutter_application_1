@@ -10,6 +10,7 @@ class Page00 extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.backgroundColorPages,
       appBar: AppBar(
+        // backgroundColor: AppColors.backgroundColorAppBar,
         title: Text(
           "Page01",
           style: AppTextStyle.titleAppBar.copyWith(fontSize: 18),
