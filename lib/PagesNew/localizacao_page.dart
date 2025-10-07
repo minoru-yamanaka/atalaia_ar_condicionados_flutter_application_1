@@ -89,4 +89,4 @@ class LocalizacaoPage extends StatelessWidget {
   }
 }
 
-# https://gemini.google.com/app/9a7df1b013a420ef?hl=pt-PT
+// https://gemini.google.com/app/9a7df1b013a420ef?hl=pt-PT
