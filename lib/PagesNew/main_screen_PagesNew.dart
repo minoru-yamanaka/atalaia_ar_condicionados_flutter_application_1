@@ -34,10 +34,7 @@ class _MainScreenState2 extends State<MainScreen2> {
       body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.store),
-            label: 'Início',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Início'),
           BottomNavigationBarItem(
             icon: Icon(Icons.build_circle),
             label: 'Serviços',
@@ -48,7 +45,7 @@ class _MainScreenState2 extends State<MainScreen2> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.location_on),
-            label: 'Localização',
+            label: 'Contato',
           ),
         ],
         currentIndex: _selectedIndex,
