@@ -37,7 +37,7 @@ class _MainScreenState2 extends State<MainScreen2> {
           BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Início'),
           BottomNavigationBarItem(
             icon: Icon(Icons.build_circle),
-            label: 'Serviços',
+            label: 'Informações',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calculate_sharp),
