@@ -1,3 +1,4 @@
+import 'package:atalaia_ar_condicionados_flutter_application/PagesNew/main_screen_PagesNew.dart';
 import 'package:flutter/material.dart';
 import 'main_screen.dart'; // Vamos criar este arquivo a seguir
 
@@ -119,7 +120,10 @@ class LoginPage extends StatelessWidget {
                 onPressed: () {
                   // Navega para a tela principal e remove a tela de login da pilha
                   Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const MainScreen()),
+                    // MaterialPageRoute(builder: (context) => const MainScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const MainScreen2(),
+                    ),
                   );
                 },
                 child: const Text(

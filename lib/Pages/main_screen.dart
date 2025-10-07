@@ -1,6 +1,6 @@
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/page00.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/pages/projects_page.dart';
 import 'package:flutter/material.dart';
-import 'projects_page.dart';
 import 'profile_page.dart';
 
 class MainScreen extends StatefulWidget {
