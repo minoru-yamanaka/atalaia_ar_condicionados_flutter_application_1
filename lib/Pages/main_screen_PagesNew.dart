@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:atalaia_ar_condicionados_flutter_application/PagesNew/calculadora_page.dart';
-import 'package:atalaia_ar_condicionados_flutter_application/PagesNew/home_page.dart';
-import 'package:atalaia_ar_condicionados_flutter_application/PagesNew/localizacao_page.dart';
-import 'package:atalaia_ar_condicionados_flutter_application/PagesNew/servicos_page.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/calculadora_page.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/home_page.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/localizacao_page.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/servicos_page.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/exit_page.dart';
 
 class MainScreen2 extends StatefulWidget {
   const MainScreen2({super.key});
@@ -20,6 +21,7 @@ class _MainScreenState2 extends State<MainScreen2> {
     ServicosPage(),
     CalculadoraPage(),
     LocalizacaoPage(),
+    ExitPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -32,20 +34,30 @@ class _MainScreenState2 extends State<MainScreen2> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
+
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Início'),
+
           BottomNavigationBarItem(
             icon: Icon(Icons.build_circle),
             label: 'Informações',
           ),
+
           BottomNavigationBarItem(
             icon: Icon(Icons.calculate_sharp),
             label: 'Calculadora',
           ),
+
           BottomNavigationBarItem(
             icon: Icon(Icons.location_on),
             label: 'Contato',
+          ),
+
+          BottomNavigationBarItem(
+            icon: Icon(Icons.exit_to_app),
+            label:
+                'Sair', // Alterado de 'Exit' para 'Sair' para manter o padrão PT-BR
           ),
         ],
         currentIndex: _selectedIndex,

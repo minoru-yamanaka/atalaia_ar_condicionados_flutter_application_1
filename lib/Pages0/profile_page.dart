@@ -1,5 +1,5 @@
-import 'package:atalaia_ar_condicionados_flutter_application/Config/app_colors.dart';
-import 'package:atalaia_ar_condicionados_flutter_application/Config/app_text_style.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/Config/app_colors.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/Config/app_text_style.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/login_page.dart';
 import 'package:flutter/material.dart';
 
@@ -54,11 +54,10 @@ class ProfilePage extends StatelessWidget {
                 SizedBox(height: 8),
                 Text(
                   'Building beautiful and functional apps.',
-                  style: AppTextStyle.titleAppBar.copyWith( 
-                    fontSize: 14,),
+                  style: AppTextStyle.titleAppBar.copyWith(fontSize: 14),
+
                   // textAlign: TextAlign.center,
                   // style: TextStyle(fontSize: 14, color: Colors.black54),
-                  
                 ),
               ],
             ),
@@ -126,7 +125,10 @@ class ProfilePage extends StatelessWidget {
                         onPressed: () {},
                         child: const Text(
                           'Edit Profile',
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -145,10 +147,15 @@ class ProfilePage extends StatelessWidget {
                           // Ação de logout
                           // Navega para a tela principal e remove a tela de login da pilha
                           Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) => const LoginPage()),
+                            MaterialPageRoute(
+                              builder: (context) => const LoginPage(),
+                            ),
                           );
-                        },  
-                        child: const Text('Logout', style: TextStyle(fontWeight: FontWeight.bold)),
+                        },
+                        child: const Text(
+                          'Logout',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ],

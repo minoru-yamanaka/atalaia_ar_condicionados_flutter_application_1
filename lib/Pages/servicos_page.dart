@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:atalaia_ar_condicionados_flutter_application/Widgets/service_card.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/Widgets/service_card.dart';
 
 class ServicosPage extends StatelessWidget {
   const ServicosPage({super.key});
