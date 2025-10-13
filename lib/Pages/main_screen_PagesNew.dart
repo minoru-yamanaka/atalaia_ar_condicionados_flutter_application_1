@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/calculadora_page.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/home_page.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/localizacao_page.dart';
-import 'package:atalaia_ar_condicionados_flutter_application/Pages/servicos_page.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/info_page.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/exit_page.dart';
 
 class MainScreen2 extends StatefulWidget {
@@ -18,7 +18,7 @@ class _MainScreenState2 extends State<MainScreen2> {
   // Lista de telas que serão exibidas com base na navegação
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    ServicosPage(),
+    InfoPage(),
     CalculadoraPage(),
     LocalizacaoPage(),
     ExitPage(),

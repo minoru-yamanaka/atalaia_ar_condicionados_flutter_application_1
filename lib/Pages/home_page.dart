@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          // Seção Destaques
+          // Seção Destaques (Banner e texto inicial)
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -32,51 +32,61 @@ class HomePage extends StatelessWidget {
                 const SizedBox(height: 16),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: Image.asset('assets/img/imagem-destaque.jpg'), // Substitua pelo caminho da sua imagem
+                  // Mantenha sua imagem de destaque ou substitua
+                  child: Image.asset('assets/img/imagem-destaque.jpg'), 
                 ),
               ],
             ),
           ),
 
-          // Divisor e Título da Seção Produtos
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Divider(),
           ),
           const Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0), // Ajustado padding
             child: Text(
-              'Nossos serviços disponíveis',
+              'Nossos Serviços Disponíveis',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
           ),
 
-          // Seção Produtos
+          // --- INÍCIO DA LISTA DE SERVIÇOS ATUALIZADA ---
+
           ProductCard(
-            imagePath: 'assets/img/produtos/imagem_01.png',
-            title: 'Higienização',
-            description: 'Tecnologia inverter para maior economia de energia e conforto térmico constante.',
-            price: 'R\$ 1.999,90',
+            // ATENÇÃO: Verifique se o caminho da imagem está correto
+            imagePath: 'assets/img/servicos/imagem_higienizacao.png', 
+            title: 'Higienização Completa',
+            description: 'Elimine ácaros, fungos e bactérias, garantindo um ar mais puro e a saúde da sua família.',
+            price: 'Consulte', // Preço flexível para serviços
           ),
           ProductCard(
-            imagePath: 'assets/img/produtos/imagem_02.png',
-            title: 'Ar Condicionado Piso Teto',
-            description: 'Potência e versatilidade para grandes ambientes comerciais.',
-            price: 'R\$ 3.499,90',
+            imagePath: 'assets/img/servicos/imagem_manutencao.jpg',
+            title: 'Manutenção Preventiva',
+            description: 'Aumente a vida útil do seu equipamento e evite quebras inesperadas com nossa revisão completa.',
+            price: 'Consulte',
           ),
           ProductCard(
-            imagePath: 'assets/img/produtos/imagem_03.png',
-            title: 'Cortina de Ar',
-            description: 'Ideal para entradas de lojas e ambientes com alto fluxo de pessoas.',
-            price: 'R\$ 899,90',
+            imagePath: 'assets/img/servicos/imagem_instalacao.png',
+            title: 'Instalação Profissional',
+            description: 'Instalamos seu ar condicionado seguindo todas as normas técnicas para máxima eficiência e segurança.',
+            price: 'Consulte',
           ),
-          const SizedBox(height: 20),
           ProductCard(
-            imagePath: 'assets/img/produtos/imagem_03.png',
-            title: 'Cortina de Ar',
-            description: 'Ideal para entradas de lojas e ambientes com alto fluxo de pessoas.',
-            price: 'R\$ 899,90',
+            imagePath: 'assets/img/servicos/imagem_infra.jpg',
+            title: 'Projeto e Infraestrutura',
+            description: 'Preparamos toda a estrutura de tubulação e elétrica para a instalação do seu ar condicionado, mesmo antes da obra.',
+            price: 'Consulte',
           ),
+          ProductCard(
+            imagePath: 'assets/img/servicos/imagem_outros.jpg',
+            title: 'Outros Serviços (Sob Demanda)',
+            description: 'Tem uma necessidade específica? Entre em contato e encontraremos a solução ideal para seu projeto de climatização.',
+            price: 'Consulte',
+          ),
+          const SizedBox(height: 20), // Um espaço no final da lista
+
+          // --- FIM DA LISTA DE SERVIÇOS ---
         ],
       ),
     );
