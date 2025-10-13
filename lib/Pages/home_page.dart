@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   // Mantenha sua imagem de destaque ou substitua
-                  child: Image.asset('assets/img/imagem-destaque.jpg'),
+                  child: Image.asset('assets/img/imagem-destaque.jpg'), 
                 ),
               ],
             ),
@@ -44,12 +44,7 @@ class HomePage extends StatelessWidget {
             child: Divider(),
           ),
           const Padding(
-            padding: EdgeInsets.fromLTRB(
-              16.0,
-              16.0,
-              16.0,
-              0,
-            ), // Ajustado padding
+            padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0), // Ajustado padding
             child: Text(
               'Nossos Serviços Disponíveis',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -57,43 +52,40 @@ class HomePage extends StatelessWidget {
           ),
 
           // --- INÍCIO DA LISTA DE SERVIÇOS ATUALIZADA ---
+
           ProductCard(
             // ATENÇÃO: Verifique se o caminho da imagem está correto
-            imagePath: 'assets/img/servicos/imagem_higienizacao.png',
+            imagePath: 'assets/img/servicos/imagem_higienizacao.png', 
             title: 'Higienização Completa',
-            description:
-                'Elimine ácaros, fungos e bactérias, garantindo um ar mais puro e a saúde da sua família.',
+            description: 'Elimine ácaros, fungos e bactérias, garantindo um ar mais puro e a saúde da sua família.',
             price: 'Consulte', // Preço flexível para serviços
           ),
           ProductCard(
             imagePath: 'assets/img/servicos/imagem_manutencao.jpg',
             title: 'Manutenção Preventiva',
-            description:
-                'Aumente a vida útil do seu equipamento e evite quebras inesperadas com nossa revisão completa.',
+            description: 'Aumente a vida útil do seu equipamento e evite quebras inesperadas com nossa revisão completa.',
             price: 'Consulte',
           ),
           ProductCard(
             imagePath: 'assets/img/servicos/imagem_instalacao.png',
             title: 'Instalação Profissional',
-            description:
-                'Instalamos seu ar condicionado seguindo todas as normas técnicas para máxima eficiência e segurança.',
+            description: 'Instalamos seu ar condicionado seguindo todas as normas técnicas para máxima eficiência e segurança.',
             price: 'Consulte',
           ),
           ProductCard(
             imagePath: 'assets/img/servicos/imagem_infra.jpg',
             title: 'Projeto e Infraestrutura',
-            description:
-                'Preparamos toda a estrutura de tubulação e elétrica para a instalação do seu ar condicionado, mesmo antes da obra.',
+            description: 'Preparamos toda a estrutura de tubulação e elétrica para a instalação do seu ar condicionado, mesmo antes da obra.',
             price: 'Consulte',
           ),
           ProductCard(
             imagePath: 'assets/img/servicos/imagem_outros.jpg',
             title: 'Outros Serviços (Sob Demanda)',
-            description:
-                'Tem uma necessidade específica? Entre em contato e encontraremos a solução ideal para seu projeto de climatização.',
+            description: 'Tem uma necessidade específica? Entre em contato e encontraremos a solução ideal para seu projeto de climatização.',
             price: 'Consulte',
           ),
           const SizedBox(height: 20), // Um espaço no final da lista
+
           // --- FIM DA LISTA DE SERVIÇOS ---
         ],
       ),
