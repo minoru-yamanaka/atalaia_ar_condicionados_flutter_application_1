@@ -47,7 +47,7 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
         setState(() {
           _messages.add(ChatMessage(
             text: "Olá! Sou seu assistente virtual de climatização. Pergunte-me sobre nossos serviços!",
-            isUserMessage: false,
+            isUserMessage: false, 
           ));
         });
       }
