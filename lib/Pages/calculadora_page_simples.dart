@@ -1,21 +1,5 @@
-// Navegue no seu projeto até a seguinte pasta e abra o arquivo:
-// android/app/src/main/AndroidManifest.xml e add: 
-// <queries>
-//         <intent>
-//             <action android:name="android.intent.action.VIEW" />
-//             <data android:scheme="https" />
-//         </intent>
-//         <intent>
-//             <action android:name="android.intent.action.VIEW" />
-//             <data android:scheme="whatsapp" />
-//         </intent>
-//     </queries>
-//  e Confirme que a linha url_launcher: ^6.2.6 (ou uma versão mais nova) 
-//  está no seu pubspec.yaml e que você rodou flutter pub get.
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class CalculadoraPage extends StatefulWidget {
   const CalculadoraPage({super.key});
@@ -27,60 +11,31 @@ class CalculadoraPage extends StatefulWidget {
 class _CalculadoraPageState extends State<CalculadoraPage> {
   final _areaController = TextEditingController();
   final _pessoasController = TextEditingController();
-  final _eletronicosController = TextEditingController();
-  final _janelasController = TextEditingController();
-
   String _recebeSol = 'nao';
   String _resultado = 'Preencha os campos para calcular.';
-  
-  bool _isResultAvailable = false;
-
-  void _launchWhatsAppWithBTUs(BuildContext context, String btuResult) async {
-    // IMPORTANTE: Substitua pelo número de telefone da sua empresa
-    final String phoneNumber = '5511959473402'; 
-    final String message = 'Olá! A calculadora de BTUs do app indicou um resultado de *$btuResult*. Gostaria de um orçamento.';
-    
-    final Uri whatsappUri = Uri.parse(
-      'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}'
-    );
-
-    if (await canLaunchUrl(whatsappUri)) {
-      await launchUrl(whatsappUri);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Não foi possível abrir o WhatsApp.')),
-      );
-    }
-  }
 
   void _calcularBTUs() {
     final double? area = double.tryParse(_areaController.text);
     final int? pessoas = int.tryParse(_pessoasController.text);
-    final int eletronicos = int.tryParse(_eletronicosController.text) ?? 0;
-    final int janelas = int.tryParse(_janelasController.text) ?? 0;
 
     if (area == null || pessoas == null || area <= 0 || pessoas <= 0) {
       setState(() {
-        _resultado = 'Por favor, insira valores válidos de área e pessoas.';
-        _isResultAvailable = false;
+        _resultado = 'Por favor, insira valores válidos.';
       });
       return;
     }
 
-    // Com a verificação acima, agora podemos garantir ao Dart que as variáveis não são nulas
-    // usando o operador '!' (asserção nula).
-    int baseBTUs = (area! * 600).toInt();
+    // Lógica de cálculo simplificada
+    int baseBTUs = (area * 600).toInt();
     if (pessoas > 1) {
-      baseBTUs += (pessoas! - 1) * 600;
+      baseBTUs += (pessoas - 1) * 600;
     }
-    baseBTUs += eletronicos * 600;
     if (_recebeSol == 'sim') {
-      baseBTUs += 800 + (janelas * 200);
+      baseBTUs += 800;
     }
 
     setState(() {
       _resultado = '$baseBTUs BTUs';
-      _isResultAvailable = true;
     });
   }
 
@@ -116,24 +71,6 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 16),
-            TextField(
-              controller: _eletronicosController,
-              decoration: const InputDecoration(
-                labelText: 'Quantidade de eletrônicos (TV, PC)',
-                border: OutlineInputBorder(),
-              ),
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: _janelasController,
-              decoration: const InputDecoration(
-                labelText: 'Quantidade de janelas no ambiente',
-                border: OutlineInputBorder(),
-              ),
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 16),
             DropdownButtonFormField<String>(
               value: _recebeSol,
               decoration: const InputDecoration(
@@ -141,12 +78,20 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
                 border: OutlineInputBorder(),
               ),
               items: const [
-                DropdownMenuItem(value: 'nao', child: Text('Não (sol da manhã)')),
-                DropdownMenuItem(value: 'sim', child: Text('Sim (sol da tarde)')),
+                DropdownMenuItem(
+                  value: 'nao',
+                  child: Text('Não (sol da manhã)'),
+                ),
+                DropdownMenuItem(
+                  value: 'sim',
+                  child: Text('Sim (sol da tarde)'),
+                ),
               ],
               onChanged: (value) {
                 if (value != null) {
-                  setState(() { _recebeSol = value; });
+                  setState(() {
+                    _recebeSol = value;
+                  });
                 }
               },
             ),
@@ -189,26 +134,6 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
               ),
             ),
             const SizedBox(height: 16),
-            Visibility(
-              visible: _isResultAvailable,
-              child: ElevatedButton.icon(
-                icon: const Icon(Icons.chat_bubble_outline),
-                label: const Text('PEDIR ORÇAMENTO VIA WHATSAPP'),
-                onPressed: () {
-                  _launchWhatsAppWithBTUs(context, _resultado);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  textStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
             const Text(
               '*Este é um cálculo aproximado. Para uma avaliação precisa, consulte um de nossos técnicos.',
               textAlign: TextAlign.center,
@@ -220,4 +145,4 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
     );
   }
 }
-
+  

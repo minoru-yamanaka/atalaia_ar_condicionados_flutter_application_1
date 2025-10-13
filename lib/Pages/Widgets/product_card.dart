@@ -1,4 +1,7 @@
+// product_card.dart
+
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart'; // Importe o pacote
 
 class ProductCard extends StatelessWidget {
   final String imagePath;
@@ -39,8 +42,12 @@ class ProductCard extends StatelessWidget {
               children: [
                 Text(price, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green)),
                 ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Ver Detalhes'),
+                  onPressed: () {
+                    // Chama a função para abrir o WhatsApp, passando o nome do serviço
+                    _launchWhatsApp(context, title);
+                  },
+                  // Muda o texto do botão
+                  child: const Text('Contratar'),
                 ),
               ],
             ),
@@ -50,3 +57,27 @@ class ProductCard extends StatelessWidget {
     );
   }
 }
+
+
+  // Função para abrir o WhatsApp
+  void _launchWhatsApp(BuildContext context, String serviceName) async {
+    // Substitua pelo número de telefone da sua empresa
+    final String phoneNumber = '5511987654321'; 
+    // Mensagem que será pré-preenchida no WhatsApp
+    final String message = 'Olá! Gostaria de contratar o serviço de *$serviceName*.';
+    
+    // Codifica a mensagem para ser usada na URL
+    final Uri whatsappUri = Uri.parse(
+      'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}'
+    );
+
+    // Tenta abrir a URL
+    if (await canLaunchUrl(whatsappUri)) {
+      await launchUrl(whatsappUri);
+    } else {
+      // Mostra um erro caso não consiga abrir o WhatsApp
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Não foi possível abrir o WhatsApp.')),
+      );
+    }
+  }
