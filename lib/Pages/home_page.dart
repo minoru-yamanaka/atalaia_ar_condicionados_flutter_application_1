@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.all(16.0),
             child: Text(
-              'Nossos Produtos',
+              'Nossos serviços disponíveis',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
           ),
@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
           // Seção Produtos
           ProductCard(
             imagePath: 'assets/img/produtos/imagem_01.png',
-            title: 'Ar Condicionado Split Inverter',
+            title: 'Higienização',
             description: 'Tecnologia inverter para maior economia de energia e conforto térmico constante.',
             price: 'R\$ 1.999,90',
           ),
@@ -71,6 +71,12 @@ class HomePage extends StatelessWidget {
             price: 'R\$ 899,90',
           ),
           const SizedBox(height: 20),
+          ProductCard(
+            imagePath: 'assets/img/produtos/imagem_03.png',
+            title: 'Cortina de Ar',
+            description: 'Ideal para entradas de lojas e ambientes com alto fluxo de pessoas.',
+            price: 'R\$ 899,90',
+          ),
         ],
       ),
     );

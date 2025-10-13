@@ -1,69 +1,84 @@
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/Config/app_colors.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/Config/app_text_style.dart';
-import 'package:atalaia_ar_condicionados_flutter_application/Pages/login_page.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/pages/login_page.dart';
+// import 'package.atalaia_ar_condicionados_flutter_application/Pages/login_page.dart';
 import 'package:flutter/material.dart';
-// Para abrir o mapa, adicione o pacote `url_launcher` ao seu pubspec.yaml
+// Import necessário para abrir links externos, como o mapa
 // import 'package:url_launcher/url_launcher.dart';
 
 class LocalizacaoPage extends StatelessWidget {
   const LocalizacaoPage({super.key});
 
-  // Função para abrir o mapa
-  // void _launchMaps() async {
-  //   const url = 'https://maps.google.com/?q=Rua das Soluções, 123, Sua Cidade, SP';
-  //   if (await canLaunchUrl(Uri.parse(url))) {
-  //     await launchUrl(Uri.parse(url));
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
-  // }
+  // Função para abrir o mapa com o endereço da empresa
+  void _launchMaps() async {
+    // Codifica o endereço para ser usado em uma URL de forma segura
+    const String address = 'Rua das Soluções, 123, Bairro Central, Sua Cidade, SP';
+    final String googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}';
+    
+    final Uri url = Uri.parse(googleMapsUrl);
+
+    // if (await canLaunchUrl(url)) {
+    //   await launchUrl(url);
+    // } else {
+    //   // Em um app real, seria bom mostrar um erro para o usuário (ex: com um SnackBar)
+    //   throw 'Não foi possível abrir o mapa em: $url';
+    // }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Onde nos Encontrar')),
-      // corpo com rolagem
+      appBar: AppBar(
+        title: const Text('Localização e Contato'),
+        backgroundColor: Colors.white,
+        elevation: 1,
+      ),
+      // Usamos SingleChildScrollView para garantir que a tela seja rolável
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // Seção 1: Texto Introdutório
               const Text(
                 'Venha nos visitar ou entre em contato para agendar uma visita técnica.',
+                textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 24),
+
+              // Seção 2: Informações de Contato
               Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: const [
-                      ListTile(
-                        leading: Icon(Icons.location_city),
-                        title: Text('Endereço'),
-                        subtitle: Text(
-                          'Rua das Soluções, 123 - Bairro Central, Sua Cidade - SP',
-                        ),
+                elevation: 2,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                child: const Column(
+                  children: [
+                    ListTile(
+                      leading: Icon(Icons.location_city),
+                      title: Text('Endereço'),
+                      subtitle: Text(
+                        'Rua das Soluções, 123 - Bairro Central, Sua Cidade - SP',
                       ),
-                      Divider(),
-                      ListTile(
-                        leading: Icon(Icons.phone),
-                        title: Text('Telefone'),
-                        subtitle: Text('(11) 98765-4321'),
-                      ),
-                      Divider(),
-                      ListTile(
-                        leading: Icon(Icons.email),
-                        title: Text('Email'),
-                        subtitle: Text('contato@suaempresa.com.br'),
-                      ),
-                    ],
-                  ),
+                    ),
+                    Divider(indent: 16, endIndent: 16),
+                    ListTile(
+                      leading: Icon(Icons.phone),
+                      title: Text('Telefone'),
+                      subtitle: Text('(11) 98765-4321'),
+                    ),
+                    Divider(indent: 16, endIndent: 16),
+                    ListTile(
+                      leading: Icon(Icons.email),
+                      title: Text('Email'),
+                      subtitle: Text('contato@suaempresa.com.br'),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 24),
-              // Simulação do mapa
+
+              // Seção 3: Mapa
               AspectRatio(
                 aspectRatio: 16 / 9,
                 child: Container(
@@ -72,8 +87,8 @@ class LocalizacaoPage extends StatelessWidget {
                     color: Colors.grey.shade300,
                     image: const DecorationImage(
                       image: AssetImage(
-                        'assets/img/mapa-placeholder.png',
-                      ), // Crie uma imagem de placeholder
+                        'assets/img/mapa-placeholder.png', // Verifique se o caminho da imagem está correto
+                      ),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -81,17 +96,14 @@ class LocalizacaoPage extends StatelessWidget {
                     child: ElevatedButton.icon(
                       icon: const Icon(Icons.map),
                       label: const Text('Abrir no Mapa'),
-                      onPressed: () {
-                        // Descomente a função e a importação para usar
-                        // _launchMaps();
-                      },
+                      onPressed: _launchMaps, // Chama a função para abrir o mapa
                     ),
                   ),
                 ),
               ),
+              const SizedBox(height: 32),
 
-              //----------
-              // --- Seção de Logout ---
+              // Seção 4: Logout
               Card(
                 elevation: 2,
                 shape: RoundedRectangleBorder(
@@ -119,11 +131,12 @@ class LocalizacaoPage extends StatelessWidget {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          // Navega para a tela principal e remove a tela de login da pilha
-                          Navigator.of(context).pushReplacement(
+                          // Navega para a tela de login e remove TODAS as rotas anteriores da pilha
+                          Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
                               builder: (context) => const LoginPage(),
                             ),
+                            (Route<dynamic> route) => false,
                           );
                         },
                         child: Text(
@@ -138,37 +151,8 @@ class LocalizacaoPage extends StatelessWidget {
                   ),
                 ),
               ),
-
-              //------
-              const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: () {
-                  // Navega para a tela principal e remove a tela de login da pilha
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                  );
-                },
-                child: Text(
-                  "Sair",
-                  style: AppTextStyle.titleAppBar.copyWith(
-                    color: Colors.blue,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
-              //-------
-              const SizedBox(height: 12),
-              const Text(
-                '*Este é um cálculo aproximado. Para uma avaliação precisa, consulte um de nossos técnicos.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  //color: Colors.blue.shade800,
-                  //color: Colors.grey,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-
-              //------
+              const SizedBox(height: 24), // Espaçamento final
+              
             ],
           ),
         ),
@@ -176,5 +160,3 @@ class LocalizacaoPage extends StatelessWidget {
     );
   }
 }
-
-// https://gemini.google.com/app/9a7df1b013a420ef?hl=pt-PT
