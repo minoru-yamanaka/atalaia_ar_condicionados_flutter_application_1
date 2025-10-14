@@ -1,3 +1,4 @@
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/agenda_page.dart';
 import 'package:flutter/material.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/calculadora_page.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/home_page.dart';
@@ -19,6 +20,7 @@ class _MainScreenState2 extends State<MainScreen2> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     InfoPage(),
+    AgendaPage(),
     CalculadoraPage(),
     LocalizacaoPage(),
     ExitPage(),
@@ -42,6 +44,11 @@ class _MainScreenState2 extends State<MainScreen2> {
           BottomNavigationBarItem(
             icon: Icon(Icons.build_circle),
             label: 'Informações',
+          ),
+
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month),
+            label: 'Agenda',
           ),
 
           BottomNavigationBarItem(
