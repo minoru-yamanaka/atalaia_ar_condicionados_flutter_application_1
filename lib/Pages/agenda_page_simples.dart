@@ -160,7 +160,7 @@ class _AgendaPageState extends State<AgendaPage> {
       await _saveAppointments();
 
       // Monta e envia a mensagem para o WhatsApp
-      final phoneNumber = '5511987654321'; // SUBSTITUA PELO SEU NÚMERO
+      final phoneNumber = '5511959473402'; // SUBSTITUA PELO SEU NÚMERO
       final message =
           'Olá! Gostaria de solicitar um agendamento:\n\n'
           '*Cliente:* $name\n'

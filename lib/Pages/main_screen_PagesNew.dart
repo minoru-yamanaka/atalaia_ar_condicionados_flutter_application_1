@@ -23,7 +23,7 @@ class _MainScreenState2 extends State<MainScreen2> {
     AgendaPage(),
     CalculadoraPage(),
     LocalizacaoPage(),
-    ExitPage(),
+    // ExitPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -58,10 +58,10 @@ class _MainScreenState2 extends State<MainScreen2> {
             icon: Icon(Icons.location_on),
             label: 'Contato',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.exit_to_app),
-            label: 'Sair',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.exit_to_app),
+          //   label: 'Sair',
+          // ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: const Color(0xFF343B6C),
