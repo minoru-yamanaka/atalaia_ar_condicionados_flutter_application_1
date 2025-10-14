@@ -44,9 +44,6 @@ dependencies:
   # Pacote para formatar datas
   intl: ^0.19.0
 
-  # Pacote para abrir links externos (WhatsApp)
-  url_launcher: ^6.2.6
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
