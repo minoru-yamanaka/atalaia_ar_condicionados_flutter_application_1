@@ -22,20 +22,22 @@ class Appointment {
 
   // MODIFICADO: Métodos toJson e fromJson para incluir as notas
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'customerName': customerName,
-        'service': service,
-        'date': date.toIso8601String(),
-        'notes': notes, // NOVO
-      };
+    'id': id,
+    'customerName': customerName,
+    'service': service,
+    'date': date.toIso8601String(),
+    'notes': notes, // NOVO
+  };
 
   factory Appointment.fromJson(Map<String, dynamic> json) => Appointment(
-        id: json['id'],
-        customerName: json['customerName'],
-        service: json['service'],
-        date: DateTime.parse(json['date']),
-        notes: json['notes'] ?? '', // NOVO: Usa ?? '' para compatibilidade com agendamentos antigos
-      );
+    id: json['id'],
+    customerName: json['customerName'],
+    service: json['service'],
+    date: DateTime.parse(json['date']),
+    notes:
+        json['notes'] ??
+        '', // NOVO: Usa ?? '' para compatibilidade com agendamentos antigos
+  );
 }
 
 // 2. A PÁGINA EM SI (STATEFULWIDGET)
@@ -51,7 +53,8 @@ class _AgendaPageState extends State<AgendaPage> {
   // Controladores para os campos do formulário
   final _nameController = TextEditingController();
   final _dateController = TextEditingController();
-  final _notesController = TextEditingController(); // NOVO: Controlador para as notas
+  final _notesController =
+      TextEditingController(); // NOVO: Controlador para as notas
   final _searchController = TextEditingController();
   String _selectedService = 'Higienização';
 
@@ -71,7 +74,8 @@ class _AgendaPageState extends State<AgendaPage> {
 
   Future<void> _loadAppointments() async {
     final prefs = await SharedPreferences.getInstance();
-    final List<String> appointmentsJson = prefs.getStringList('appointments') ?? [];
+    final List<String> appointmentsJson =
+        prefs.getStringList('appointments') ?? [];
     setState(() {
       _allAppointments = appointmentsJson
           .map((json) => Appointment.fromJson(jsonDecode(json)))
@@ -83,8 +87,9 @@ class _AgendaPageState extends State<AgendaPage> {
 
   Future<void> _saveAppointments() async {
     final prefs = await SharedPreferences.getInstance();
-    final List<String> appointmentsJson =
-        _allAppointments.map((app) => jsonEncode(app.toJson())).toList();
+    final List<String> appointmentsJson = _allAppointments
+        .map((app) => jsonEncode(app.toJson()))
+        .toList();
     await prefs.setStringList('appointments', appointmentsJson);
   }
 
@@ -93,15 +98,23 @@ class _AgendaPageState extends State<AgendaPage> {
     final query = _searchController.text.toLowerCase();
     setState(() {
       _filteredAppointments = _allAppointments.where((appointment) {
-        final nameMatches = appointment.customerName.toLowerCase().contains(query);
-        final serviceMatches = appointment.service.toLowerCase().contains(query);
-        final dateMatches = DateFormat('dd/MM/yyyy').format(appointment.date).contains(query);
-        final notesMatches = appointment.notes.toLowerCase().contains(query); // NOVO
+        final nameMatches = appointment.customerName.toLowerCase().contains(
+          query,
+        );
+        final serviceMatches = appointment.service.toLowerCase().contains(
+          query,
+        );
+        final dateMatches = DateFormat(
+          'dd/MM/yyyy',
+        ).format(appointment.date).contains(query);
+        final notesMatches = appointment.notes.toLowerCase().contains(
+          query,
+        ); // NOVO
         return nameMatches || serviceMatches || dateMatches || notesMatches;
       }).toList();
     });
   }
-  
+
   Future<void> _deleteAppointment(String id) async {
     setState(() {
       _allAppointments.removeWhere((app) => app.id == id);
@@ -109,7 +122,10 @@ class _AgendaPageState extends State<AgendaPage> {
     });
     await _saveAppointments();
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Agendamento removido!'), backgroundColor: Colors.red),
+      const SnackBar(
+        content: Text('Agendamento removido!'),
+        backgroundColor: Colors.red,
+      ),
     );
   }
 
@@ -153,18 +169,20 @@ class _AgendaPageState extends State<AgendaPage> {
       await _saveAppointments();
 
       // MODIFICADO: Mensagem do WhatsApp agora inclui as notas se houver
-      String message = 'Olá! Gostaria de solicitar um agendamento:\n\n'
+      String message =
+          'Olá! Gostaria de solicitar um agendamento:\n\n'
           '*Cliente:* $name\n'
           '*Serviço:* $service\n'
           '*Data Sugerida:* $date';
-      
+
       if (notes.isNotEmpty) {
         message += '\n*Observações:* $notes';
       }
 
       final phoneNumber = '5511959473402'; // SUBSTITUA PELO SEU NÚMERO
       final Uri whatsappUri = Uri.parse(
-          'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}');
+        'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}',
+      );
 
       if (await canLaunchUrl(whatsappUri)) {
         await launchUrl(whatsappUri);
@@ -178,7 +196,7 @@ class _AgendaPageState extends State<AgendaPage> {
       }
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -198,30 +216,63 @@ class _AgendaPageState extends State<AgendaPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Novo Agendamento', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                      const Text(
+                        'Novo Agendamento',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: _nameController,
-                        decoration: const InputDecoration(labelText: 'Nome do Cliente', border: OutlineInputBorder()),
-                        validator: (value) => value == null || value.isEmpty ? 'Campo obrigatório' : null,
+                        decoration: const InputDecoration(
+                          labelText: 'Nome do Cliente',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) => value == null || value.isEmpty
+                            ? 'Campo obrigatório'
+                            : null,
                       ),
                       const SizedBox(height: 12),
                       TextFormField(
                         controller: _dateController,
-                        decoration: const InputDecoration(labelText: 'Data Desejada', border: OutlineInputBorder(), prefixIcon: Icon(Icons.calendar_today)),
+                        decoration: const InputDecoration(
+                          labelText: 'Data Desejada',
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(Icons.calendar_today),
+                        ),
                         readOnly: true,
                         onTap: _pickDate,
-                        validator: (value) => value == null || value.isEmpty ? 'Campo obrigatório' : null,
+                        validator: (value) => value == null || value.isEmpty
+                            ? 'Campo obrigatório'
+                            : null,
                       ),
                       const SizedBox(height: 12),
                       DropdownButtonFormField<String>(
                         value: _selectedService,
-                        decoration: const InputDecoration(labelText: 'Serviço', border: OutlineInputBorder()),
-                        items: ['Higienização', 'Manutenção', 'Instalação', 'Infraestrutura', 'Outros']
-                            .map((label) => DropdownMenuItem(value: label, child: Text(label)))
-                            .toList(),
+                        decoration: const InputDecoration(
+                          labelText: 'Serviço',
+                          border: OutlineInputBorder(),
+                        ),
+                        items:
+                            [
+                                  'Higienização',
+                                  'Manutenção',
+                                  'Instalação',
+                                  'Infraestrutura',
+                                  'Outros',
+                                ]
+                                .map(
+                                  (label) => DropdownMenuItem(
+                                    value: label,
+                                    child: Text(label),
+                                  ),
+                                )
+                                .toList(),
                         onChanged: (value) {
-                          if (value != null) setState(() => _selectedService = value);
+                          if (value != null)
+                            setState(() => _selectedService = value);
                         },
                       ),
                       const SizedBox(height: 12),
@@ -239,9 +290,11 @@ class _AgendaPageState extends State<AgendaPage> {
                         width: double.infinity,
                         child: ElevatedButton.icon(
                           onPressed: _sendToWhatsApp,
-                          icon:  const Icon(Icons.message, color: Colors.white),
+                          icon: const Icon(Icons.message),
                           label: const Text('Agendar via WhatsApp'),
-                          style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 12)),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                          ),
                         ),
                       ),
                     ],
@@ -253,7 +306,10 @@ class _AgendaPageState extends State<AgendaPage> {
             const SizedBox(height: 24),
 
             // --- 4. HISTÓRICO E BUSCA ATUALIZADOS ---
-            const Text('Histórico de Agendamentos', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const Text(
+              'Histórico de Agendamentos',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             TextField(
               controller: _searchController,
@@ -265,7 +321,12 @@ class _AgendaPageState extends State<AgendaPage> {
             ),
             const SizedBox(height: 12),
             _filteredAppointments.isEmpty
-                ? const Center(child: Padding(padding: EdgeInsets.all(20.0), child: Text('Nenhum agendamento encontrado.')))
+                ? const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: Text('Nenhum agendamento encontrado.'),
+                    ),
+                  )
                 : ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -273,17 +334,24 @@ class _AgendaPageState extends State<AgendaPage> {
                     itemBuilder: (context, index) {
                       final appointment = _filteredAppointments[index];
                       // MODIFICADO: Exibe a nota no subtítulo se ela existir
-                      String subtitleText = '${appointment.service} - ${DateFormat('dd/MM/yyyy').format(appointment.date)}';
+                      String subtitleText =
+                          '${appointment.service} - ${DateFormat('dd/MM/yyyy').format(appointment.date)}';
                       if (appointment.notes.isNotEmpty) {
                         subtitleText += '\nNota: ${appointment.notes}';
                       }
                       return Card(
                         margin: const EdgeInsets.symmetric(vertical: 4),
                         child: ListTile(
-                          title: Text(appointment.customerName, style: const TextStyle(fontWeight: FontWeight.bold)),
+                          title: Text(
+                            appointment.customerName,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
                           subtitle: Text(subtitleText),
                           trailing: IconButton(
-                            icon: const Icon(Icons.delete_outline, color: Colors.red),
+                            icon: const Icon(
+                              Icons.delete_outline,
+                              color: Colors.red,
+                            ),
                             onPressed: () => _deleteAppointment(appointment.id),
                             tooltip: 'Remover agendamento',
                           ),
