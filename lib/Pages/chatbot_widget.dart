@@ -17,10 +17,14 @@ class ChatbotWidget extends StatefulWidget {
 
   @override
   State<ChatbotWidget> createState() => _ChatbotWidgetState();
+  // Detecta se a mensagem contém o link do WhatsApp e cria um texto com link clicável
 }
 
 class _ChatbotWidgetState extends State<ChatbotWidget> {
-  final String _apiKey = dotenv.env['API_KEY_GPT']!;
+  // final String _apiKey = dotenv.env['API_KEY_GPT']!;
+  // API com chave trocar
+  final String _apiKey =
+      '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';
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   final List<ChatMessage> _messages = [];
@@ -105,7 +109,7 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
           _messages.add(
             ChatMessage(
               text:
-                  "Olá! Sou seu assistente virtual de climatização. Pergunte-me sobre nossos serviços!",
+                  "Olá! Sou seu assistente virtual de climatização. Pergunte-me sobre nossos serviços ou entre em contato conosco pelo WhatsApp clicando aqui: https://wa.me/5511959473402",
               isUserMessage: false,
             ),
           );
