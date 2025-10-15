@@ -1,28 +1,46 @@
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/Config/app_colors.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/Config/app_text_style.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/pages/login_page.dart';
-// import 'package.atalaia_ar_condicionados_flutter_application/Pages/login_page.dart';
 import 'package:flutter/material.dart';
-// Import necessário para abrir links externos, como o mapa
-// import 'package:url_launcher/url_launcher.dart';
+// import 'package.flutter/material.dart';
+// IMPORTANTE: Descomente esta linha para as funções de link funcionarem
+import 'package:url_launcher/url_launcher.dart';
 
 class LocalizacaoPage extends StatelessWidget {
   const LocalizacaoPage({super.key});
 
-  // Função para abrir o mapa com o endereço da empresa
-  void _launchMaps() async {
-    // Codifica o endereço para ser usado em uma URL de forma segura
-    const String address = 'Rua das Soluções, 123, Bairro Central, Sua Cidade, SP';
-    final String googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}';
-    
-    final Uri url = Uri.parse(googleMapsUrl);
+  // --- FUNÇÕES DE AÇÃO ---
 
-    // if (await canLaunchUrl(url)) {
-    //   await launchUrl(url);
-    // } else {
-    //   // Em um app real, seria bom mostrar um erro para o usuário (ex: com um SnackBar)
-    //   throw 'Não foi possível abrir o mapa em: $url';
-    // }
+  // Função genérica para abrir URLs e tratar erros
+  Future<void> _launchUrl(BuildContext context, Uri url) async {
+    if (!await launchUrl(url)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Não foi possível abrir o link: ${url.path}')),
+      );
+    }
+  }
+
+  // Função para abrir o mapa com o endereço da empresa
+  void _launchMaps(BuildContext context) {
+    const String address =
+        'Rua das Soluções, 123, Bairro Central, Sua Cidade, SP';
+    // URL padrão do Google Maps para busca
+    final Uri url = Uri.parse(
+      'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}',
+    );
+    _launchUrl(context, url);
+  }
+
+  // NOVO: Função para abrir o discador do telefone
+  void _launchPhone(BuildContext context) {
+    final Uri url = Uri.parse('tel:+5511987654321'); // Use o formato tel:+55...
+    _launchUrl(context, url);
+  }
+
+  // NOVO: Função para abrir o cliente de e-mail
+  void _launchEmail(BuildContext context) {
+    final Uri url = Uri.parse('mailto:contato@suaempresa.com.br');
+    _launchUrl(context, url);
   }
 
   @override
@@ -33,7 +51,6 @@ class LocalizacaoPage extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 1,
       ),
-      // Usamos SingleChildScrollView para garantir que a tela seja rolável
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -48,30 +65,47 @@ class LocalizacaoPage extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
-              // Seção 2: Informações de Contato
+              // Seção 2: Informações de Contato (MODIFICADO para ser interativo)
               Card(
                 elevation: 2,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                child: const Column(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
                   children: [
-                    ListTile(
-                      leading: Icon(Icons.location_city),
+                    const ListTile(
+                      leading: Icon(
+                        Icons.location_city,
+                        color: AppColors.primaryColor,
+                      ), // MODIFICADO: Cor
                       title: Text('Endereço'),
                       subtitle: Text(
                         'Rua das Soluções, 123 - Bairro Central, Sua Cidade - SP',
                       ),
                     ),
-                    Divider(indent: 16, endIndent: 16),
+                    const Divider(indent: 16, endIndent: 16),
                     ListTile(
-                      leading: Icon(Icons.phone),
-                      title: Text('Telefone'),
-                      subtitle: Text('(11) 98765-4321'),
+                      leading: const Icon(
+                        Icons.phone,
+                        color: AppColors.primaryColor,
+                      ), // MODIFICADO: Cor
+                      title: const Text('Telefone'),
+                      subtitle: const Text('(11) 98765-4321'),
+                      onTap: () =>
+                          _launchPhone(context), // NOVO: Ação de clique
+                      trailing: const Icon(Icons.arrow_forward_ios, size: 14),
                     ),
-                    Divider(indent: 16, endIndent: 16),
+                    const Divider(indent: 16, endIndent: 16),
                     ListTile(
-                      leading: Icon(Icons.email),
-                      title: Text('Email'),
-                      subtitle: Text('contato@suaempresa.com.br'),
+                      leading: const Icon(
+                        Icons.email,
+                        color: AppColors.primaryColor,
+                      ), // MODIFICADO: Cor
+                      title: const Text('Email'),
+                      subtitle: const Text('contato@suaempresa.com.br'),
+                      onTap: () =>
+                          _launchEmail(context), // NOVO: Ação de clique
+                      trailing: const Icon(Icons.arrow_forward_ios, size: 14),
                     ),
                   ],
                 ),
@@ -86,9 +120,7 @@ class LocalizacaoPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                     color: Colors.grey.shade300,
                     image: const DecorationImage(
-                      image: AssetImage(
-                        'assets/img/mapa-placeholder.png', // Verifique se o caminho da imagem está correto
-                      ),
+                      image: AssetImage('assets/img/mapa-placeholder.png'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -96,14 +128,15 @@ class LocalizacaoPage extends StatelessWidget {
                     child: ElevatedButton.icon(
                       icon: const Icon(Icons.map),
                       label: const Text('Abrir no Mapa'),
-                      onPressed: _launchMaps, // Chama a função para abrir o mapa
+                      onPressed: () =>
+                          _launchMaps(context), // MODIFICADO: Passa o context
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 32),
 
-              // Seção 4: Logout
+              // Seção 4: Logout (MODIFICADO para consistência de cor)
               Card(
                 elevation: 2,
                 shape: RoundedRectangleBorder(
@@ -119,7 +152,10 @@ class LocalizacaoPage extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.logout, color: AppColors.primaryColor),
+                          const Icon(
+                            Icons.logout,
+                            color: AppColors.primaryColor,
+                          ),
                           const SizedBox(width: 12),
                           Text(
                             "Encerrar Sessão",
@@ -131,7 +167,6 @@ class LocalizacaoPage extends StatelessWidget {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          // Navega para a tela de login e remove TODAS as rotas anteriores da pilha
                           Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
                               builder: (context) => const LoginPage(),
@@ -142,7 +177,7 @@ class LocalizacaoPage extends StatelessWidget {
                         child: Text(
                           "Sair",
                           style: AppTextStyle.titleAppBar.copyWith(
-                            color: Colors.blue,
+                            color: AppColors.primaryColor, // MODIFICADO: Cor
                             fontSize: 14,
                           ),
                         ),
@@ -151,8 +186,7 @@ class LocalizacaoPage extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 24), // Espaçamento final
-              
+              const SizedBox(height: 24),
             ],
           ),
         ),
