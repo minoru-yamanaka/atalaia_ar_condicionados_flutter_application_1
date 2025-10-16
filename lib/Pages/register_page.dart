@@ -13,6 +13,10 @@ class _RegisterPageState extends State<RegisterPage> {
   // Variável para controlar a visibilidade da senha
   final bool _isPasswordVisible = false;
 
+<<<<<<< HEAD
+=======
+  }
+>>>>>>> main
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +38,11 @@ class _RegisterPageState extends State<RegisterPage> {
             child: TextField(
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
+<<<<<<< HEAD
                 labelText: 'Email',
+=======
+                labelText: 'Email -> Page de registro ',
+>>>>>>> main
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
                 ),
