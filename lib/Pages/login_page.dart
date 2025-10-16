@@ -40,7 +40,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
-                  borderSide: const BorderSide(color: Color(0xFFF58524)),
+                  borderSide: const BorderSide(
+                    color: Color.fromARGB(255, 55, 0, 255),
+                  ),
                 ),
               ),
             ),
@@ -55,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: InputDecoration(
                 labelText: 'Senha',
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
+                  borderRadius: BorderRadius.circular(50.0),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
