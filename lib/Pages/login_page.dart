@@ -125,12 +125,14 @@ class _LoginPageState extends State<LoginPage> {
               alignment: Alignment.center,
               child: TextButton(
                 onPressed: () {
-                // Navega para a tela principal e remove a tela de login da pilha
-                Navigator.of(context).pushReplacement(
-                  // MaterialPageRoute(builder: (context) => const MainScreen()),
-                  MaterialPageRoute(builder: (context) => const RegisterPage()),
-                );
-              },
+                  // Navega para a tela principal e remove a tela de login da pilha
+                  Navigator.of(context).pushReplacement(
+                    // MaterialPageRoute(builder: (context) => const MainScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const RegisterPage(),
+                    ),
+                  );
+                },
                 child: const Text(
                   'Registre-se agora',
 
@@ -147,8 +149,15 @@ class _LoginPageState extends State<LoginPage> {
             child: Align(
               alignment: Alignment.center,
               child: TextButton(
+                // Ação para "Esqueceu a senha?"
                 onPressed: () {
-                  // Ação para "Esqueceu a senha?"
+                  // Navega para a tela principal e remove a tela de login da pilha
+                  Navigator.of(context).pushReplacement(
+                    // MaterialPageRoute(builder: (context) => const MainScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const RegisterPage(),
+                    ),
+                  );
                 },
                 child: const Text(
                   'Ou continue com',
