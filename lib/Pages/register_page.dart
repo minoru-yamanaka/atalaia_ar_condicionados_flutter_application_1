@@ -13,7 +13,7 @@ class _RegisterPageState extends State<RegisterPage> {
   // Variável para controlar a visibilidade da senha
   final bool _isPasswordVisible = false;
 
-  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +43,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   borderRadius: BorderRadius.circular(12.0),
                   borderSide: const BorderSide(
                     color: Color.fromARGB(255, 55, 0, 255),
+
                   ),
                 ),
               ),
