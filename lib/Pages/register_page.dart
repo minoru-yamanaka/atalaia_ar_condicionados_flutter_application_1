@@ -1,16 +1,15 @@
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/main_screen_PagesNew.dart';
-import 'package:atalaia_ar_condicionados_flutter_application/Pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   // Variável para controlar a visibilidade da senha
   final bool _isPasswordVisible = false;
 
@@ -125,12 +124,8 @@ class _LoginPageState extends State<LoginPage> {
               alignment: Alignment.center,
               child: TextButton(
                 onPressed: () {
-                // Navega para a tela principal e remove a tela de login da pilha
-                Navigator.of(context).pushReplacement(
-                  // MaterialPageRoute(builder: (context) => const MainScreen()),
-                  MaterialPageRoute(builder: (context) => const RegisterPage()),
-                );
-              },
+                  print("registar uruario");
+                },
                 child: const Text(
                   'Registre-se agora',
 

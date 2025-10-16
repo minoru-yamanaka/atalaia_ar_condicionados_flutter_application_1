@@ -3,7 +3,6 @@ import 'package:atalaia_ar_condicionados_flutter_application/Pages/calculadora_p
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/home_page.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/localizacao_page.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/info_page.dart';
-import 'package:atalaia_ar_condicionados_flutter_application/Pages/exit_page.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/agenda_page.dart';
 
 class MainScreen2 extends StatefulWidget {
