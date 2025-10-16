@@ -1,7 +1,6 @@
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/main_screen_PagesNew.dart';
 import 'package:flutter/material.dart';
-// Importe de arquivo de cores centralizadas
-import 'package:atalaia_ar_condicionados_flutter_application/Pages/Config/app_colors.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -17,157 +16,153 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          // Usamos SingleChildScrollView para evitar overflow em telas pequenas
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              const SizedBox(height: 60), // Espaço no topo
-              // --- LOGO E TÍTULO ---
-              Image.asset(
-                'assets/img/logo.png',
-                height: 80,
-                // color: AppColors.primaryColor,
-              ),
-              const SizedBox(height: 16.0),
-              const Text(
-                'Atalaia Climatização',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primaryColor,
-                  letterSpacing: 1.5,
-                ),
-              ),
-              const SizedBox(height: 48.0),
+      body: Column(
+        children: <Widget>[
+          ClipRRect(
+            child: Image.asset('assets/img/Atalaiabanner.png'),
+            borderRadius: BorderRadiusGeometry.only(
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+          ),
 
-              // --- TEXTO DE BOAS-VINDAS ---
-              const Text(
-                'Bem-vindo!',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 8.0),
-              const Text(
-                'Acesse sua conta para continuar',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: Colors.black54),
-              ),
-              const SizedBox(height: 32.0),
+          const SizedBox(height: 50.0),
 
-              // --- CAMPO DE EMAIL ---
-              TextField(
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  prefixIcon: const Icon(
-                    Icons.email_outlined,
-                    color: AppColors.primaryColor,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: const BorderSide(
-                      color: AppColors.primaryColor,
-                      width: 2,
-                    ),
+          // --- CAMPO DE EMAIL ---
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: TextField(
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                labelText: 'Email',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                  borderSide: const BorderSide(color: Color(0xFFF58524)),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12.0),
+
+          // --- CAMPO DE SENHA ---
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: 'Senha',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                  borderSide: const BorderSide(
+                    // arranquei o const primaryColor = Color(0xFFF58524);
+                    color: Color(0xFFF58524),
                   ),
                 ),
               ),
-              const SizedBox(height: 16.0),
+            ),
+          ),
 
-              // --- CAMPO DE SENHA ---
-              TextField(
-                obscureText: !_isPasswordVisible, // Controla a visibilidade
-                decoration: InputDecoration(
-                  labelText: 'Senha',
-                  prefixIcon: const Icon(
-                    Icons.lock_outline,
-                    color: AppColors.primaryColor,
-                  ),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _isPasswordVisible
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                      color: AppColors.primaryColor,
-                    ),
-                    onPressed: () {
-                      // Atualiza o estado para mostrar/esconder a senha
-                      setState(() {
-                        _isPasswordVisible = !_isPasswordVisible;
-                      });
-                    },
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: const BorderSide(
-                      color: AppColors.primaryColor,
-                      width: 2,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8.0),
-
-              // --- ESQUECEU A SENHA ---
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    /* Ação para "Esqueceu a senha?" */
-                  },
-                  child: const Text(
-                    'Esqueceu a senha?',
-                    style: TextStyle(color: Colors.black54),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 24.0),
-
-              // --- BOTÃO DE LOGIN ---
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primaryColor,
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                ),
+          // --- ESQUECEU A SENHA ---
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const MainScreen2(),
-                    ),
-                  );
+                  // Ação para "Esqueceu a senha?"
                 },
                 child: const Text(
-                  'ENTRAR',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  'Esqueceu a senha ?',
+
+                  style: TextStyle(color: Colors.black54),
                 ),
               ),
-              const SizedBox(height: 60), // Espaço na base
+            ),
+          ),
+          const SizedBox(height: 24.0),
+
+          // --- BOTÃO DE LOGIN ---
+          SizedBox(
+            width: 360,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromARGB(255, 14, 2, 82),
+                // backgroundColor: primaryColor,
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+              ),
+              onPressed: () {
+                // Navega para a tela principal e remove a tela de login da pilha
+                Navigator.of(context).pushReplacement(
+                  // MaterialPageRoute(builder: (context) => const MainScreen()),
+                  MaterialPageRoute(builder: (context) => const MainScreen2()),
+                );
+              },
+              child: const Text(
+                'LOGIN',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Align(
+              alignment: Alignment.center,
+              child: TextButton(
+                onPressed: () {
+                  print("registar uruario");
+                },
+                child: const Text(
+                  'Registre-se agora',
+
+                  style: TextStyle(color: Color.fromARGB(255, 6, 0, 90)),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 90),
+          SizedBox(width: 300, child: Divider()),
+          SizedBox(height: 90),
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Align(
+              alignment: Alignment.center,
+              child: TextButton(
+                onPressed: () {
+                  // Ação para "Esqueceu a senha?"
+                },
+                child: const Text(
+                  'Ou continue com',
+                  style: TextStyle(color: Color.fromARGB(255, 6, 0, 90)),
+                ),
+              ),
+            ),
+          ),
+
+          Row(
+            spacing: 10,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              FaIcon(FontAwesomeIcons.google, size: 30, color: Colors.red),
+              SizedBox(width: 10),
+              FaIcon(FontAwesomeIcons.apple, size: 30, color: Colors.black),
+              SizedBox(width: 10),
+              FaIcon(FontAwesomeIcons.facebook, size: 30, color: Colors.blue),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

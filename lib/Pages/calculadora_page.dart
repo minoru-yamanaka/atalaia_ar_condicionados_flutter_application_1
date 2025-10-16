@@ -69,9 +69,9 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
 
     // Com a verificação acima, agora podemos garantir ao Dart que as variáveis não são nulas
     // usando o operador '!' (asserção nula).
-    int baseBTUs = (area! * 600).toInt();
+    int baseBTUs = (area * 600).toInt();
     if (pessoas > 1) {
-      baseBTUs += (pessoas! - 1) * 600;
+      baseBTUs += (pessoas - 1) * 600;
     }
     baseBTUs += eletronicos * 600;
     if (_recebeSol == 'sim') {

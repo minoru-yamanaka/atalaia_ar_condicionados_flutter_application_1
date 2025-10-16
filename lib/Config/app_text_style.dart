@@ -13,6 +13,15 @@ class AppTextStyle {
     color: Colors.blueGrey,
   );
 
+  static const titleStyle = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: Color(0xFF343B6C),
+  );
 
-
+  static const contentStyle = TextStyle(
+    fontSize: 16,
+    color: Colors.black87,
+    height: 1.5,
+  );
 }
