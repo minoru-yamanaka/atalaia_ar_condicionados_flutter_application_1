@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: InputDecoration(
                 labelText: 'Senha',
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50.0),
+                  borderRadius: BorderRadius.circular(12.0),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
 
           // --- ESQUECEU A SENHA ---
           Padding(
-            padding: const EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(left: 20, right: 20),
             child: Align(
               alignment: Alignment.centerLeft,
               child: TextButton(
@@ -125,12 +125,14 @@ class _LoginPageState extends State<LoginPage> {
               alignment: Alignment.center,
               child: TextButton(
                 onPressed: () {
-                // Navega para a tela principal e remove a tela de login da pilha
-                Navigator.of(context).pushReplacement(
-                  // MaterialPageRoute(builder: (context) => const MainScreen()),
-                  MaterialPageRoute(builder: (context) => const RegisterPage()),
-                );
-              },
+                  // Navega para a tela principal e remove a tela de login da pilha
+                  Navigator.of(context).pushReplacement(
+                    // MaterialPageRoute(builder: (context) => const MainScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const RegisterPage(),
+                    ),
+                  );
+                },
                 child: const Text(
                   'Registre-se agora',
 
