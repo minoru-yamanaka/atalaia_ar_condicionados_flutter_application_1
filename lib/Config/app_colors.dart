@@ -7,6 +7,7 @@ class AppColors {
 
   static const Color backgroundColorAppBar = Color(0xFFDADADA);
 
+ 
   static Color? get primaryColor => null;
 
   // static const Color selectedItemColor = Color(0xFFF58524);

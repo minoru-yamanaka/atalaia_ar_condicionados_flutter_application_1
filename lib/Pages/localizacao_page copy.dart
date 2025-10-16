@@ -1,5 +1,5 @@
-import 'package:atalaia_ar_condicionados_flutter_application/Pages/Config/app_colors.dart';
-import 'package:atalaia_ar_condicionados_flutter_application/Pages/Config/app_text_style.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Config/app_colors.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Config/app_text_style.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/login_page.dart';
 import 'package:flutter/material.dart';
 // Para abrir o mapa, adicione o pacote `url_launcher` ao seu pubspec.yaml

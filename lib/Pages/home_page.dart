@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:atalaia_ar_condicionados_flutter_application/Pages/Widgets/product_card.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Widgets/product_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
