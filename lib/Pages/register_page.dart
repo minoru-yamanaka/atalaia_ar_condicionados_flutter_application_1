@@ -12,11 +12,8 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   // Variável para controlar a visibilidade da senha
   final bool _isPasswordVisible = false;
+  bool isCheckd = false;
 
-<<<<<<< HEAD
-=======
-  }
->>>>>>> main
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,11 +35,48 @@ class _RegisterPageState extends State<RegisterPage> {
             child: TextField(
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-<<<<<<< HEAD
-                labelText: 'Email',
-=======
-                labelText: 'Email -> Page de registro ',
->>>>>>> main
+                labelText: 'Nome',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                  borderSide: const BorderSide(
+                    color: Color.fromARGB(255, 55, 0, 255),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12.0),
+
+          // --- CAMPO DE SENHA ---
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: 'Endereço de Email',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                  borderSide: const BorderSide(
+                    // arranquei o const primaryColor = Color(0xFFF58524);
+                    color: Color(0xFFF58524),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12.0),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: TextField(
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                labelText: 'Senha',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
                 ),
@@ -65,7 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
               decoration: InputDecoration(
                 labelText: 'Senha',
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50.0),
+                  borderRadius: BorderRadius.circular(12.0),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
@@ -79,22 +113,14 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
 
           // --- ESQUECEU A SENHA ---
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: TextButton(
-                onPressed: () {
-                  // Ação para "Esqueceu a senha?"
-                },
-                child: const Text(
-                  'Esqueceu a senha ?',
-
-                  style: TextStyle(color: Colors.black54),
-                ),
-              ),
-            ),
+          CheckboxListTile(
+            title: Text("Aceito os termos"),
+            value: isCheckd,
+            onChanged: (bool? value) {
+              isCheckd = true;
+            },
           ),
+
           const SizedBox(height: 24.0),
 
           // --- BOTÃO DE LOGIN ---
@@ -117,7 +143,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 );
               },
               child: const Text(
-                'LOGIN',
+                'REGISTRAR',
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.white,
@@ -126,6 +152,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.only(left: 10),
             child: Align(
@@ -135,16 +162,14 @@ class _RegisterPageState extends State<RegisterPage> {
                   print("registar uruario");
                 },
                 child: const Text(
-                  'Registre-se agora',
-
+                  'Já tem uma conta? Entrar',
                   style: TextStyle(color: Color.fromARGB(255, 6, 0, 90)),
                 ),
               ),
             ),
           ),
-          SizedBox(height: 90),
-          SizedBox(width: 300, child: Divider()),
-          SizedBox(height: 90),
+          SizedBox(height: 50),
+
           Padding(
             padding: const EdgeInsets.only(left: 10),
             child: Align(
