@@ -72,7 +72,7 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
             ),
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
-              value: _recebeSol,
+              initialValue: _recebeSol,
               decoration: const InputDecoration(
                 labelText: 'O ambiente recebe sol intenso?',
                 border: OutlineInputBorder(),

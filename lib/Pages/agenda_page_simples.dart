@@ -237,7 +237,7 @@ class _AgendaPageState extends State<AgendaPage> {
                       ),
                       const SizedBox(height: 12),
                       DropdownButtonFormField<String>(
-                        value: _selectedService,
+                        initialValue: _selectedService,
                         decoration: const InputDecoration(
                           labelText: 'Serviço',
                           border: OutlineInputBorder(),
@@ -258,8 +258,9 @@ class _AgendaPageState extends State<AgendaPage> {
                                 )
                                 .toList(),
                         onChanged: (value) {
-                          if (value != null)
+                          if (value != null) {
                             setState(() => _selectedService = value);
+                          }
                         },
                       ),
                       const SizedBox(height: 20),
