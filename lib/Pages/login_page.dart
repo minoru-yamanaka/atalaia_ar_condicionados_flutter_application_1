@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: InputDecoration(
                 labelText: 'Senha',
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
+                  borderRadius: BorderRadius.circular(50.0),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
 
           // --- ESQUECEU A SENHA ---
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
+            padding: const EdgeInsets.only(left: 10),
             child: Align(
               alignment: Alignment.centerLeft,
               child: TextButton(
