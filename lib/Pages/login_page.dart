@@ -102,52 +102,26 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
             // --- ESQUECEU A SENHA ---
+            // --- BOTÃO LOGIN ---
             Padding(
-              padding: const EdgeInsets.only(left: 10),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: TextButton(
                   onPressed: () {
-                    // Ação para "Esqueceu a senha?"
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const MainScreen2(),
+                      ),
+                    );
                   },
                   child: const Text(
-                    'Esqueceu a senha?',
-                    style: TextStyle(color: Colors.black54),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 24.0),
-
-            // --- BOTÃO DE LOGIN ---
-            SizedBox(
-              width: 360,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 14, 2, 82),
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                ),
-                onPressed: () {
-                  // Você pode ler o email e senha assim:
-                  // final email = _emailController.text;
-                  // final password = _passwordController.text;
-                  // print('Email: $email, Senha: $password');
-
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const MainScreen2(),
+                    'LOGIN',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
-                  );
-                },
-                child: const Text(
-                  'LOGIN',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
