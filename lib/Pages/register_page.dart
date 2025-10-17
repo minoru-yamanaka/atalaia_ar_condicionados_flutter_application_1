@@ -113,12 +113,15 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
 
           // --- ESQUECEU A SENHA ---
-          CheckboxListTile(
-            title: Text("Aceito os termos"),
-            value: isCheckd,
-            onChanged: (bool? value) {
-              isCheckd = true;
-            },
+          Padding(
+            padding: const EdgeInsets.only(left: 30, right: 30),
+            child: CheckboxListTile(
+              title: Text("Aceito os termos"),
+              value: isCheckd,
+              onChanged: (bool? value) {
+                isCheckd = true;
+              },
+            ),
           ),
 
           const SizedBox(height: 24.0),
