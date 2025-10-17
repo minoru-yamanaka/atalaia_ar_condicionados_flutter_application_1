@@ -41,22 +41,46 @@ class InfoPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Informações e Dicas'),
-        backgroundColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 14, 2, 82),
         elevation: 1,
       ),
       // Adicionamos o botão flutuante aqui
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _openChatbot(context),
-        icon: const Icon(Icons.chat_bubble_outline),
-        label: const Text("Assistente"),
-        backgroundColor: Colors.blue,
+        icon: const Icon(Icons.chat_bubble_outline, color: Colors.white),
+        label: const Text(
+          "Assistente",
+          style: TextStyle(color: Color(0xFFFFFFFF)),
+        ),
+        backgroundColor: Color.fromARGB(255, 14, 2, 82),
       ),
       body: ListView(
         padding: const EdgeInsets.all(
           16.0,
         ).copyWith(bottom: 80), // Espaço extra no final para o FAB não cobrir
         children: [
+          Center(
+            child: SizedBox(
+              child: Text(
+                "Duvidas",
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 14, 2, 82),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 30,),
+          TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder( borderRadius: BorderRadius.circular(20.0),
+              ),
+              prefixIcon: const Icon(Icons.search),
+              hintText: 'Pesquisar..'
+           ),
+          ),
+          SizedBox( height: 25,),
           // --- Seus Cards de informação permanecem os mesmos ---
           Card(
             elevation: 2,
