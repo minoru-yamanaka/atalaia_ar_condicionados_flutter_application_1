@@ -11,9 +11,11 @@ class LocalizacaoPage extends StatelessWidget {
   // Função para abrir o mapa com o endereço da empresa
   void _launchMaps() async {
     // Codifica o endereço para ser usado em uma URL de forma segura
-    const String address = 'Rua das Soluções, 123, Bairro Central, Sua Cidade, SP';
-    final String googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}';
-    
+    const String address =
+        'Rua das Soluções, 123, Bairro Central, Sua Cidade, SP';
+    final String googleMapsUrl =
+        'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}';
+
     final Uri url = Uri.parse(googleMapsUrl);
 
     // if (await canLaunchUrl(url)) {
@@ -50,7 +52,9 @@ class LocalizacaoPage extends StatelessWidget {
               // Seção 2: Informações de Contato
               Card(
                 elevation: 2,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 child: const Column(
                   children: [
                     ListTile(
@@ -95,7 +99,8 @@ class LocalizacaoPage extends StatelessWidget {
                     child: ElevatedButton.icon(
                       icon: const Icon(Icons.map),
                       label: const Text('Abrir no Mapa'),
-                      onPressed: _launchMaps, // Chama a função para abrir o mapa
+                      onPressed:
+                          _launchMaps, // Chama a função para abrir o mapa
                     ),
                   ),
                 ),
@@ -151,7 +156,6 @@ class LocalizacaoPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24), // Espaçamento final
-              
             ],
           ),
         ),
