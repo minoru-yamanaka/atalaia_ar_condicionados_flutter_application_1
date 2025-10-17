@@ -67,69 +67,32 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 12.0),
 
-            // --- CAMPO DE SENHA ---
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: TextField(
-                controller: _passwordController, // Adicionado controller
-                // CORREÇÃO: A visibilidade agora depende da variável de estado.
-                obscureText: !_isPasswordVisible,
-                decoration: InputDecoration(
-                  labelText: 'Senha',
-                  // CORREÇÃO: Adicionado ícone para mostrar/ocultar a senha.
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _isPasswordVisible
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                    ),
-                    onPressed: () {
-                      // CORREÇÃO: setState atualiza a UI quando o estado muda.
-                      setState(() {
-                        _isPasswordVisible = !_isPasswordVisible;
-                      });
-                    },
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: const BorderSide(color: Color(0xFFF58524)),
+          // --- CAMPO DE SENHA ---
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: 'Senha',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                  borderSide: const BorderSide(
+                    // arranquei o const primaryColor = Color(0xFFF58524);
+                    color: Color(0xFFF58524),
                   ),
                 ),
               ),
             ),
 
-            // --- ESQUECEU A SENHA ---
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                  onPressed: () {
-                    // Ação para "Esqueceu a senha?"
-                  },
-                  child: const Text(
-                    'Esqueceu a senha?',
-                    style: TextStyle(color: Colors.black54),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 24.0),
-
-            // --- BOTÃO DE LOGIN ---
-            SizedBox(
-              width: 360,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 14, 2, 82),
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                ),
+          // --- ESQUECEU A SENHA ---
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton(
                 onPressed: () {
                   // Você pode ler o email e senha assim:
                   // final email = _emailController.text;
@@ -157,14 +120,41 @@ class _LoginPageState extends State<LoginPage> {
             // --- BOTÃO DE REGISTRO ---
             TextButton(
               onPressed: () {
-                // CORREÇÃO: Adicionada a navegação para a página de registro.
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const RegisterPage()),
+                // Navega para a tela principal e remove a tela de login da pilha
+                Navigator.of(context).pushReplacement(
+                  // MaterialPageRoute(builder: (context) => const MainScreen()),
+                  MaterialPageRoute(builder: (context) => const MainScreen2()),
                 );
               },
               child: const Text(
-                'Registre-se agora',
-                style: TextStyle(color: Color.fromARGB(255, 6, 0, 90)),
+                'LOGIN',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Align(
+              alignment: Alignment.center,
+              child: TextButton(
+                onPressed: () {
+                  // Navega para a tela principal e remove a tela de login da pilha
+                  Navigator.of(context).pushReplacement(
+                    // MaterialPageRoute(builder: (context) => const MainScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const RegisterPage(),
+                    ),
+                  );
+                },
+                child: const Text(
+                  'Registre-se agora',
+
+                  style: TextStyle(color: Color.fromARGB(255, 6, 0, 90)),
+                ),
               ),
             ),
 
