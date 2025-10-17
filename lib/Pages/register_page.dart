@@ -1,3 +1,4 @@
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/login_page.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/main_screen_PagesNew.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -161,7 +162,11 @@ class _RegisterPageState extends State<RegisterPage> {
               alignment: Alignment.center,
               child: TextButton(
                 onPressed: () {
-                  print("registar uruario");
+                  // Navega para a tela principal e remove a tela de login da pilha
+                  Navigator.of(context).pushReplacement(
+                    // MaterialPageRoute(builder: (context) => const MainScreen()),
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
                 },
                 child: const Text(
                   'Registre-se agora',
