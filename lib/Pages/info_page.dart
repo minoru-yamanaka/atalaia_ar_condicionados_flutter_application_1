@@ -1,3 +1,5 @@
+import 'package:atalaia_ar_condicionados_flutter_application/Config/app_colors.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Widgets/info_card.dart';
 import 'package:flutter/material.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/localizacao_page.dart';
 // IMPORTANTE: Importe o novo widget do chatbot que criamos
@@ -41,16 +43,17 @@ class InfoPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Informações e Dicas'),
+        title: Text('Informações e Dicas'),
         backgroundColor: Colors.white,
         elevation: 1,
       ),
       // Adicionamos o botão flutuante aqui
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _openChatbot(context),
-        icon: const Icon(Icons.chat_bubble_outline),
-        label: const Text("Assistente"),
-        backgroundColor: Colors.blue,
+        icon: Icon(Icons.chat_bubble_outline),
+        label: Text("Assistente"),
+        // backgroundColor: Colors.blue,
+        backgroundColor: Colors.blue.shade800,
       ),
       body: ListView(
         padding: const EdgeInsets.all(
@@ -58,75 +61,26 @@ class InfoPage extends StatelessWidget {
         ).copyWith(bottom: 80), // Espaço extra no final para o FAB não cobrir
         children: [
           // --- Seus Cards de informação permanecem os mesmos ---
-          Card(
-            elevation: 2,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Quando fazer a higienização?", style: titleStyle),
-                  SizedBox(height: 12),
-                  Text(
-                    "A recomendação geral é realizar a higienização completa pelo menos uma vez por ano. Em ambientes com alto fluxo de pessoas, o ideal é a cada 6 meses.",
-                    style: contentStyle,
-                  ),
-                ],
-              ),
-            ),
+          SizedBox(height: 16),
+          InfoCard(
+            title: "Como economizar energia com o ar-condicionado?",
+            text:
+                "• Mantenha os filtros sempre limpos.\n• Deixe portas e janelas fechadas.\n• Mantenha uma temperatura estável (entre 22ºC e 24ºC).",
           ),
+
           const SizedBox(height: 16),
-          Card(
-            elevation: 2,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Como economizar energia com o ar-condicionado?",
-                    style: titleStyle,
-                  ),
-                  SizedBox(height: 12),
-                  Text(
-                    "• Mantenha os filtros sempre limpos.\n• Deixe portas e janelas fechadas.\n• Mantenha uma temperatura estável (entre 22ºC e 24ºC).",
-                    style: contentStyle,
-                  ),
-                ],
-              ),
-            ),
+          InfoCard(
+            title: "Sinais de que seu ar precisa de manutenção",
+            text:
+                "• Ruídos ou vibrações estranhas.\n• O aparelho não gela como antes.\n• Vazamentos de água ou cheiro de mofo.",
           ),
-          const SizedBox(height: 16),
-          Card(
-            elevation: 2,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Sinais de que seu ar precisa de manutenção",
-                    style: titleStyle,
-                  ),
-                  SizedBox(height: 12),
-                  Text(
-                    "• Ruídos ou vibrações estranhas.\n• O aparelho não gela como antes.\n• Vazamentos de água ou cheiro de mofo.",
-                    style: contentStyle,
-                  ),
-                ],
-              ),
-            ),
-          ),
+
           const SizedBox(height: 24),
+          InfoCard(
+            title: "Contato e Informações da Empresa",
+            text:
+                "• Ruídos ou vibrações estranhas.\n• O aparelho não gela como antes.\n• Vazamentos de água ou cheiro de mofo.",
+          ),
           Card(
             elevation: 2,
             shape: RoundedRectangleBorder(
@@ -135,10 +89,12 @@ class InfoPage extends StatelessWidget {
             child: ListTile(
               leading: const Icon(
                 Icons.support_agent,
-                color: Color(0xFF343B6C),
+                // color: Colors.blue.shade800
+                color: AppColors.primaryColor,
+                // color: Color(0xFF343B6C),
               ),
               title: const Text(
-                'Contato e Informações da Empresa',
+                '',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
