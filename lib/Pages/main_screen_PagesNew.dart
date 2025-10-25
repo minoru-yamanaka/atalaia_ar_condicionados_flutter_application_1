@@ -16,12 +16,12 @@ class _MainScreenState2 extends State<MainScreen2> {
   int _selectedIndex = 0;
 
   // Lista de telas que serão exibidas com base na navegação
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const HomePage(),
     InfoPage(),
-    AgendaPage(),
-    CalculadoraPage(),
-    LocalizacaoPage(),
+    const AgendaPage(),
+    const CalculadoraPage(),
+    const LocalizacaoPage(),
     // ExitPage(),
   ];
 

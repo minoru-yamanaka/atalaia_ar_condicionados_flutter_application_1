@@ -4,7 +4,9 @@ import 'package:atalaia_ar_condicionados_flutter_application/Pages/localizacao_p
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/chatbot_widget.dart';
 
 class InfoPage extends StatelessWidget {
-  const InfoPage({super.key});
+  InfoPage({super.key});
+
+  final TextEditingController controllerSearch = TextEditingController();
 
   // Função para abrir o chatbot em um Modal Bottom Sheet
   void _openChatbot(BuildContext context) {
@@ -20,7 +22,9 @@ class InfoPage extends StatelessWidget {
         // Define a altura do BottomSheet para 90% da tela
         return SizedBox(
           height: MediaQuery.of(context).size.height * 0.9,
-          child: const ChatbotWidget(), // Aqui usamos nosso novo widget!
+          child: ChatbotWidget(
+            text: controllerSearch.text,
+          ), // Aqui usamos nosso novo widget!
         );
       },
     );
@@ -44,16 +48,6 @@ class InfoPage extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 14, 2, 82),
         elevation: 1,
       ),
-      // Adicionamos o botão flutuante aqui
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _openChatbot(context),
-        icon: const Icon(Icons.chat_bubble_outline, color: Colors.white),
-        label: const Text(
-          "Assistente",
-          style: TextStyle(color: Color(0xFFFFFFFF)),
-        ),
-        backgroundColor: Color.fromARGB(255, 14, 2, 82),
-      ),
       body: ListView(
         padding: const EdgeInsets.all(
           16.0,
@@ -71,23 +65,34 @@ class InfoPage extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 30,),
+          SizedBox(height: 30),
           TextField(
+            onSubmitted: (value) {
+              print(value);
+              _openChatbot(context);
+            },
+            controller: controllerSearch,
             decoration: InputDecoration(
-              border: OutlineInputBorder( borderRadius: BorderRadius.circular(20.0),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
               ),
               prefixIcon: const Icon(Icons.search),
-              hintText: 'Pesquisar..'
-           ),
+              hintText: 'Pesquisar..',
+            ),
           ),
-          SizedBox( height: 25,),
+          SizedBox(height: 25),
           // --- Seus Cards de informação permanecem os mesmos ---
           Card(
             elevation: 2,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Padding(
+            child : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset('assets/img/higienizacao.jpg', width: 400, height: 200,
+                ),
+             const Padding(
               padding: EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,6 +105,8 @@ class InfoPage extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+              ],
             ),
           ),
           const SizedBox(height: 16),
@@ -133,10 +140,11 @@ class InfoPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             child: const Padding(
+
               padding: EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children:[
                   Text(
                     "Sinais de que seu ar precisa de manutenção",
                     style: titleStyle,

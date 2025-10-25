@@ -12,7 +12,8 @@ class ChatMessage {
 
 // O Widget do Chatbot
 class ChatbotWidget extends StatefulWidget {
-  const ChatbotWidget({super.key});
+  final String? text;
+  const ChatbotWidget({super.key, this.text});
 
   @override
   State<ChatbotWidget> createState() => _ChatbotWidgetState();
@@ -30,7 +31,7 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
   bool _isLoading = false;
 
   final Map<String, String> _respostasPredefinidas = {
-    "olá":
+    "ola":
         "Olá! Sou o assistente virtual da Atalaia Ar Condicionados. Como posso ajudar?",
     "oi":
         "Olá! Sou o assistente virtual da Atalaia Ar Condicionados. Como posso ajudar?",
@@ -103,6 +104,7 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      _handleSendMessageText();
       if (mounted) {
         setState(() {
           _messages.add(
@@ -115,6 +117,60 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
         });
       }
     });
+  }
+
+  void _handleSendMessageText() async {
+    final text = widget.text!.trim();
+    if (text.isEmpty || _isLoading) return;
+
+    _controller.clear();
+
+    setState(() {
+      _messages.add(ChatMessage(text: text, isUserMessage: true));
+      _isLoading = true;
+    });
+    _scrollToBottom();
+
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    String? predefinedAnswer;
+    for (var key in _respostasPredefinidas.keys) {
+      if (text.toLowerCase().contains(key)) {
+        predefinedAnswer = _respostasPredefinidas[key];
+        break;
+      }
+    }
+
+    if (predefinedAnswer != null) {
+      setState(() {
+        _messages.add(
+          ChatMessage(text: predefinedAnswer!, isUserMessage: false),
+        );
+        _isLoading = false;
+      });
+    } else {
+      try {
+        final response = await _getApiResponse(text);
+        setState(() {
+          _messages.add(ChatMessage(text: response, isUserMessage: false));
+        });
+      } catch (e) {
+        setState(() {
+          _messages.add(
+            ChatMessage(
+              text:
+                  "Desculpe, estou com dificuldades na minha conexão. Tente novamente mais tarde.",
+              isUserMessage: false,
+            ),
+          );
+        });
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+    _scrollToBottom();
   }
 
   void _handleSendMessage() async {
