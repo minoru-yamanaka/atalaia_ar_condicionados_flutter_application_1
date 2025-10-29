@@ -77,7 +77,7 @@ class InfoPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20.0),
               ),
               prefixIcon: const Icon(Icons.search),
-              hintText: 'Pesquisar..',
+              hintText: 'Alguma duvida? Nossa IA responde..',
             ),
           ),
           SizedBox(height: 25),
@@ -85,27 +85,38 @@ class InfoPage extends StatelessWidget {
           Card(
             elevation: 2,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12)
             ),
-            child : Column(
+            clipBehavior: Clip.antiAlias,
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset('assets/img/higienizacao.jpg', width: 400, height: 200,
-                ),
-             const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Quando fazer a higienização?", style: titleStyle),
-                  SizedBox(height: 12),
-                  Text(
-                    "A recomendação geral é realizar a higienização completa pelo menos uma vez por ano. Em ambientes com alto fluxo de pessoas, o ideal é a cada 6 meses.",
-                    style: contentStyle,
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                   topLeft: Radius.circular(12),
+                   topRight: Radius.circular(12),
+                   ),
+                  child: Image.asset(
+                    'assets/img/higienizacao.jpg',
+                    width: 410,
+                    height: 200,
+                    fit: BoxFit.cover
                   ),
-                ],
-              ),
-            ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Quando fazer a higienização?", style: titleStyle),
+                      SizedBox(height: 12),
+                      Text(
+                        "A recomendação geral é realizar a higienização completa pelo menos uma vez por ano. Em ambientes com alto fluxo de pessoas, o ideal é a cada 6 meses.",
+                        style: contentStyle,
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -115,22 +126,40 @@ class InfoPage extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Como economizar energia com o ar-condicionado?",
-                    style: titleStyle,
+            clipBehavior: Clip.antiAlias,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12)
                   ),
-                  SizedBox(height: 12),
-                  Text(
-                    "• Mantenha os filtros sempre limpos.\n• Deixe portas e janelas fechadas.\n• Mantenha uma temperatura estável (entre 22ºC e 24ºC).",
-                    style: contentStyle,
+                  child: Image.asset(
+                    'assets/img/economizar.jpg',
+                    width: 410,
+                    height: 200,
+                    fit: BoxFit.cover,
                   ),
-                ],
-              ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Como economizar energia com o ar-condicionado?",
+                        style: titleStyle,
+                      ),
+                      SizedBox(height: 12),
+                      Text(
+                        "• Mantenha os filtros sempre limpos.\n• Deixe portas e janelas fechadas.\n• Mantenha uma temperatura estável (entre 22ºC e 24ºC).",
+                        style: contentStyle,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 16),
@@ -139,49 +168,40 @@ class InfoPage extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Padding(
-
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children:[
-                  Text(
-                    "Sinais de que seu ar precisa de manutenção",
-                    style: titleStyle,
+            clipBehavior: Clip.antiAlias,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12)
                   ),
-                  SizedBox(height: 12),
-                  Text(
-                    "• Ruídos ou vibrações estranhas.\n• O aparelho não gela como antes.\n• Vazamentos de água ou cheiro de mofo.",
-                    style: contentStyle,
+                  child: Image.asset(
+                    'assets/img/manutencao.jpeg',
+                    width: 410,
+                    height: 200,
+                    fit: BoxFit.cover,
                   ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 24),
-          Card(
-            elevation: 2,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: ListTile(
-              leading: const Icon(
-                Icons.support_agent,
-                color: Color(0xFF343B6C),
-              ),
-              title: const Text(
-                'Contato e Informações da Empresa',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const LocalizacaoPage(),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Sinais de que seu ar precisa de manutenção",
+                        style: titleStyle,
+                      ),
+                      SizedBox(height: 12),
+                      Text(
+                        "• Ruídos ou vibrações estranhas.\n• O aparelho não gela como antes.\n• Vazamentos de água ou cheiro de mofo.",
+                        style: contentStyle,
+                      ),
+                    ],
                   ),
-                );
-              },
+                ),
+              ],
             ),
           ),
         ],

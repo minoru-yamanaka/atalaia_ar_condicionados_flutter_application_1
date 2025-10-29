@@ -52,7 +52,6 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
     "agendar":
         "Para agendar uma visita técnica, por favor, entre em contato pelo nosso WhatsApp.",
     "obrigado": "De nada! Se precisar de mais alguma coisa, é só perguntar.",
-
     "qual o horário de atendimento?":
         "Nosso horário de atendimento é de segunda a sexta, das 8h às 18h, e aos sábados das 8h às 12h.",
     "vocês atendem na minha região?":
@@ -307,7 +306,7 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: message.isUserMessage
-              ? Colors.blue.shade600
+              ? Color(0xFF343B6C)
               : Colors.grey.shade200,
           borderRadius: BorderRadius.circular(15),
         ),
@@ -347,7 +346,7 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
           ),
           const SizedBox(width: 8),
           IconButton(
-            icon: const Icon(Icons.send, color: Colors.blue),
+            icon: const Icon(Icons.send, color: Color(0xFF343B6C),),
             onPressed: _handleSendMessage,
           ),
         ],
