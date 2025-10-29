@@ -200,7 +200,12 @@ class _AgendaPageState extends State<AgendaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Agendamentos')),
+      appBar: AppBar(
+        title: const Text('Agendamentos'),
+        backgroundColor: const Color(0xFF0C1D34),
+        foregroundColor: Colors.white,
+        elevation: 1,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(

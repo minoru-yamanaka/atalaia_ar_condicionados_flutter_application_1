@@ -42,7 +42,8 @@ class InfoPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Informações e Dicas'),
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFF0C1D34),
+        foregroundColor: Colors.white,
         elevation: 1,
       ),
       // Adicionamos o botão flutuante aqui

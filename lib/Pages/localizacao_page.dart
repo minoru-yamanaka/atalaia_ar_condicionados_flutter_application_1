@@ -48,7 +48,8 @@ class LocalizacaoPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Localização e Contato'),
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFF0C1D34),
+        foregroundColor: Colors.white,
         elevation: 1,
       ),
       body: SingleChildScrollView(
