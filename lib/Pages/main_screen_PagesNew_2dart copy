@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/calculadora_page.dart';
-import 'package:atalaia_ar_condicionados_flutter_application/Pages/home_page.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/home_page.dart'; // Mantido, mas não usado na barra
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/localizacao_page.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/info_page.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/agenda_page.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class MainScreen2 extends StatefulWidget {
+  const MainScreen2({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<MainScreen2> createState() => _MainScreenState2();
 }
 
-class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0;
+class _MainScreenState2 extends State<MainScreen2> {
+  // --- MUDANÇA ---
+  // A tela de Informações (índice 3) agora é a inicial
+  int _selectedIndex = 3;
 
-  // Lista de telas que serão exibidas com base na navegação
+  // --- MUDANÇA ---
+  // A lista de telas foi reordenada para corresponder aos 4 novos ícones
+  // 1. Telefone (LocalizacaoPage)
+  // 2. Pessoa (AgendaPage)
+  // 3. Calculadora (CalculadoraPage)
+  // 4. Informações (InfoPage)
+  // A HomePage foi removida desta lista, pois não há um ícone para ela na imagem.
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     InfoPage(),
@@ -36,9 +44,12 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
       bottomNavigationBar: BottomNavigationBar(
-        // CORREÇÃO APLICADA AQUI
         type: BottomNavigationBarType.fixed,
 
+        // --- MUDANÇA: Cor de fundo da barra ---
+        backgroundColor: const Color(0xFF0C1D34), // Um azul-escuro, como na imagem
+
+        // --- MUDANÇA: Lista de itens (agora 4) ---
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Início'),
           BottomNavigationBarItem(
@@ -63,9 +74,15 @@ class _MainScreenState extends State<MainScreen> {
           // ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: const Color(0xFF343B6C),
-        unselectedItemColor: Colors.grey,
-        showUnselectedLabels: true,
+
+        // --- MUDANÇA: Cores dos ícones ---
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white.withOpacity(0.6), // Branco com opacidade
+
+        // --- MUDANÇA: Esconder os labels ---
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+
         onTap: _onItemTapped,
       ),
     );

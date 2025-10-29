@@ -1,4 +1,6 @@
-import 'package:atalaia_ar_condicionados_flutter_application/Pages/main_screen_PagesNew.dart';
+// import 'package:atalaia_ar_condicionados_flutter_application/Pages/main_screen_PagesNew.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/main_screen_PagesNew_2dart';
+
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
