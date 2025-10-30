@@ -11,7 +11,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // CORREÇÃO: Removido 'final' para que a variável possa ser alterada.
+  TextEditingController emailController = TextEditingController();
+  TextEditingController senhaController = TextEditingController();
+
   bool _isPasswordVisible = false;
 
   // CORREÇÃO: Adicionados controllers para gerenciar o texto dos campos.
@@ -30,13 +32,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // CORREÇÃO: Adicionado SingleChildScrollView para evitar que o teclado
-      // cause um erro de overflow (faixas amarelas e pretas).
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             ClipRRect(
-              // CORREÇÃO (Estilo): Usando a forma mais comum de BorderRadius.
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20),
@@ -45,7 +44,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 50.0),
 
-            // --- CAMPO DE EMAIL ---
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
@@ -103,29 +101,44 @@ class _LoginPageState extends State<LoginPage> {
 
             // --- ESQUECEU A SENHA ---
             // --- BOTÃO LOGIN ---
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const MainScreen2(),
+            SizedBox(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.blue, // cor de fundo azul
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 12,
                       ),
-                    );
-                  },
-                  child: const Text(
-                    'LOGIN',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          8,
+                        ), // cantos arredondados
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => const MainScreen2(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'LOGIN',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white, // texto branco pra contrastar
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
+
             const SizedBox(height: 8.0),
 
             // --- BOTÃO DE REGISTRO ---
