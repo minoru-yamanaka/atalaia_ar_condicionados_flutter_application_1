@@ -12,7 +12,7 @@ class ChatMessage {
 
 // O Widget do Chatbot
 class ChatbotWidget extends StatefulWidget {
-  const ChatbotWidget({super.key});
+  const ChatbotWidget({super.key, required String text});
 
   @override
   State<ChatbotWidget> createState() => _ChatbotWidgetState();

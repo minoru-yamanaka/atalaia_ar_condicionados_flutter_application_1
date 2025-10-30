@@ -15,7 +15,7 @@ class MainScreen2 extends StatefulWidget {
 class _MainScreenState2 extends State<MainScreen2> {
   int _selectedIndex = 3;
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static final List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     InfoPage(),
     AgendaPage(),
@@ -47,10 +47,7 @@ class _MainScreenState2 extends State<MainScreen2> {
           type: BottomNavigationBarType.fixed,
           backgroundColor: const Color(0xFF0C1D34),
           items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.store),
-              label: 'Início',
-            ),
+            BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Início'),
             BottomNavigationBarItem(
               icon: Icon(Icons.build_circle),
               label: 'Informações',
@@ -59,14 +56,14 @@ class _MainScreenState2 extends State<MainScreen2> {
               icon: Icon(Icons.calendar_month),
               label: 'Agenda',
             ),
-             BottomNavigationBarItem(
+            BottomNavigationBarItem(
               icon: Icon(Icons.calculate),
               label: 'Calculadora',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.location_on),
               label: 'Contato',
-            ),      
+            ),
           ],
           currentIndex: _selectedIndex,
           selectedItemColor: Colors.white,
