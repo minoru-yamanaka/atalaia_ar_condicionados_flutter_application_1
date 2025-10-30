@@ -274,7 +274,11 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
           padding: const EdgeInsets.all(16.0),
           child: Text(
             "Assistente Virtual",
-            style: Theme.of(context).textTheme.titleLarge,
+            style: TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 14, 2, 82),
+            ),
           ),
         ),
         Expanded(
@@ -331,9 +335,14 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
           Expanded(
             child: TextField(
               controller: _controller,
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                 hintText: "Digite sua mensagem...",
-                border: InputBorder.none,
+                enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0), 
+                borderSide: BorderSide(color: Colors.grey, width: 2.0)),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                  borderSide: BorderSide(color:Color(0xFF343B6C), width:2.0),
+                ),
                 filled: true,
                 fillColor: Color(0xFFF0F0F0),
                 contentPadding: EdgeInsets.symmetric(
@@ -346,7 +355,7 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
           ),
           const SizedBox(width: 8),
           IconButton(
-            icon: const Icon(Icons.send, color: Color(0xFF343B6C),),
+            icon: const Icon(Icons.send, color: Color(0xFF343B6C)),
             onPressed: _handleSendMessage,
           ),
         ],

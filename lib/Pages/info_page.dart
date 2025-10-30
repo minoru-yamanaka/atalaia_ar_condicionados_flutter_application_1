@@ -97,7 +97,7 @@ class InfoPage extends StatelessWidget {
                    topRight: Radius.circular(12),
                    ),
                   child: Image.asset(
-                    'assets/img/higienizacao.jpg',
+                    'assets/img/higienizacao.png',
                     width: 410,
                     height: 200,
                     fit: BoxFit.cover
@@ -136,7 +136,7 @@ class InfoPage extends StatelessWidget {
                     topRight: Radius.circular(12)
                   ),
                   child: Image.asset(
-                    'assets/img/economizar.jpg',
+                    'assets/img/economizar.png',
                     width: 410,
                     height: 200,
                     fit: BoxFit.cover,
@@ -178,7 +178,7 @@ class InfoPage extends StatelessWidget {
                     topRight: Radius.circular(12)
                   ),
                   child: Image.asset(
-                    'assets/img/manutencao.jpeg',
+                    'assets/img/manutencao.png',
                     width: 410,
                     height: 200,
                     fit: BoxFit.cover,
