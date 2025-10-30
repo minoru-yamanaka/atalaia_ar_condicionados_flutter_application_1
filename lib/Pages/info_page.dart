@@ -45,7 +45,9 @@ class InfoPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 14, 2, 82),
+        title: const Text('Informações'),
+        backgroundColor: const Color(0xFF0C1D34),
+        foregroundColor: Colors.white,
         elevation: 1,
       ),
       body: ListView(
