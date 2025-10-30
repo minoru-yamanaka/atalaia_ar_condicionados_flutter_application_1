@@ -99,7 +99,7 @@ class InfoPage extends StatelessWidget {
                     topRight: Radius.circular(12),
                   ),
                   child: Image.asset(
-                    'assets/img/higienizacao.jpg',
+                    'assets/img/Atalaiabanner.png',
                     width: 410,
                     height: 200,
                     fit: BoxFit.cover,
@@ -138,7 +138,7 @@ class InfoPage extends StatelessWidget {
                     topRight: Radius.circular(12),
                   ),
                   child: Image.asset(
-                    'assets/img/economizar.jpg',
+                    'assets/img/Atalaiabanner.png',
                     width: 410,
                     height: 200,
                     fit: BoxFit.cover,
@@ -180,7 +180,7 @@ class InfoPage extends StatelessWidget {
                     topRight: Radius.circular(12),
                   ),
                   child: Image.asset(
-                    'assets/img/manutencao.jpeg',
+                    'assets/img/Atalaiabanner.png',
                     width: 410,
                     height: 200,
                     fit: BoxFit.cover,
@@ -190,6 +190,7 @@ class InfoPage extends StatelessWidget {
                   padding: EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+
                     children: [
                       Text(
                         "Sinais de que seu ar precisa de manutenção",
