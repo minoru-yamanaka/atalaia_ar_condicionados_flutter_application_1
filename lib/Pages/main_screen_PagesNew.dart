@@ -77,3 +77,7 @@ class _MainScreenState2 extends State<MainScreen2> {
     );
   }
 }
+
+// badge -> criar uma notificação na navbar
+// add um container escolher um shappe
+// ver d eonde puxaer as notificações
