@@ -1,5 +1,7 @@
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/login_page.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/main_screen_PagesNew.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/model/usuario.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/service/firebase_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -14,6 +16,49 @@ class _RegisterPageState extends State<RegisterPage> {
   // Variável para controlar a visibilidade da senha
   final bool _isPasswordVisible = false;
   bool isCheckd = false;
+
+  TextEditingController nomeController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController senhaController = TextEditingController();
+  TextEditingController confirmacaoController = TextEditingController();
+
+  final FirebaseService _firebaseService = FirebaseService(
+    collectionName: "usuarios",
+  );
+
+  Future<void> salvarUsuario() async {
+    Usuario usuario = Usuario(
+      id: "",
+      nome: nomeController.text,
+      email: emailController.text,
+      senha: senhaController.text,
+    );
+
+    try {
+      String idUser = await _firebaseService.create(usuario.toMap());
+      print("usuario salvo");
+      if (idUser.isNotEmpty) {
+        print("usuario não existe");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.green,
+            content: Column(
+              children: [
+                Text(
+                  "Sucesso $idUser",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text("Usuário cadastrado com sucesso"),
+              ],
+            ),
+          ),
+        );
+      }
+    } catch (erro) {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +79,7 @@ class _RegisterPageState extends State<RegisterPage> {
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: TextField(
+              controller: nomeController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 labelText: 'Nome',
@@ -55,7 +101,7 @@ class _RegisterPageState extends State<RegisterPage> {
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: TextField(
-              obscureText: true,
+              controller: emailController,
               decoration: InputDecoration(
                 labelText: 'Endereço de Email',
                 border: OutlineInputBorder(
@@ -75,6 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: TextField(
+              controller: senhaController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 labelText: 'Senha',
@@ -96,6 +143,7 @@ class _RegisterPageState extends State<RegisterPage> {
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: TextField(
+              controller: confirmacaoController,
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Senha',
@@ -120,7 +168,9 @@ class _RegisterPageState extends State<RegisterPage> {
               title: Text("Aceito os termos"),
               value: isCheckd,
               onChanged: (bool? value) {
-                isCheckd = true;
+                setState(() {
+                  isCheckd = value!;
+                });
               },
             ),
           ),
@@ -133,19 +183,16 @@ class _RegisterPageState extends State<RegisterPage> {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color.fromARGB(255, 14, 2, 82),
-                // backgroundColor: primaryColor,
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
                 ),
               ),
-              onPressed: () {
-                // Navega para a tela principal e remove a tela de login da pilha
-                Navigator.of(context).pushReplacement(
-                  // MaterialPageRoute(builder: (context) => const MainScreen()),
-                  MaterialPageRoute(builder: (context) => const MainScreen2()),
-                );
-              },
+              onPressed: isCheckd
+                  ? () {
+                      salvarUsuario();
+                    }
+                  : null,
               child: const Text(
                 'REGISTRAR',
                 style: TextStyle(
@@ -156,6 +203,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.only(left: 10),
             child: Align(
@@ -169,8 +217,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   );
                 },
                 child: const Text(
-                  'Registre-se agora',
-
+                  'Já tem uma conta? Entrar',
                   style: TextStyle(color: Color.fromARGB(255, 6, 0, 90)),
                 ),
               ),
@@ -184,7 +231,7 @@ class _RegisterPageState extends State<RegisterPage> {
               alignment: Alignment.center,
               child: TextButton(
                 onPressed: () {
-                  // Ação para "Esqueceu a senha?"
+                  // Ação para "Esqueceu a senha
                 },
                 child: const Text(
                   'Ou continue com',
