@@ -12,15 +12,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController senhaController = TextEditingController();
-
-  bool _isPasswordVisible = false;
-
   // CORREÇÃO: Adicionados controllers para gerenciar o texto dos campos.
   // Isso é essencial para ler os valores de email e senha.
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  bool _isPasswordVisible = false;
 
   // CORREÇÃO: Liberar os controllers da memória quando a tela for destruída.
   @override
@@ -99,41 +96,47 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
+            const SizedBox(height: 8.0),
 
             // --- ESQUECEU A SENHA ---
+            // (Você pode adicionar um TextButton aqui se precisar)
+
             // --- BOTÃO LOGIN ---
-            SizedBox(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.blue, // cor de fundo azul
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 12,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                          8,
-                        ), // cantos arredondados
-                      ),
+            // CORREÇÃO: Ajustada a estrutura para o botão expandir
+            Padding(
+              // 1. Usamos o mesmo padding dos campos de texto
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: SizedBox(
+                // 2. Forçamos o SizedBox a ocupar toda a largura disponível
+                width: double.infinity,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(
+                      255,
+                      14,
+                      2,
+                      82,
+                    ), // cor de fundo azul
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        12.0,
+                      ), // cantos arredondados
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const MainScreen2(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'LOGIN',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white, // texto branco pra contrastar
-                        fontWeight: FontWeight.bold,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const MainScreen2(),
                       ),
+                    );
+                  },
+                  child: const Text(
+                    'LOGIN',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white, // texto branco pra contrastar
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),

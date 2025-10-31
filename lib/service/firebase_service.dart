@@ -53,7 +53,7 @@ class FirebaseService {
     try {
       await _firestore.collection(collectionName).doc(id).update(dados);
     } catch (erro) {
-      throw Exception("ero ao atualizar dados: $erro");
+      throw Exception("erro ao atualizar dados: $erro");
     }
   }
 }
