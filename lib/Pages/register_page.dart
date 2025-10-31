@@ -1,5 +1,6 @@
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/home_page.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/login_page.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/main_screen_PagesNew.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/model/usuario.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/service/firebase_service.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
       String idUser = await _firebaseService.create(usuario.toMap());
       Navigator.of(context).pushReplacement(
         // MaterialPageRoute(builder: (context) => const MainScreen()),
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(builder: (context) => const MainScreen2()),
       );
       if (idUser.isNotEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
