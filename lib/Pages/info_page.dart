@@ -45,13 +45,9 @@ class InfoPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-<<<<<<< HEAD
-        backgroundColor: const Color.fromARGB(255, 14, 2, 82),
-=======
-        title: const Text('Informações'),
+        title: Text("Informações"),
         backgroundColor: const Color(0xFF0C1D34),
         foregroundColor: Colors.white,
->>>>>>> origin/minoru
         elevation: 1,
       ),
       body: ListView(
@@ -59,18 +55,6 @@ class InfoPage extends StatelessWidget {
           16.0,
         ).copyWith(bottom: 80), // Espaço extra no final para o FAB não cobrir
         children: [
-          Center(
-            child: SizedBox(
-              child: Text(
-                "Duvidas",
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 14, 2, 82),
-                ),
-              ),
-            ),
-          ),
           SizedBox(height: 30),
           TextField(
             onSubmitted: (value) {
@@ -99,7 +83,6 @@ class InfoPage extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: const BorderRadius.only(
-<<<<<<< HEAD
                    topLeft: Radius.circular(12),
                    topRight: Radius.circular(12),
                    ),
@@ -109,17 +92,6 @@ class InfoPage extends StatelessWidget {
                     height: 200,
                     fit: BoxFit.cover
                   ),
-=======
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
-                  ),
-                  child: Image.asset(
-                    'assets/img/Atalaiabanner.png',
-                    width: 410,
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ),
->>>>>>> origin/minoru
                 ),
                 const Padding(
                   padding: EdgeInsets.all(16.0),
@@ -151,17 +123,10 @@ class InfoPage extends StatelessWidget {
                 ClipRRect(
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(12),
-<<<<<<< HEAD
                     topRight: Radius.circular(12)
                   ),
                   child: Image.asset(
                     'assets/img/economizar.png',
-=======
-                    topRight: Radius.circular(12),
-                  ),
-                  child: Image.asset(
-                    'assets/img/Atalaiabanner.png',
->>>>>>> origin/minoru
                     width: 410,
                     height: 200,
                     fit: BoxFit.cover,
@@ -200,17 +165,10 @@ class InfoPage extends StatelessWidget {
                 ClipRRect(
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(12),
-<<<<<<< HEAD
                     topRight: Radius.circular(12)
                   ),
                   child: Image.asset(
                     'assets/img/manutencao.png',
-=======
-                    topRight: Radius.circular(12),
-                  ),
-                  child: Image.asset(
-                    'assets/img/Atalaiabanner.png',
->>>>>>> origin/minoru
                     width: 410,
                     height: 200,
                     fit: BoxFit.cover,
@@ -220,10 +178,6 @@ class InfoPage extends StatelessWidget {
                   padding: EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/minoru
                     children: [
                       Text(
                         "Sinais de que seu ar precisa de manutenção",

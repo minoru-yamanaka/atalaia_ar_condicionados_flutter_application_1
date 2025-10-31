@@ -18,48 +18,15 @@ class _RegisterPageState extends State<RegisterPage> {
   final bool _isPasswordVisible = false;
   bool isCheckd = false;
 
-<<<<<<< HEAD
-  
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadiusGeometry.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
-            child: Image.asset('assets/img/Atalaiabanner.png'),
-          ),
-=======
   TextEditingController nomeController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController senhaController = TextEditingController();
   TextEditingController confirmacaoController = TextEditingController();
->>>>>>> origin/minoru
 
   final FirebaseService _firebaseService = FirebaseService(
     collectionName: "usuarios",
   );
 
-<<<<<<< HEAD
-          // --- CAMPO DE EMAIL ---
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: TextField(
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                labelText: 'Email -> Page de registro ',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                  borderSide: const BorderSide(
-                    color: Color.fromARGB(255, 55, 0, 255),
-
-=======
   Future<void> salvarUsuario() async {
     Usuario usuario = Usuario(
       id: "",
@@ -85,7 +52,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
->>>>>>> origin/minoru
                   ),
                 ),
                 Text("Usuário cadastrado com sucesso"),

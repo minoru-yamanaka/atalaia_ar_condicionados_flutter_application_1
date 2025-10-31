@@ -12,8 +12,7 @@ class ChatMessage {
 
 // O Widget do Chatbot
 class ChatbotWidget extends StatefulWidget {
-  final String? text;
-  const ChatbotWidget({super.key, this.text, required String text});
+  const ChatbotWidget({super.key, required String text});
 
   @override
   State<ChatbotWidget> createState() => _ChatbotWidgetState();
@@ -31,7 +30,7 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
   bool _isLoading = false;
 
   final Map<String, String> _respostasPredefinidas = {
-    "ola":
+    "Olá":
         "Olá! Sou o assistente virtual da Atalaia Ar Condicionados. Como posso ajudar?",
     "oi":
         "Olá! Sou o assistente virtual da Atalaia Ar Condicionados. Como posso ajudar?",
@@ -119,7 +118,7 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
   }
 
   void _handleSendMessageText() async {
-    final text = widget.text!.trim();
+    final text = _controller.text.trim();
     if (text.isEmpty || _isLoading) return;
 
     _controller.clear();
@@ -310,7 +309,6 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: message.isUserMessage
-              ? Color(0xFF343B6C)
               // ? Colors.blue.shade600
               // : Colors.grey.shade200,
               ? const Color(0xFF0C1D34)
@@ -358,7 +356,6 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
           ),
           const SizedBox(width: 8),
           IconButton(
-            icon: const Icon(Icons.send, color: Color(0xFF343B6C)),
             // icon: const Icon(Icons.send, color: Colors.blue),
             icon: const Icon(Icons.send, color: Color(0xFF0C1D34)),
             onPressed: _handleSendMessage,

@@ -226,6 +226,7 @@ class _AgendaPageState extends State<AgendaPage> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
+                          color: Color(0xFF343B6C),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -233,7 +234,9 @@ class _AgendaPageState extends State<AgendaPage> {
                         controller: _nameController,
                         decoration: const InputDecoration(
                           labelText: 'Nome do Cliente',
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                           borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
                         ),
                         validator: (value) => value == null || value.isEmpty
                             ? 'Campo obrigatório'
@@ -244,8 +247,10 @@ class _AgendaPageState extends State<AgendaPage> {
                         controller: _dateController,
                         decoration: const InputDecoration(
                           labelText: 'Data Desejada',
-                          border: OutlineInputBorder(),
-                          prefixIcon: Icon(Icons.calendar_today),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          prefixIcon: Icon(Icons.calendar_today), 
                         ),
                         readOnly: true,
                         onTap: _pickDate,
@@ -258,7 +263,9 @@ class _AgendaPageState extends State<AgendaPage> {
                         initialValue: _selectedService,
                         decoration: const InputDecoration(
                           labelText: 'Serviço',
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
                         ),
                         items:
                             [
@@ -287,7 +294,9 @@ class _AgendaPageState extends State<AgendaPage> {
                         controller: _notesController,
                         decoration: const InputDecoration(
                           labelText: 'Notas / Detalhes (opcional)',
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
                         ),
                         maxLines: 3, // Permite múltiplas linhas de texto
                       ),
@@ -300,6 +309,8 @@ class _AgendaPageState extends State<AgendaPage> {
                           label: const Text('Agendar via WhatsApp'),
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 12),
+                            iconColor: Color(0xFF343B6C),
+                            shadowColor: Color(0xFF343B6C),
                           ),
                         ),
                       ),
@@ -322,7 +333,9 @@ class _AgendaPageState extends State<AgendaPage> {
               decoration: const InputDecoration(
                 labelText: 'Buscar por nome, serviço, data ou nota',
                 prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
               ),
             ),
             const SizedBox(height: 12),
