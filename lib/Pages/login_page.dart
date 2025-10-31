@@ -1,6 +1,7 @@
 //import 'package:atalaia_ar_condicionados_flutter_application/Pages/main_screen_PagesNew.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/main_screen_PagesNew.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/register_page.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/service/firebase_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -14,17 +15,68 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   // CORREÇÃO: Adicionados controllers para gerenciar o texto dos campos.
   // Isso é essencial para ler os valores de email e senha.
+
+  final FirebaseService _firebaseService = FirebaseService(
+    collectionName: "usuarios",
+  );
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   bool _isPasswordVisible = false;
 
-  // CORREÇÃO: Liberar os controllers da memória quando a tela for destruída.
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
+  realizarLogin() async {
+    final email = _emailController.text.trim();
+    final senha = _passwordController.text.trim();
+
+    if (email.isEmpty || senha.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Preencha todos os campos')));
+      return;
+    }
+
+    try {
+      final usuario = await _firebaseService.getByEmail(email);
+
+      if (usuario == null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Conta não encontrado')));
+        return;
+      }
+
+      if (usuario['senha'] == senha) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const MainScreen2()),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.green,
+            content: Column(
+              children: [
+                Text(
+                  "Sucesso",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text("Usuário Logado com sucesso"),
+              ],
+            ),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Senha incorreta')));
+      }
+    } catch (erro) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Erro ao fazer login: $erro')));
+    }
   }
 
   @override
@@ -125,11 +177,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const MainScreen2(),
-                      ),
-                    );
+                    realizarLogin();
                   },
                   child: const Text(
                     'LOGIN',

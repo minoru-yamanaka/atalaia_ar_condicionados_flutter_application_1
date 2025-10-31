@@ -18,6 +18,26 @@ class FirebaseService {
     }
   }
 
+  Future<Map<String, dynamic>?> getByEmail(String email) async {
+  try {
+    final query = await _firestore
+        .collection(collectionName)
+        .where('email', isEqualTo: email)
+        .limit(1)
+        .get();
+
+    if (query.docs.isNotEmpty) {
+      final doc = query.docs.first;
+      return {"id": doc.id, ...doc.data()};
+    } else {
+      return null;
+    }
+  } catch (erro) {
+    throw Exception("erro ao buscar por email: $erro");
+  }
+}
+
+
   Future<List<Map<String, dynamic>>> readAll() async {
     try {
       final query = await _firestore.collection(collectionName).get();
