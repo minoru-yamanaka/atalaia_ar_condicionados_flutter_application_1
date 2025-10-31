@@ -1,6 +1,5 @@
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/home_page.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/login_page.dart';
-import 'package:atalaia_ar_condicionados_flutter_application/Pages/main_screen_PagesNew.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/model/usuario.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/service/firebase_service.dart';
 import 'package:flutter/material.dart';
