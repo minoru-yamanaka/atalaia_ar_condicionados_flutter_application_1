@@ -33,63 +33,13 @@ class HomePage extends StatelessWidget {
                 const SizedBox(height: 16),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
+                  // Mantenha sua imagem de destaque ou substitua
                   child: Image.asset('assets/img/Atalaiabanner.png'),
                 ),
               ],
             ),
           ),
 
-          // --- SEÇÃO CARROSSEL ---
-          const Padding(
-            padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
-            child: Text(
-              'Produtos em Destaque',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-          ),
-          const SizedBox(height: 16),
-          SizedBox(
-            // CORREÇÃO: Altura aumentada para 375 para caber o card
-            // (150 img + ~125 texto/padding + 16 margem = ~291.
-            // 375 é mais que suficiente. Ajuste se precisar.)
-            height: 300,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              // Padding aqui coloca espaço antes do primeiro card e depois do último
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              children: [
-                // Os cards no carrossel precisam de uma largura definida
-                SizedBox(
-                  width: 250, // Largura de cada card no carrossel
-                  child: ProductMiniCard(
-                    imagePath: 'assets/img/Atalaiabanner.png',
-                    title: 'Split Hi-Wall 9.000 BTUs',
-                    description:
-                        'Ideal para quartos e escritórios de até 15m².',
-                  ),
-                ),
-                SizedBox(
-                  width: 250,
-                  child: ProductMiniCard(
-                    imagePath: 'assets/img/Atalaiabanner.png',
-                    title: 'Multi-Split 18.000 BTUs',
-                    description:
-                        'Climatize dois ambientes com uma só unidade externa.',
-                  ),
-                ),
-                SizedBox(
-                  width: 250,
-                  child: ProductMiniCard(
-                    imagePath: 'assets/img/Atalaiabanner.png',
-                    title: 'Piso-Teto 36.000 BTUs',
-                    description: 'Alta potência para lojas e grandes salões.',
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // --- FIM DA SEÇÃO CARROSSEL ---
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Divider(),
@@ -99,22 +49,22 @@ class HomePage extends StatelessWidget {
               16.0,
               16.0,
               16.0,
-              0, // Padding bottom agora é controlado pela margem do card
-            ),
+              0,
+            ), // Ajustado padding
             child: Text(
               'Nossos Serviços Disponíveis',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
           ),
 
-          // --- LISTA DE SERVIÇOS (VERTICAL) ---
-          // Não precisam de SizedBox, pois o Card agora tem margem
+          // --- INÍCIO DA LISTA DE SERVIÇOS ATUALIZADA ---
           ProductCard(
+            // ATENÇÃO: Verifique se o caminho da imagem está correto
             imagePath: 'assets/img/Atalaiabanner.png',
             title: 'Higienização Completa',
             description:
                 'Elimine ácaros, fungos e bactérias, garantindo um ar mais puro e a saúde da sua família.',
-            price: 'Consulte',
+            price: 'Consulte', // Preço flexível para serviços
           ),
           ProductCard(
             imagePath: 'assets/img/Atalaiabanner.png',
@@ -144,9 +94,8 @@ class HomePage extends StatelessWidget {
                 'Tem uma necessidade específica? Entre em contato e encontraremos a solução ideal para seu projeto de climatização.',
             price: 'Consulte',
           ),
-          // O último card já tem margem, mas um SizedBox
-          // extra garante espaço no fim da rolagem
-          const SizedBox(height: 20),
+          const SizedBox(height: 20), // Um espaço no final da lista
+          // --- FIM DA LISTA DE SERVIÇOS ---
         ],
       ),
     );
