@@ -1,5 +1,5 @@
 // Navegue no seu projeto até a seguinte pasta e abra o arquivo:
-// android/app/src/main/AndroidManifest.xml e add: 
+// android/app/src/main/AndroidManifest.xml e add:
 // <queries>
 //         <intent>
 //             <action android:name="android.intent.action.VIEW" />
@@ -10,7 +10,7 @@
 //             <data android:scheme="whatsapp" />
 //         </intent>
 //     </queries>
-//  e Confirme que a linha url_launcher: ^6.2.6 (ou uma versão mais nova) 
+//  e Confirme que a linha url_launcher: ^6.2.6 (ou uma versão mais nova)
 //  está no seu pubspec.yaml e que você rodou flutter pub get.
 
 import 'package:flutter/material.dart';
@@ -32,16 +32,17 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
 
   String _recebeSol = 'nao';
   String _resultado = 'Preencha os campos para calcular.';
-  
+
   bool _isResultAvailable = false;
 
   void _launchWhatsAppWithBTUs(BuildContext context, String btuResult) async {
     // IMPORTANTE: Substitua pelo número de telefone da sua empresa
-    final String phoneNumber = '5511959473402'; 
-    final String message = 'Olá! A calculadora de BTUs do app indicou um resultado de *$btuResult*. Gostaria de um orçamento.';
-    
+    final String phoneNumber = '5511959473402';
+    final String message =
+        'Olá! A calculadora de BTUs do app indicou um resultado de *$btuResult*. Gostaria de um orçamento.';
+
     final Uri whatsappUri = Uri.parse(
-      'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}'
+      'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}',
     );
 
     if (await canLaunchUrl(whatsappUri)) {
@@ -87,7 +88,12 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Calculadora de BTUs')),
+      appBar: AppBar(
+        title: const Text('Calculadora de BTUs'),
+        backgroundColor: const Color(0xFF0C1D34),
+        foregroundColor: Colors.white,
+        elevation: 1,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -141,12 +147,20 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
                 border: OutlineInputBorder(),
               ),
               items: const [
-                DropdownMenuItem(value: 'nao', child: Text('Não (sol da manhã)')),
-                DropdownMenuItem(value: 'sim', child: Text('Sim (sol da tarde)')),
+                DropdownMenuItem(
+                  value: 'nao',
+                  child: Text('Não (sol da manhã)'),
+                ),
+                DropdownMenuItem(
+                  value: 'sim',
+                  child: Text('Sim (sol da tarde)'),
+                ),
               ],
               onChanged: (value) {
                 if (value != null) {
-                  setState(() { _recebeSol = value; });
+                  setState(() {
+                    _recebeSol = value;
+                  });
                 }
               },
             ),
@@ -220,4 +234,3 @@ class _CalculadoraPageState extends State<CalculadoraPage> {
     );
   }
 }
-

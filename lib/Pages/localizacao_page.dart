@@ -48,7 +48,8 @@ class LocalizacaoPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Localização e Contato'),
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFF0C1D34),
+        foregroundColor: Colors.white,
         elevation: 1,
       ),
       body: SingleChildScrollView(
@@ -112,28 +113,28 @@ class LocalizacaoPage extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
-              // Seção 3: Mapa
-              AspectRatio(
-                aspectRatio: 16 / 9,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.grey.shade300,
-                    image: const DecorationImage(
-                      image: AssetImage('assets/img/mapa-placeholder.png'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: Center(
-                    child: ElevatedButton.icon(
-                      icon: const Icon(Icons.map),
-                      label: const Text('Abrir no Mapa'),
-                      onPressed: () =>
-                          _launchMaps(context), // MODIFICADO: Passa o context
-                    ),
-                  ),
-                ),
-              ),
+              // // Seção 3: Mapa
+              // AspectRatio(
+              //   aspectRatio: 16 / 9,
+              //   child: Container(
+              //     decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(12),
+              //       color: Colors.grey.shade300,
+              //       image: const DecorationImage(
+              //         image: AssetImage('assets/img/mapa-placeholder.png'),
+              //         fit: BoxFit.cover,
+              //       ),
+              //     ),
+              //     child: Center(
+              //       child: ElevatedButton.icon(
+              //         icon: const Icon(Icons.map),
+              //         label: const Text('Abrir no Mapa'),
+              //         onPressed: () =>
+              //             _launchMaps(context), // MODIFICADO: Passa o context
+              //       ),
+              //     ),
+              //   ),
+              // ),
               const SizedBox(height: 32),
 
               // Seção 4: Logout (MODIFICADO para consistência de cor)
