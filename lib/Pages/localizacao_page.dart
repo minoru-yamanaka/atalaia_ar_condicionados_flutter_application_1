@@ -117,30 +117,6 @@ class LocalizacaoPage extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
-              // // Seção 3: Mapa
-              // AspectRatio(
-              //   aspectRatio: 16 / 9,
-              //   child: Container(
-              //     decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(12),
-              //       color: Colors.grey.shade300,
-              //       image: const DecorationImage(
-              //         image: AssetImage('assets/img/mapa-placeholder.png'),
-              //         fit: BoxFit.cover,
-              //       ),
-              //     ),
-              //     child: Center(
-              //       child: ElevatedButton.icon(
-              //         icon: const Icon(Icons.map),
-              //         label: const Text('Abrir no Mapa'),
-              //         onPressed: () =>
-              //             _launchMaps(context), // MODIFICADO: Passa o context
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              const SizedBox(height: 32),
-
               // Seção 4: Logout (MODIFICADO para consistência de cor)
               Card(
                 elevation: 2,
@@ -186,6 +162,41 @@ class LocalizacaoPage extends StatelessWidget {
                             fontSize: 14,
                           ),
                         ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              // Seção 4: Logout (MODIFICADO para consistência de cor)
+              Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 12.0,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.logout,
+                            color: AppColors.primaryColor,
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            "Encerrar Sessão",
+                            style: AppTextStyle.subtitlePages.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
