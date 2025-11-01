@@ -74,15 +74,19 @@ class LocalizacaoPage extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    const ListTile(
-                      leading: Icon(
+                    ListTile(
+                      leading: const Icon(
                         Icons.location_city,
-                        color: AppColors.primaryColor,
-                      ), // MODIFICADO: Cor
-                      title: Text('Endereço'),
-                      subtitle: Text(
+                        // color: AppColors.primaryColor, // Certifique-se que AppColors está definido
+                      ),
+                      title: const Text('Endereço'),
+                      subtitle: const Text(
                         'Rua das Soluções, 123 - Bairro Central, Sua Cidade - SP',
                       ),
+                      onTap: () => _launchMaps(
+                        context,
+                      ), // MODIFICADO: Ação de clique para abrir mapas
+                      trailing: const Icon(Icons.arrow_forward_ios, size: 14),
                     ),
                     const Divider(indent: 16, endIndent: 16),
                     ListTile(
