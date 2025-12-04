@@ -1,3 +1,4 @@
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -158,7 +159,7 @@ class _AgendaPageState extends State<AgendaPage> {
         customerName: name,
         service: service,
         date: DateFormat('dd/MM/yyyy').parse(date),
-        notes: notes, // NOVO: Passa as notas para o objeto
+        notes: notes,
       );
 
       setState(() {
@@ -167,6 +168,22 @@ class _AgendaPageState extends State<AgendaPage> {
         _filterAppointments();
       });
       await _saveAppointments();
+
+      // ✅ Notificação automática no dia do agendamento às 10h
+      final DateTime notificationTime = DateTime(
+        newAppointment.date.year,
+        newAppointment.date.month,
+        newAppointment.date.day,
+        10, // hora do alarme
+        0, // minuto
+      );
+
+      await NotificationService.scheduleNotification(
+        title: 'Lembrete de Agendamento',
+        body:
+            'Hoje é o dia do serviço de ${newAppointment.service} para ${newAppointment.customerName}.',
+        scheduledTime: notificationTime,
+      );
 
       // MODIFICADO: Mensagem do WhatsApp agora inclui as notas se houver
       String message =
@@ -235,7 +252,7 @@ class _AgendaPageState extends State<AgendaPage> {
                         decoration: const InputDecoration(
                           labelText: 'Nome do Cliente',
                           border: OutlineInputBorder(
-                           borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                         ),
                         validator: (value) => value == null || value.isEmpty
@@ -250,7 +267,7 @@ class _AgendaPageState extends State<AgendaPage> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
-                          prefixIcon: Icon(Icons.calendar_today), 
+                          prefixIcon: Icon(Icons.calendar_today),
                         ),
                         readOnly: true,
                         onTap: _pickDate,
