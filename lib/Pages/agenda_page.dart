@@ -1,47 +1,47 @@
-import 'package:atalaia_ar_condicionados_flutter_application/Pages/notification_service.dart';
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/notification_service.dart'; // Certifique-se que o caminho está certo
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:convert';
 
-// 1. MODELO DE DADOS ATUALIZADO
+
+// Removi o import do agenda2_.dart pois parecia duplicado ou incorreto, mas se precisar, adicione o ';' no final.
+
+// 1. MODELO DE DADOS
 class Appointment {
   final String id;
   final String customerName;
   final String service;
   final DateTime date;
-  final String notes; // NOVO: Campo para as notas
+  final String notes;
 
   Appointment({
     required this.id,
     required this.customerName,
     required this.service,
     required this.date,
-    required this.notes, // NOVO
+    required this.notes,
   });
 
-  // MODIFICADO: Métodos toJson e fromJson para incluir as notas
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'customerName': customerName,
-    'service': service,
-    'date': date.toIso8601String(),
-    'notes': notes, // NOVO
-  };
+        'id': id,
+        'customerName': customerName,
+        'service': service,
+        'date': date.toIso8601String(),
+        'notes': notes,
+      };
 
   factory Appointment.fromJson(Map<String, dynamic> json) => Appointment(
-    id: json['id'],
-    customerName: json['customerName'],
-    service: json['service'],
-    date: DateTime.parse(json['date']),
-    notes:
-        json['notes'] ??
-        '', // NOVO: Usa ?? '' para compatibilidade com agendamentos antigos
-  );
+        id: json['id'],
+        customerName: json['customerName'],
+        service: json['service'],
+        date: DateTime.parse(json['date']),
+        notes: json['notes'] ?? '',
+      );
 }
 
-// 2. A PÁGINA EM SI (STATEFULWIDGET)
+// 2. A PÁGINA EM SI
 class AgendaPage extends StatefulWidget {
   const AgendaPage({super.key});
 
@@ -51,11 +51,9 @@ class AgendaPage extends StatefulWidget {
 
 class _AgendaPageState extends State<AgendaPage> {
   final _formKey = GlobalKey<FormState>();
-  // Controladores para os campos do formulário
   final _nameController = TextEditingController();
   final _dateController = TextEditingController();
-  final _notesController =
-      TextEditingController(); // NOVO: Controlador para as notas
+  final _notesController = TextEditingController();
   final _searchController = TextEditingController();
   String _selectedService = 'Higienização';
 
@@ -65,7 +63,11 @@ class _AgendaPageState extends State<AgendaPage> {
   @override
   void initState() {
     super.initState();
-    _loadAppointments();
+    // CORREÇÃO: Inicializa as notificações
+    NotificationService.init(); 
+    // CORREÇÃO: Carrega os dados sem validar formulário
+    _loadAppointments(); 
+    
     _searchController.addListener(() {
       _filterAppointments();
     });
@@ -74,9 +76,12 @@ class _AgendaPageState extends State<AgendaPage> {
   // --- LÓGICA DE DADOS ---
 
   Future<void> _loadAppointments() async {
+    // CORREÇÃO: Removido o "if (_formKey.currentState!.validate())".
+    // Não podemos validar formulário vazio ao iniciar o app, apenas carregamos os dados.
     final prefs = await SharedPreferences.getInstance();
     final List<String> appointmentsJson =
         prefs.getStringList('appointments') ?? [];
+    
     setState(() {
       _allAppointments = appointmentsJson
           .map((json) => Appointment.fromJson(jsonDecode(json)))
@@ -94,23 +99,17 @@ class _AgendaPageState extends State<AgendaPage> {
     await prefs.setStringList('appointments', appointmentsJson);
   }
 
-  // MODIFICADO: Busca agora inclui as notas
   void _filterAppointments() {
     final query = _searchController.text.toLowerCase();
     setState(() {
       _filteredAppointments = _allAppointments.where((appointment) {
-        final nameMatches = appointment.customerName.toLowerCase().contains(
-          query,
-        );
-        final serviceMatches = appointment.service.toLowerCase().contains(
-          query,
-        );
-        final dateMatches = DateFormat(
-          'dd/MM/yyyy',
-        ).format(appointment.date).contains(query);
-        final notesMatches = appointment.notes.toLowerCase().contains(
-          query,
-        ); // NOVO
+        final nameMatches =
+            appointment.customerName.toLowerCase().contains(query);
+        final serviceMatches =
+            appointment.service.toLowerCase().contains(query);
+        final dateMatches =
+            DateFormat('dd/MM/yyyy').format(appointment.date).contains(query);
+        final notesMatches = appointment.notes.toLowerCase().contains(query);
         return nameMatches || serviceMatches || dateMatches || notesMatches;
       }).toList();
     });
@@ -122,12 +121,14 @@ class _AgendaPageState extends State<AgendaPage> {
       _filterAppointments();
     });
     await _saveAppointments();
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Agendamento removido!'),
-        backgroundColor: Colors.red,
-      ),
-    );
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Agendamento removido!'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   // --- LÓGICA DE INTERAÇÃO ---
@@ -146,19 +147,20 @@ class _AgendaPageState extends State<AgendaPage> {
     }
   }
 
-  // MODIFICADO: Função de envio para incluir as notas
   Future<void> _sendToWhatsApp() async {
     if (_formKey.currentState!.validate()) {
       final name = _nameController.text;
       final service = _selectedService;
       final date = _dateController.text;
-      final notes = _notesController.text; // NOVO: Captura o valor das notas
+      final notes = _notesController.text;
+
+      final parsedDate = DateFormat('dd/MM/yyyy').parse(date);
 
       final newAppointment = Appointment(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         customerName: name,
         service: service,
-        date: DateFormat('dd/MM/yyyy').parse(date),
+        date: parsedDate,
         notes: notes,
       );
 
@@ -169,23 +171,24 @@ class _AgendaPageState extends State<AgendaPage> {
       });
       await _saveAppointments();
 
-      // ✅ Notificação automática no dia do agendamento às 10h
-      final DateTime notificationTime = DateTime(
-        newAppointment.date.year,
-        newAppointment.date.month,
-        newAppointment.date.day,
-        10, // hora do alarme
-        0, // minuto
+      // CORREÇÃO: Lógica para "agendar o dia e depois de um mês notificar"
+      final DateTime notificationDate = DateTime(
+        parsedDate.year,
+        parsedDate.month + 1, // Soma 1 mês à data do agendamento
+        parsedDate.day,
+        10, // Define horário para 10:00 AM
+        0,
       );
 
-      await NotificationService.scheduleNotification(
-        title: 'Lembrete de Agendamento',
-        body:
-            'Hoje é o dia do serviço de ${newAppointment.service} para ${newAppointment.customerName}.',
-        scheduledTime: notificationTime,
-      );
+      // Verificação de segurança: só agenda se a data futura ainda não passou
+      if (notificationDate.isAfter(DateTime.now())) {
+        await NotificationService.scheduleNotification(
+          title: 'Hora da Manutenção!',
+          body: 'Já faz 1 mês do serviço de $service para o cliente $name.',
+          scheduledTime: notificationDate,
+        );
+      }
 
-      // MODIFICADO: Mensagem do WhatsApp agora inclui as notas se houver
       String message =
           'Olá! Gostaria de solicitar um agendamento:\n\n'
           '*Cliente:* $name\n'
@@ -196,7 +199,7 @@ class _AgendaPageState extends State<AgendaPage> {
         message += '\n*Observações:* $notes';
       }
 
-      final phoneNumber = '5511959473402'; // SUBSTITUA PELO SEU NÚMERO
+      final phoneNumber = '5511959473402'; 
       final Uri whatsappUri = Uri.parse(
         'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}',
       );
@@ -205,11 +208,13 @@ class _AgendaPageState extends State<AgendaPage> {
         await launchUrl(whatsappUri);
         _nameController.clear();
         _dateController.clear();
-        _notesController.clear(); // NOVO: Limpa o campo de notas
+        _notesController.clear();
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Não foi possível abrir o WhatsApp.')),
-        );
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Não foi possível abrir o WhatsApp.')),
+          );
+        }
       }
     }
   }
@@ -228,7 +233,7 @@ class _AgendaPageState extends State<AgendaPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // --- 3. FORMULÁRIO DE AGENDAMENTO ATUALIZADO ---
+            // --- FORMULÁRIO ---
             Card(
               elevation: 4,
               child: Padding(
@@ -277,28 +282,23 @@ class _AgendaPageState extends State<AgendaPage> {
                       ),
                       const SizedBox(height: 12),
                       DropdownButtonFormField<String>(
-                        initialValue: _selectedService,
+                        value: _selectedService,
                         decoration: const InputDecoration(
                           labelText: 'Serviço',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                         ),
-                        items:
-                            [
-                                  'Higienização',
-                                  'Manutenção',
-                                  'Instalação',
-                                  'Infraestrutura',
-                                  'Outros',
-                                ]
-                                .map(
-                                  (label) => DropdownMenuItem(
-                                    value: label,
-                                    child: Text(label),
-                                  ),
-                                )
-                                .toList(),
+                        items: [
+                          'Higienização',
+                          'Manutenção',
+                          'Instalação',
+                          'Infraestrutura',
+                          'Outros',
+                        ].map((label) => DropdownMenuItem(
+                              value: label,
+                              child: Text(label),
+                            )).toList(),
                         onChanged: (value) {
                           if (value != null) {
                             setState(() => _selectedService = value);
@@ -306,7 +306,6 @@ class _AgendaPageState extends State<AgendaPage> {
                         },
                       ),
                       const SizedBox(height: 12),
-                      // NOVO: Campo de texto para as notas
                       TextFormField(
                         controller: _notesController,
                         decoration: const InputDecoration(
@@ -315,7 +314,7 @@ class _AgendaPageState extends State<AgendaPage> {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                         ),
-                        maxLines: 3, // Permite múltiplas linhas de texto
+                        maxLines: 3,
                       ),
                       const SizedBox(height: 20),
                       SizedBox(
@@ -326,8 +325,9 @@ class _AgendaPageState extends State<AgendaPage> {
                           label: const Text('Agendar via WhatsApp'),
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 12),
-                            iconColor: Color(0xFF343B6C),
-                            shadowColor: Color(0xFF343B6C),
+                            backgroundColor: Colors.white,
+                            foregroundColor: const Color(0xFF343B6C),
+                            shadowColor: const Color(0xFF343B6C),
                           ),
                         ),
                       ),
@@ -336,10 +336,9 @@ class _AgendaPageState extends State<AgendaPage> {
                 ),
               ),
             ),
-
             const SizedBox(height: 24),
 
-            // --- 4. HISTÓRICO E BUSCA ATUALIZADOS ---
+            // --- HISTÓRICO ---
             const Text(
               'Histórico de Agendamentos',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -369,7 +368,6 @@ class _AgendaPageState extends State<AgendaPage> {
                     itemCount: _filteredAppointments.length,
                     itemBuilder: (context, index) {
                       final appointment = _filteredAppointments[index];
-                      // MODIFICADO: Exibe a nota no subtítulo se ela existir
                       String subtitleText =
                           '${appointment.service} - ${DateFormat('dd/MM/yyyy').format(appointment.date)}';
                       if (appointment.notes.isNotEmpty) {
@@ -388,7 +386,8 @@ class _AgendaPageState extends State<AgendaPage> {
                               Icons.delete_outline,
                               color: Colors.red,
                             ),
-                            onPressed: () => _deleteAppointment(appointment.id),
+                            onPressed: () =>
+                                _deleteAppointment(appointment.id),
                             tooltip: 'Remover agendamento',
                           ),
                         ),

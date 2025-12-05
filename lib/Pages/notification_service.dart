@@ -1,4 +1,4 @@
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart'; // <--- ESSA LINHA É OBRIGATÓRIA
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -6,16 +6,16 @@ class NotificationService {
   static final FlutterLocalNotificationsPlugin _notificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  static Future<void> initialize() async {
+  static Future<void> init() async {
     tz.initializeTimeZones();
-
-    const AndroidInitializationSettings androidInitSettings =
+    const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    const InitializationSettings initSettings =
-        InitializationSettings(android: androidInitSettings);
+    const InitializationSettings initializationSettings = InitializationSettings(
+      android: initializationSettingsAndroid,
+    );
 
-    await _notificationsPlugin.initialize(initSettings);
+    await _notificationsPlugin.initialize(initializationSettings);
   }
 
   static Future<void> scheduleNotification({
@@ -23,27 +23,28 @@ class NotificationService {
     required String body,
     required DateTime scheduledTime,
   }) async {
-    const AndroidNotificationDetails androidDetails =
-        AndroidNotificationDetails(
-      'scheduled_channel',
-      'Agendamentos',
+    const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
+      'channel_id_cleaning',
+      'Lembretes de Manutenção',
+      channelDescription: 'Notificações para agendamento mensal',
       importance: Importance.max,
       priority: Priority.high,
-      playSound: true,
     );
 
-    const NotificationDetails details = NotificationDetails(android: androidDetails);
-
-    final tz.TZDateTime tzDate = tz.TZDateTime.from(scheduledTime, tz.local);
+    const NotificationDetails notificationDetails = NotificationDetails(
+      android: androidDetails,
+    );
 
     await _notificationsPlugin.zonedSchedule(
-      1,
+      scheduledTime.hashCode,
       title,
       body,
-      tzDate,
-      details,
+      tz.TZDateTime.from(scheduledTime, tz.local),
+      notificationDetails,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      matchDateTimeComponents: null,
+      // Se o import estiver correto, esta linha vai funcionar:
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
     );
   }
 }
