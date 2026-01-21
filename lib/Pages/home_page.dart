@@ -13,8 +13,9 @@ class _HomePageState extends State<HomePage> {
   // Lista de imagens para o carrossel (Substitua pelos seus caminhos)
   final List<String> bannerImages = [
     'assets/img/Atalaiabanner.png',
-    'assets/img/Atalaiabanner.png', // Adicione outras imagens aqui
-    'assets/img/Atalaiabanner.png',
+    'assets/img/higienizacao.png',
+    'assets/img/manutencao.png', // Adicione outras imagens aqui
+    'assets/img/economizar.png',
   ];
 
   int _currentIndex = 0;
@@ -68,21 +69,27 @@ class _HomePageState extends State<HomePage> {
                   return Container(
                     width: 8.0,
                     height: 8.0,
-                    margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 4.0),
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 10.0,
+                      horizontal: 4.0,
+                    ),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: (Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : const Color(0xFF0C1D34))
-                          .withOpacity(_currentIndex == entry.key ? 0.9 : 0.4),
+                      color:
+                          (Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white
+                                  : const Color(0xFF0C1D34))
+                              .withOpacity(
+                                _currentIndex == entry.key ? 0.9 : 0.4,
+                              ),
                     ),
                   );
                 }).toList(),
               ),
             ],
           ),
-          // --- FIM DO CARROSSEL ---
 
+          // --- FIM DO CARROSSEL ---
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -105,7 +112,7 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Divider(),
           ),
-          
+
           const Padding(
             padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
             child: Text(
@@ -116,24 +123,27 @@ class _HomePageState extends State<HomePage> {
 
           // Lista de Serviços
           ProductCard(
-            imagePath: 'assets/img/Atalaiabanner.png',
+            imagePath: 'assets/img/higienizacao.png',
             title: 'Higienização Completa',
-            description: 'Elimine ácaros, fungos e bactérias, garantindo um ar mais puro.',
+            description:
+                'Elimine ácaros, fungos e bactérias, garantindo um ar mais puro.',
             price: 'Consulte',
           ),
           ProductCard(
-            imagePath: 'assets/img/Atalaiabanner.png',
+            imagePath: 'assets/img/manutencao.png',
             title: 'Manutenção Preventiva',
-            description: 'Aumente a vida útil do seu equipamento e evite quebras.',
+            description:
+                'Aumente a vida útil do seu equipamento e evite quebras.',
             price: 'Consulte',
           ),
           ProductCard(
-            imagePath: 'assets/img/Atalaiabanner.png',
+            imagePath: 'assets/img/economizar.png',
             title: 'Instalação Profissional',
-            description: 'Instalamos seu ar condicionado seguindo todas as normas técnicas.',
+            description:
+                'Instalamos seu ar condicionado seguindo todas as normas técnicas.',
             price: 'Consulte',
           ),
-          
+
           const SizedBox(height: 20),
         ],
       ),
