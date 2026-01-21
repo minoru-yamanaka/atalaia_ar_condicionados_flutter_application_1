@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart'; // Importe o pacote
 import 'package:atalaia_ar_condicionados_flutter_application/Widgets/product_card.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  // Lista de imagens para o carrossel (Substitua pelos seus caminhos)
+  final List<String> bannerImages = [
+    'assets/img/Atalaiabanner.png',
+    'assets/img/Atalaiabanner.png', // Adicione outras imagens aqui
+    'assets/img/Atalaiabanner.png',
+  ];
+
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -15,26 +30,72 @@ class HomePage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          // Seção Destaques (Banner e texto inicial)
+          // --- INÍCIO DO CARROSSEL ---
+          const SizedBox(height: 16),
+          Column(
+            children: [
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: 200.0,
+                  autoPlay: true, // Gira sozinho
+                  enlargeCenterPage: true, // Destaca a imagem central
+                  aspectRatio: 16 / 9,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                  },
+                ),
+                items: bannerImages.map((imagePath) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.asset(
+                          imagePath,
+                          fit: BoxFit.cover,
+                          width: MediaQuery.of(context).size.width,
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
+              // Indicadores (Pontinhos)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: bannerImages.asMap().entries.map((entry) {
+                  return Container(
+                    width: 8.0,
+                    height: 8.0,
+                    margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 4.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: (Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : const Color(0xFF0C1D34))
+                          .withOpacity(_currentIndex == entry.key ? 0.9 : 0.4),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+          // --- FIM DO CARROSSEL ---
+
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
+              children: const [
+                Text(
                   'Conforto e Eficiência Para Seu Ambiente',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 8),
-                const Text(
-                  'Oferecemos as melhores soluções em climatização residencial e comercial. Instalação, manutenção e projetos personalizados com a garantia de quem entende do assunto.',
+                SizedBox(height: 8),
+                Text(
+                  'Oferecemos as melhores soluções em climatização residencial e comercial. Instalação, manutenção e projetos personalizados.',
                   style: TextStyle(fontSize: 16, color: Colors.black54),
-                ),
-                const SizedBox(height: 16),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  // Mantenha sua imagem de destaque ou substitua
-                  child: Image.asset('assets/img/Atalaiabanner.png'),
                 ),
               ],
             ),
@@ -44,58 +105,36 @@ class HomePage extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Divider(),
           ),
+          
           const Padding(
-            padding: EdgeInsets.fromLTRB(
-              16.0,
-              16.0,
-              16.0,
-              0,
-            ), // Ajustado padding
+            padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
             child: Text(
               'Nossos Serviços Disponíveis',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
           ),
 
-          // --- INÍCIO DA LISTA DE SERVIÇOS ATUALIZADA ---
+          // Lista de Serviços
           ProductCard(
-            // ATENÇÃO: Verifique se o caminho da imagem está correto
             imagePath: 'assets/img/Atalaiabanner.png',
             title: 'Higienização Completa',
-            description:
-                'Elimine ácaros, fungos e bactérias, garantindo um ar mais puro e a saúde da sua família.',
-            price: 'Consulte', // Preço flexível para serviços
+            description: 'Elimine ácaros, fungos e bactérias, garantindo um ar mais puro.',
+            price: 'Consulte',
           ),
           ProductCard(
             imagePath: 'assets/img/Atalaiabanner.png',
             title: 'Manutenção Preventiva',
-            description:
-                'Aumente a vida útil do seu equipamento e evite quebras inesperadas com nossa revisão completa.',
+            description: 'Aumente a vida útil do seu equipamento e evite quebras.',
             price: 'Consulte',
           ),
           ProductCard(
             imagePath: 'assets/img/Atalaiabanner.png',
             title: 'Instalação Profissional',
-            description:
-                'Instalamos seu ar condicionado seguindo todas as normas técnicas para máxima eficiência e segurança.',
+            description: 'Instalamos seu ar condicionado seguindo todas as normas técnicas.',
             price: 'Consulte',
           ),
-          ProductCard(
-            imagePath: 'assets/img/Atalaiabanner.png',
-            title: 'Projeto e Infraestrutura',
-            description:
-                'Preparamos toda a estrutura de tubulação e elétrica para a instalação do seu ar condicionado, mesmo antes da obra.',
-            price: 'Consulte',
-          ),
-          ProductCard(
-            imagePath: 'assets/img/Atalaiabanner.png',
-            title: 'Outros Serviços (Sob Demanda)',
-            description:
-                'Tem uma necessidade específica? Entre em contato e encontraremos a solução ideal para seu projeto de climatização.',
-            price: 'Consulte',
-          ),
-          const SizedBox(height: 20), // Um espaço no final da lista
-          // --- FIM DA LISTA DE SERVIÇOS ---
+          
+          const SizedBox(height: 20),
         ],
       ),
     );
