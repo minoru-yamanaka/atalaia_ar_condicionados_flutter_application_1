@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Sua Empresa de Climatização'),
         backgroundColor: const Color(0xFF0C1D34),
+        
         foregroundColor: Colors.white,
         elevation: 1,
       ),
