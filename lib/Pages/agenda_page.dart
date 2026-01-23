@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:convert';
 
-
 // Removi o import do agenda2_.dart pois parecia duplicado ou incorreto, mas se precisar, adicione o ';' no final.
 
 // 1. MODELO DE DADOS
@@ -25,20 +24,20 @@ class Appointment {
   });
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'customerName': customerName,
-        'service': service,
-        'date': date.toIso8601String(),
-        'notes': notes,
-      };
+    'id': id,
+    'customerName': customerName,
+    'service': service,
+    'date': date.toIso8601String(),
+    'notes': notes,
+  };
 
   factory Appointment.fromJson(Map<String, dynamic> json) => Appointment(
-        id: json['id'],
-        customerName: json['customerName'],
-        service: json['service'],
-        date: DateTime.parse(json['date']),
-        notes: json['notes'] ?? '',
-      );
+    id: json['id'],
+    customerName: json['customerName'],
+    service: json['service'],
+    date: DateTime.parse(json['date']),
+    notes: json['notes'] ?? '',
+  );
 }
 
 // 2. A PÁGINA EM SI
@@ -64,10 +63,10 @@ class _AgendaPageState extends State<AgendaPage> {
   void initState() {
     super.initState();
     // CORREÇÃO: Inicializa as notificações
-    NotificationService.init(); 
+    NotificationService.init();
     // CORREÇÃO: Carrega os dados sem validar formulário
-    _loadAppointments(); 
-    
+    _loadAppointments();
+
     _searchController.addListener(() {
       _filterAppointments();
     });
@@ -81,7 +80,7 @@ class _AgendaPageState extends State<AgendaPage> {
     final prefs = await SharedPreferences.getInstance();
     final List<String> appointmentsJson =
         prefs.getStringList('appointments') ?? [];
-    
+
     setState(() {
       _allAppointments = appointmentsJson
           .map((json) => Appointment.fromJson(jsonDecode(json)))
@@ -103,12 +102,15 @@ class _AgendaPageState extends State<AgendaPage> {
     final query = _searchController.text.toLowerCase();
     setState(() {
       _filteredAppointments = _allAppointments.where((appointment) {
-        final nameMatches =
-            appointment.customerName.toLowerCase().contains(query);
-        final serviceMatches =
-            appointment.service.toLowerCase().contains(query);
-        final dateMatches =
-            DateFormat('dd/MM/yyyy').format(appointment.date).contains(query);
+        final nameMatches = appointment.customerName.toLowerCase().contains(
+          query,
+        );
+        final serviceMatches = appointment.service.toLowerCase().contains(
+          query,
+        );
+        final dateMatches = DateFormat(
+          'dd/MM/yyyy',
+        ).format(appointment.date).contains(query);
         final notesMatches = appointment.notes.toLowerCase().contains(query);
         return nameMatches || serviceMatches || dateMatches || notesMatches;
       }).toList();
@@ -171,20 +173,19 @@ class _AgendaPageState extends State<AgendaPage> {
       });
       await _saveAppointments();
 
-      // CORREÇÃO: Lógica para "agendar o dia e depois de um mês notificar"
+      // --- NOTIFICAÇÃO 1 DIA ANTES ---
       final DateTime notificationDate = DateTime(
         parsedDate.year,
-        parsedDate.month + 1, // Soma 1 mês à data do agendamento
+        parsedDate.month,
         parsedDate.day,
-        10, // Define horário para 10:00 AM
-        0,
-      );
+        10, // horário da notificação: 10:00
+      ).subtract(const Duration(days: 1)); // 1 dia antes
 
-      // Verificação de segurança: só agenda se a data futura ainda não passou
+      // só agenda se a data ainda não passou
       if (notificationDate.isAfter(DateTime.now())) {
         await NotificationService.scheduleNotification(
-          title: 'Hora da Manutenção!',
-          body: 'Já faz 1 mês do serviço de $service para o cliente $name.',
+          title: 'Lembrete de Agendamento',
+          body: 'O serviço de $service para $name é amanhã.',
           scheduledTime: notificationDate,
         );
       }
@@ -199,7 +200,7 @@ class _AgendaPageState extends State<AgendaPage> {
         message += '\n*Observações:* $notes';
       }
 
-      final phoneNumber = '5511959473402'; 
+      final phoneNumber = '5511959473402';
       final Uri whatsappUri = Uri.parse(
         'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}',
       );
@@ -289,16 +290,21 @@ class _AgendaPageState extends State<AgendaPage> {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                         ),
-                        items: [
-                          'Higienização',
-                          'Manutenção',
-                          'Instalação',
-                          'Infraestrutura',
-                          'Outros',
-                        ].map((label) => DropdownMenuItem(
-                              value: label,
-                              child: Text(label),
-                            )).toList(),
+                        items:
+                            [
+                                  'Higienização',
+                                  'Manutenção',
+                                  'Instalação',
+                                  'Infraestrutura',
+                                  'Outros',
+                                ]
+                                .map(
+                                  (label) => DropdownMenuItem(
+                                    value: label,
+                                    child: Text(label),
+                                  ),
+                                )
+                                .toList(),
                         onChanged: (value) {
                           if (value != null) {
                             setState(() => _selectedService = value);
@@ -386,8 +392,7 @@ class _AgendaPageState extends State<AgendaPage> {
                               Icons.delete_outline,
                               color: Colors.red,
                             ),
-                            onPressed: () =>
-                                _deleteAppointment(appointment.id),
+                            onPressed: () => _deleteAppointment(appointment.id),
                             tooltip: 'Remover agendamento',
                           ),
                         ),

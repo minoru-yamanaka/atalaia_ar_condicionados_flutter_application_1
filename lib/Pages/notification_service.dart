@@ -11,40 +11,36 @@ class NotificationService {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    const InitializationSettings initializationSettings = InitializationSettings(
-      android: initializationSettingsAndroid,
-    );
+    const InitializationSettings initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
 
     await _notificationsPlugin.initialize(initializationSettings);
   }
 
   static Future<void> scheduleNotification({
-    required String title,
-    required String body,
-    required DateTime scheduledTime,
-  }) async {
-    const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
-      'channel_id_cleaning',
-      'Lembretes de Manutenção',
-      channelDescription: 'Notificações para agendamento mensal',
-      importance: Importance.max,
-      priority: Priority.high,
-    );
+  required String title,
+  required String body,
+  required DateTime scheduledTime,
+}) async {
+  const AndroidNotificationDetails androidDetails =
+      AndroidNotificationDetails(
+        'channel_id_cleaning',
+        'Lembretes de Manutenção',
+        channelDescription: 'Lembretes de serviço',
+        importance: Importance.max,
+        priority: Priority.high,
+      );
 
-    const NotificationDetails notificationDetails = NotificationDetails(
-      android: androidDetails,
-    );
+  const NotificationDetails notificationDetails =
+      NotificationDetails(android: androidDetails);
 
-    await _notificationsPlugin.zonedSchedule(
-      scheduledTime.hashCode,
-      title,
-      body,
-      tz.TZDateTime.from(scheduledTime, tz.local),
-      notificationDetails,
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      // Se o import estiver correto, esta linha vai funcionar:
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-    );
-  }
+  await _notificationsPlugin.zonedSchedule(
+    scheduledTime.millisecondsSinceEpoch.remainder(100000),
+    title,
+    body,
+    tz.TZDateTime.from(scheduledTime, tz.local),
+    notificationDetails,
+    androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+  );
+}
 }
