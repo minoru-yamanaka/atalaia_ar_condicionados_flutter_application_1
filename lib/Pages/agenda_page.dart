@@ -1,13 +1,11 @@
-import 'package:atalaia_ar_condicionados_flutter_application/Pages/notification_service.dart'; // Certifique-se que o caminho está certo
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:convert';
 
-// Removi o import do agenda2_.dart pois parecia duplicado ou incorreto, mas se precisar, adicione o ';' no final.
-
-// 1. MODELO DE DADOS
+// --- MODELO DE DADOS ---
 class Appointment {
   final String id;
   final String customerName;
@@ -24,23 +22,23 @@ class Appointment {
   });
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'customerName': customerName,
-    'service': service,
-    'date': date.toIso8601String(),
-    'notes': notes,
-  };
+        'id': id,
+        'customerName': customerName,
+        'service': service,
+        'date': date.toIso8601String(),
+        'notes': notes,
+      };
 
   factory Appointment.fromJson(Map<String, dynamic> json) => Appointment(
-    id: json['id'],
-    customerName: json['customerName'],
-    service: json['service'],
-    date: DateTime.parse(json['date']),
-    notes: json['notes'] ?? '',
-  );
+        id: json['id'],
+        customerName: json['customerName'],
+        service: json['service'],
+        date: DateTime.parse(json['date']),
+        notes: json['notes'] ?? '',
+      );
 }
 
-// 2. A PÁGINA EM SI
+// --- PÁGINA DE AGENDA ---
 class AgendaPage extends StatefulWidget {
   const AgendaPage({super.key});
 
@@ -62,9 +60,7 @@ class _AgendaPageState extends State<AgendaPage> {
   @override
   void initState() {
     super.initState();
-    // CORREÇÃO: Inicializa as notificações
     NotificationService.init();
-    // CORREÇÃO: Carrega os dados sem validar formulário
     _loadAppointments();
 
     _searchController.addListener(() {
@@ -73,10 +69,7 @@ class _AgendaPageState extends State<AgendaPage> {
   }
 
   // --- LÓGICA DE DADOS ---
-
   Future<void> _loadAppointments() async {
-    // CORREÇÃO: Removido o "if (_formKey.currentState!.validate())".
-    // Não podemos validar formulário vazio ao iniciar o app, apenas carregamos os dados.
     final prefs = await SharedPreferences.getInstance();
     final List<String> appointmentsJson =
         prefs.getStringList('appointments') ?? [];
@@ -92,9 +85,8 @@ class _AgendaPageState extends State<AgendaPage> {
 
   Future<void> _saveAppointments() async {
     final prefs = await SharedPreferences.getInstance();
-    final List<String> appointmentsJson = _allAppointments
-        .map((app) => jsonEncode(app.toJson()))
-        .toList();
+    final List<String> appointmentsJson =
+        _allAppointments.map((app) => jsonEncode(app.toJson())).toList();
     await prefs.setStringList('appointments', appointmentsJson);
   }
 
@@ -102,15 +94,10 @@ class _AgendaPageState extends State<AgendaPage> {
     final query = _searchController.text.toLowerCase();
     setState(() {
       _filteredAppointments = _allAppointments.where((appointment) {
-        final nameMatches = appointment.customerName.toLowerCase().contains(
-          query,
-        );
-        final serviceMatches = appointment.service.toLowerCase().contains(
-          query,
-        );
-        final dateMatches = DateFormat(
-          'dd/MM/yyyy',
-        ).format(appointment.date).contains(query);
+        final nameMatches = appointment.customerName.toLowerCase().contains(query);
+        final serviceMatches = appointment.service.toLowerCase().contains(query);
+        final dateMatches =
+            DateFormat('dd/MM/yyyy').format(appointment.date).contains(query);
         final notesMatches = appointment.notes.toLowerCase().contains(query);
         return nameMatches || serviceMatches || dateMatches || notesMatches;
       }).toList();
@@ -133,8 +120,7 @@ class _AgendaPageState extends State<AgendaPage> {
     }
   }
 
-  // --- LÓGICA DE INTERAÇÃO ---
-
+  // --- INTERAÇÃO ---
   Future<void> _pickDate() async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -173,32 +159,18 @@ class _AgendaPageState extends State<AgendaPage> {
       });
       await _saveAppointments();
 
-      // --- NOTIFICAÇÃO 1 DIA ANTES ---
-      final DateTime notificationDate = DateTime(
-        parsedDate.year,
-        parsedDate.month,
-        parsedDate.day,
-        10, // horário da notificação: 10:00
-      ).subtract(const Duration(days: 1)); // 1 dia antes
+      // --- NOTIFICAÇÃO DE TESTE IMEDIATA ---
+      final DateTime notificationDate = DateTime.now().add(const Duration(seconds: 5));
+      await NotificationService.scheduleNotification(
+        title: 'Teste de Notificação',
+        body: 'O serviço de $service para $name foi agendado!',
+        scheduledTime: notificationDate,
+      );
 
-      // só agenda se a data ainda não passou
-      if (notificationDate.isAfter(DateTime.now())) {
-        await NotificationService.scheduleNotification(
-          title: 'Lembrete de Agendamento',
-          body: 'O serviço de $service para $name é amanhã.',
-          scheduledTime: notificationDate,
-        );
-      }
-
+      // --- WHATSAPP ---
       String message =
-          'Olá! Gostaria de solicitar um agendamento:\n\n'
-          '*Cliente:* $name\n'
-          '*Serviço:* $service\n'
-          '*Data Sugerida:* $date';
-
-      if (notes.isNotEmpty) {
-        message += '\n*Observações:* $notes';
-      }
+          'Olá! Gostaria de solicitar um agendamento:\n\n*Cliente:* $name\n*Serviço:* $service\n*Data Sugerida:* $date';
+      if (notes.isNotEmpty) message += '\n*Observações:* $notes';
 
       final phoneNumber = '5511959473402';
       final Uri whatsappUri = Uri.parse(
@@ -227,7 +199,6 @@ class _AgendaPageState extends State<AgendaPage> {
         title: const Text('Agendamentos'),
         backgroundColor: const Color(0xFF0C1D34),
         foregroundColor: Colors.white,
-        elevation: 1,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -261,9 +232,8 @@ class _AgendaPageState extends State<AgendaPage> {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                         ),
-                        validator: (value) => value == null || value.isEmpty
-                            ? 'Campo obrigatório'
-                            : null,
+                        validator: (value) =>
+                            value == null || value.isEmpty ? 'Campo obrigatório' : null,
                       ),
                       const SizedBox(height: 12),
                       TextFormField(
@@ -277,9 +247,8 @@ class _AgendaPageState extends State<AgendaPage> {
                         ),
                         readOnly: true,
                         onTap: _pickDate,
-                        validator: (value) => value == null || value.isEmpty
-                            ? 'Campo obrigatório'
-                            : null,
+                        validator: (value) =>
+                            value == null || value.isEmpty ? 'Campo obrigatório' : null,
                       ),
                       const SizedBox(height: 12),
                       DropdownButtonFormField<String>(
@@ -290,25 +259,22 @@ class _AgendaPageState extends State<AgendaPage> {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                         ),
-                        items:
-                            [
-                                  'Higienização',
-                                  'Manutenção',
-                                  'Instalação',
-                                  'Infraestrutura',
-                                  'Outros',
-                                ]
-                                .map(
-                                  (label) => DropdownMenuItem(
-                                    value: label,
-                                    child: Text(label),
-                                  ),
-                                )
-                                .toList(),
+                        items: [
+                          'Higienização',
+                          'Manutenção',
+                          'Instalação',
+                          'Infraestrutura',
+                          'Outros',
+                        ]
+                            .map(
+                              (label) => DropdownMenuItem(
+                                value: label,
+                                child: Text(label),
+                              ),
+                            )
+                            .toList(),
                         onChanged: (value) {
-                          if (value != null) {
-                            setState(() => _selectedService = value);
-                          }
+                          if (value != null) setState(() => _selectedService = value);
                         },
                       ),
                       const SizedBox(height: 12),
@@ -333,7 +299,6 @@ class _AgendaPageState extends State<AgendaPage> {
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             backgroundColor: Colors.white,
                             foregroundColor: const Color(0xFF343B6C),
-                            shadowColor: const Color(0xFF343B6C),
                           ),
                         ),
                       ),
@@ -393,7 +358,6 @@ class _AgendaPageState extends State<AgendaPage> {
                               color: Colors.red,
                             ),
                             onPressed: () => _deleteAppointment(appointment.id),
-                            tooltip: 'Remover agendamento',
                           ),
                         ),
                       );
