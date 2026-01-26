@@ -12,7 +12,6 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   // Variável para controlar a visibilidade da senha
-  final bool _isPasswordVisible = false;
   bool isCheckd = false;
 
   @override

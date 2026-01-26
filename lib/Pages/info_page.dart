@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:atalaia_ar_condicionados_flutter_application/Pages/localizacao_page.dart';
 // IMPORTANTE: Importe o novo widget do chatbot que criamos
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/chatbot_widget.dart';
 

@@ -1,4 +1,3 @@
-import 'package:atalaia_ar_condicionados_flutter_application/Pages/home_page.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/login_page.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/main_screen_PagesNew.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/model/usuario.dart';
@@ -15,7 +14,6 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   // Variável para controlar a visibilidade da senha
-  final bool _isPasswordVisible = false;
   bool isCheckd = false;
 
   TextEditingController nomeController = TextEditingController();

@@ -21,15 +21,6 @@ class LocalizacaoPage extends StatelessWidget {
   }
 
   // Função para abrir o mapa com o endereço da empresa
-  void _launchMaps(BuildContext context) {
-    const String address =
-        'Rua das Soluções, 123, Bairro Central, Sua Cidade, SP';
-    // URL padrão do Google Maps para busca
-    final Uri url = Uri.parse(
-      'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}',
-    );
-    _launchUrl(context, url);
-  }
 
   // NOVO: Função para abrir o discador do telefone
   void _launchPhone(BuildContext context) {
@@ -113,31 +104,8 @@ class LocalizacaoPage extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
-              // // Seção 3: Mapa
-              // AspectRatio(
-              //   aspectRatio: 16 / 9,
-              //   child: Container(
-              //     decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(12),
-              //       color: Colors.grey.shade300,
-              //       image: const DecorationImage(
-              //         image: AssetImage('assets/img/mapa-placeholder.png'),
-              //         fit: BoxFit.cover,
-              //       ),
-              //     ),
-              //     child: Center(
-              //       child: ElevatedButton.icon(
-              //         icon: const Icon(Icons.map),
-              //         label: const Text('Abrir no Mapa'),
-              //         onPressed: () =>
-              //             _launchMaps(context), // MODIFICADO: Passa o context
-              //       ),
-              //     ),
-              //   ),
-              // ),
               const SizedBox(height: 32),
 
-              // Seção 4: Logout (MODIFICADO para consistência de cor)
               Card(
                 elevation: 2,
                 shape: RoundedRectangleBorder(
