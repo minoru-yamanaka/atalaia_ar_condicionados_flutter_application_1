@@ -132,7 +132,8 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   width: 250, // Largura de cada card no carrossel
                   child: ProductMiniCard(
-                    imagePath: 'assets/img/Atalaiabanner.png',
+                    imagePath:
+                        'assets/img/Ar-condicionado_ como escolher o melhor modelo _ VEJA.png',
                     title: 'Split Hi-Wall 9.000 BTUs',
                     description:
                         'Ideal para quartos e escritórios de até 15m².',
@@ -141,7 +142,8 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   width: 250,
                   child: ProductMiniCard(
-                    imagePath: 'assets/img/Atalaiabanner.png',
+                    imagePath:
+                        'assets/img/Ar-condicionado_ como escolher o melhor modelo _ VEJA.png',
                     title: 'Multi-Split 18.000 BTUs',
                     description:
                         'Climatize dois ambientes com uma só unidade externa.',
@@ -150,7 +152,8 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   width: 250,
                   child: ProductMiniCard(
-                    imagePath: 'assets/img/Atalaiabanner.png',
+                    imagePath:
+                        'assets/img/Ar-condicionado_ como escolher o melhor modelo _ VEJA.png',
                     title: 'Piso-Teto 36.000 BTUs',
                     description: 'Alta potência para lojas e grandes salões.',
                   ),
