@@ -46,6 +46,8 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
         "A manutenção preventiva aumenta a vida útil do seu aparelho. É ideal para garantir o bom funcionamento. Podemos agendar uma visita?",
     "instalação":
         "Realizamos a instalação de aparelhos de todas as marcas. Para um orçamento, preciso de mais detalhes.",
+    "preco":
+        "Nossos preços variam dependendo do serviço. Qual serviço te interessa?",
     "preço":
         "Nossos preços variam dependendo do serviço. Qual serviço te interessa?",
     "agendar":

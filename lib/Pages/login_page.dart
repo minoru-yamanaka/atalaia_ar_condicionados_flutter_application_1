@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
         );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            backgroundColor: Colors.green,
+            backgroundColor: const Color.fromARGB(255, 38, 54, 204),
             content: Column(
               children: [
                 Text(
