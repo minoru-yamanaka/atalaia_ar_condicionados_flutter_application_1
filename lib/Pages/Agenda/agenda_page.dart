@@ -1,3 +1,4 @@
+import 'package:atalaia_ar_condicionados_flutter_application/Pages/Agenda/Models/appointments_model.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -6,37 +7,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:convert';
 
 // --- MODELO DE DADOS ---
-class Appointment {
-  final String id;
-  final String customerName;
-  final String service;
-  final DateTime date;
-  final String notes;
-
-  Appointment({
-    required this.id,
-    required this.customerName,
-    required this.service,
-    required this.date,
-    required this.notes,
-  });
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'customerName': customerName,
-        'service': service,
-        'date': date.toIso8601String(),
-        'notes': notes,
-      };
-
-  factory Appointment.fromJson(Map<String, dynamic> json) => Appointment(
-        id: json['id'],
-        customerName: json['customerName'],
-        service: json['service'],
-        date: DateTime.parse(json['date']),
-        notes: json['notes'] ?? '',
-      );
-}
 
 // --- PÁGINA DE AGENDA ---
 class AgendaPage extends StatefulWidget {
@@ -56,11 +26,12 @@ class _AgendaPageState extends State<AgendaPage> {
 
   List<Appointment> _allAppointments = [];
   List<Appointment> _filteredAppointments = [];
+  
 
   @override
   void initState() {
     super.initState();
-    NotificationService.init();
+    NotificationService.initialize();
     _loadAppointments();
 
     _searchController.addListener(() {
@@ -159,36 +130,46 @@ class _AgendaPageState extends State<AgendaPage> {
       });
       await _saveAppointments();
 
+      // NotificationService.showNotification(title: 'Agendamento Realizado', body: 'O serviço de $service para $name foi agendado!');
+
+
+      print('Scheduling notification for $parsedDate');
+      await NotificationService.scheduleNotificationAt(id: 50, title: 'Agendamento Realizado', body: 'O serviço de $service para $name foi agendado!', scheduledDate: DateTime.now().add(const Duration(seconds: 10)));
+
+      // NotificationService.scheduleNotification(title: "Notificação", body: "O serviço de $service para $name foi agendado!", delay: const Duration(seconds: 5));
+      
+
+
       // --- NOTIFICAÇÃO DE TESTE IMEDIATA ---
-      final DateTime notificationDate = DateTime.now().add(const Duration(seconds: 5));
-      await NotificationService.scheduleNotification(
-        title: 'Teste de Notificação',
-        body: 'O serviço de $service para $name foi agendado!',
-        scheduledTime: notificationDate,
-      );
+      // final DateTime notificationDate = DateTime.now().add(const Duration(seconds: 5));
+      // await NotificationService.scheduleNotification(
+      //   title: 'Teste de Notificação',
+      //   body: 'O serviço de $service para $name foi agendado!',
+      //   scheduledTime: notificationDate,
+      // );
 
       // --- WHATSAPP ---
-      String message =
-          'Olá! Gostaria de solicitar um agendamento:\n\n*Cliente:* $name\n*Serviço:* $service\n*Data Sugerida:* $date';
-      if (notes.isNotEmpty) message += '\n*Observações:* $notes';
+      // String message =
+      //     'Olá! Gostaria de solicitar um agendamento:\n\n*Cliente:* $name\n*Serviço:* $service\n*Data Sugerida:* $date';
+      // if (notes.isNotEmpty) message += '\n*Observações:* $notes';
 
-      final phoneNumber = '5511959473402';
-      final Uri whatsappUri = Uri.parse(
-        'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}',
-      );
+      // final phoneNumber = '5511959473402';
+      // final Uri whatsappUri = Uri.parse(
+      //   'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}',
+      // );
 
-      if (await canLaunchUrl(whatsappUri)) {
-        await launchUrl(whatsappUri);
-        _nameController.clear();
-        _dateController.clear();
-        _notesController.clear();
-      } else {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Não foi possível abrir o WhatsApp.')),
-          );
-        }
-      }
+      // if (await canLaunchUrl(whatsappUri)) {
+      //   await launchUrl(whatsappUri);
+      //   _nameController.clear();
+      //   _dateController.clear();
+      //   _notesController.clear();
+      // } else {
+      //   if (mounted) {
+      //     ScaffoldMessenger.of(context).showSnackBar(
+      //       const SnackBar(content: Text('Não foi possível abrir o WhatsApp.')),
+      //     );
+      //   }
+      // }
     }
   }
 
@@ -252,7 +233,7 @@ class _AgendaPageState extends State<AgendaPage> {
                       ),
                       const SizedBox(height: 12),
                       DropdownButtonFormField<String>(
-                        value: _selectedService,
+                        initialValue: _selectedService,
                         decoration: const InputDecoration(
                           labelText: 'Serviço',
                           border: OutlineInputBorder(

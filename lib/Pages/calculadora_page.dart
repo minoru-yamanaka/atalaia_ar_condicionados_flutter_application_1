@@ -14,7 +14,6 @@
 //  está no seu pubspec.yaml e que você rodou flutter pub get.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CalculadoraPage extends StatefulWidget {
