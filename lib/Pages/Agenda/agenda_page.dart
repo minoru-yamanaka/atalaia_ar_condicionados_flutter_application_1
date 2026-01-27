@@ -134,42 +134,33 @@ class _AgendaPageState extends State<AgendaPage> {
 
 
       print('Scheduling notification for $parsedDate');
-      await NotificationService.scheduleNotificationAt(id: 50, title: 'Agendamento Realizado', body: 'O serviço de $service para $name foi agendado!', scheduledDate: DateTime.now().add(const Duration(seconds: 10)));
+      await NotificationService.scheduleNotificationAt(id: 50, title: 'Agendamento Realizado', body: 'O serviço de $service para $name foi agendado!', scheduledDate: DateTime.now().add(const Duration(days: 1)));
 
       // NotificationService.scheduleNotification(title: "Notificação", body: "O serviço de $service para $name foi agendado!", delay: const Duration(seconds: 5));
       
 
+     // --- WHATSAPP ---
+      String message =
+          'Olá! Gostaria de solicitar um agendamento:\n\n*Cliente:* $name\n*Serviço:* $service\n*Data Sugerida:* $date';
+      if (notes.isNotEmpty) message += '\n*Observações:* $notes';
 
-      // --- NOTIFICAÇÃO DE TESTE IMEDIATA ---
-      // final DateTime notificationDate = DateTime.now().add(const Duration(seconds: 5));
-      // await NotificationService.scheduleNotification(
-      //   title: 'Teste de Notificação',
-      //   body: 'O serviço de $service para $name foi agendado!',
-      //   scheduledTime: notificationDate,
-      // );
+      final phoneNumber = '5511959473402';
+      final Uri whatsappUri = Uri.parse(
+        'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}',
+      );
 
-      // --- WHATSAPP ---
-      // String message =
-      //     'Olá! Gostaria de solicitar um agendamento:\n\n*Cliente:* $name\n*Serviço:* $service\n*Data Sugerida:* $date';
-      // if (notes.isNotEmpty) message += '\n*Observações:* $notes';
-
-      // final phoneNumber = '5511959473402';
-      // final Uri whatsappUri = Uri.parse(
-      //   'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}',
-      // );
-
-      // if (await canLaunchUrl(whatsappUri)) {
-      //   await launchUrl(whatsappUri);
-      //   _nameController.clear();
-      //   _dateController.clear();
-      //   _notesController.clear();
-      // } else {
-      //   if (mounted) {
-      //     ScaffoldMessenger.of(context).showSnackBar(
-      //       const SnackBar(content: Text('Não foi possível abrir o WhatsApp.')),
-      //     );
-      //   }
-      // }
+      if (await canLaunchUrl(whatsappUri)) {
+        await launchUrl(whatsappUri);
+        _nameController.clear();
+        _dateController.clear();
+        _notesController.clear();
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Não foi possível abrir o WhatsApp.')),
+          );
+        }
+      }
     }
   }
 
