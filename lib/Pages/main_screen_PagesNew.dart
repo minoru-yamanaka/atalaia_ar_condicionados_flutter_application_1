@@ -13,7 +13,7 @@ class MainScreen2 extends StatefulWidget {
 }
 
 class _MainScreenState2 extends State<MainScreen2> {
-  int _selectedIndex = 3;
+  int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
     HomePage(),
