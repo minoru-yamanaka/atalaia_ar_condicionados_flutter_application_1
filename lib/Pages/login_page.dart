@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               child: Image.asset('assets/img/Atalaiabanner.png'),
             ),
-            const SizedBox(height: 50.0),
+            const SizedBox(height: 100.0),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -197,9 +197,9 @@ class _LoginPageState extends State<LoginPage> {
             TextButton(
               onPressed: () {
                 // CORREÇÃO: Adicionada a navegação para a página de registro.
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const RegisterPage()),
-                );
+                Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (context) => RegisterPage()));
               },
               child: const Text(
                 'Registre-se agora',
@@ -208,29 +208,29 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
             const SizedBox(height: 20),
-            const SizedBox(width: 300, child: Divider()),
-            const SizedBox(height: 20),
+            // const SizedBox(width: 300, child: Divider()),
+            // const SizedBox(height: 20),
 
-            // CORREÇÃO: Trocado TextButton por um simples Text, pois não tinha ação.
-            const Text(
-              'Ou continue com',
-              style: TextStyle(color: Color.fromARGB(255, 6, 0, 90)),
-            ),
-            const SizedBox(height: 10),
+            // // CORREÇÃO: Trocado TextButton por um simples Text, pois não tinha ação.
+            // const Text(
+            //   'Ou continue com',
+            //   style: TextStyle(color: Color.fromARGB(255, 6, 0, 90)),
+            // ),
+            // const SizedBox(height: 10),
 
-            // --- ÍCONES SOCIAIS ---
-            Row(
-              // CORREÇÃO: Removida a propriedade 'spacing', que não existe em Row.
-              // O espaçamento já é feito com os SizedBox.
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                FaIcon(FontAwesomeIcons.google, size: 30, color: Colors.red),
-                SizedBox(width: 20),
-                FaIcon(FontAwesomeIcons.apple, size: 30, color: Colors.black),
-                SizedBox(width: 20),
-                FaIcon(FontAwesomeIcons.facebook, size: 30, color: Colors.blue),
-              ],
-            ),
+            // // --- ÍCONES SOCIAIS ---
+            // Row(
+            //   // CORREÇÃO: Removida a propriedade 'spacing', que não existe em Row.
+            //   // O espaçamento já é feito com os SizedBox.
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: const [
+            //     FaIcon(FontAwesomeIcons.google, size: 30, color: Colors.red),
+            //     SizedBox(width: 20),
+            //     FaIcon(FontAwesomeIcons.apple, size: 30, color: Colors.black),
+            //     SizedBox(width: 20),
+            //     FaIcon(FontAwesomeIcons.facebook, size: 30, color: Colors.blue),
+            //   ],
+            // ),
             const SizedBox(height: 20),
           ],
         ),

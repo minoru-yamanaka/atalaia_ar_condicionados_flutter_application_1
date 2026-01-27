@@ -54,18 +54,6 @@ class InfoPage extends StatelessWidget {
           16.0,
         ).copyWith(bottom: 80), // Espaço extra no final para o FAB não cobrir
         children: [
-          Center(
-            child: SizedBox(
-              child: Text(
-                "Duvidas",
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 14, 2, 82),
-                ),
-              ),
-            ),
-          ),
           SizedBox(height: 30),
           TextField(
             onSubmitted: (value) {
@@ -98,7 +86,7 @@ class InfoPage extends StatelessWidget {
                     topRight: Radius.circular(12),
                   ),
                   child: Image.asset(
-                    'assets/img/Atalaiabanner.png',
+                    'assets/img/higienizacao.png',
                     width: 410,
                     height: 200,
                     fit: BoxFit.cover,
@@ -137,7 +125,7 @@ class InfoPage extends StatelessWidget {
                     topRight: Radius.circular(12),
                   ),
                   child: Image.asset(
-                    'assets/img/Atalaiabanner.png',
+                    'assets/img/economizar.png',
                     width: 410,
                     height: 200,
                     fit: BoxFit.cover,
@@ -179,7 +167,7 @@ class InfoPage extends StatelessWidget {
                     topRight: Radius.circular(12),
                   ),
                   child: Image.asset(
-                    'assets/img/Atalaiabanner.png',
+                    'assets/img/manutencao.png',
                     width: 410,
                     height: 200,
                     fit: BoxFit.cover,

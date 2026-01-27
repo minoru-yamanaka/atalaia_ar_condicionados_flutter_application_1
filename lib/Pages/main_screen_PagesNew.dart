@@ -49,7 +49,7 @@ class _MainScreenState2 extends State<MainScreen2> {
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Início'),
             BottomNavigationBarItem(
-              icon: Icon(Icons.build_circle),
+              icon: Icon(Icons.lightbulb),
               label: 'Informações',
             ),
             BottomNavigationBarItem(

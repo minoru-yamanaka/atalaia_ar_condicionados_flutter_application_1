@@ -82,7 +82,7 @@ class LocalizacaoPage extends StatelessWidget {
                         color: AppColors.primaryColor,
                       ), // MODIFICADO: Cor
                       title: const Text('Telefone'),
-                      subtitle: const Text('(11) 98765-4321'),
+                      subtitle: const Text('(11) 94888-7050'),
                       onTap: () =>
                           _launchPhone(context), // NOVO: Ação de clique
                       trailing: const Icon(Icons.arrow_forward_ios, size: 14),
@@ -94,7 +94,7 @@ class LocalizacaoPage extends StatelessWidget {
                         color: AppColors.primaryColor,
                       ), // MODIFICADO: Cor
                       title: const Text('Email'),
-                      subtitle: const Text('contato@suaempresa.com.br'),
+                      subtitle: const Text('atalaiaarcondicionado@gmail.com'),
                       onTap: () =>
                           _launchEmail(context), // NOVO: Ação de clique
                       trailing: const Icon(Icons.arrow_forward_ios, size: 14),
