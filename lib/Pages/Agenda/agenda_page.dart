@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/Agenda/Models/appointments_model.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/notification_service.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,6 @@ class _AgendaPageState extends State<AgendaPage> {
 
   List<Appointment> _allAppointments = [];
   List<Appointment> _filteredAppointments = [];
-  
 
   @override
   void initState() {
@@ -56,8 +57,9 @@ class _AgendaPageState extends State<AgendaPage> {
 
   Future<void> _saveAppointments() async {
     final prefs = await SharedPreferences.getInstance();
-    final List<String> appointmentsJson =
-        _allAppointments.map((app) => jsonEncode(app.toJson())).toList();
+    final List<String> appointmentsJson = _allAppointments
+        .map((app) => jsonEncode(app.toJson()))
+        .toList();
     await prefs.setStringList('appointments', appointmentsJson);
   }
 
@@ -65,10 +67,15 @@ class _AgendaPageState extends State<AgendaPage> {
     final query = _searchController.text.toLowerCase();
     setState(() {
       _filteredAppointments = _allAppointments.where((appointment) {
-        final nameMatches = appointment.customerName.toLowerCase().contains(query);
-        final serviceMatches = appointment.service.toLowerCase().contains(query);
-        final dateMatches =
-            DateFormat('dd/MM/yyyy').format(appointment.date).contains(query);
+        final nameMatches = appointment.customerName.toLowerCase().contains(
+          query,
+        );
+        final serviceMatches = appointment.service.toLowerCase().contains(
+          query,
+        );
+        final dateMatches = DateFormat(
+          'dd/MM/yyyy',
+        ).format(appointment.date).contains(query);
         final notesMatches = appointment.notes.toLowerCase().contains(query);
         return nameMatches || serviceMatches || dateMatches || notesMatches;
       }).toList();
@@ -130,16 +137,25 @@ class _AgendaPageState extends State<AgendaPage> {
       });
       await _saveAppointments();
 
-      // NotificationService.showNotification(title: 'Agendamento Realizado', body: 'O serviço de $service para $name foi agendado!');
+      // Quantos dias antes você quer avisar
+      const int daysBefore = 1;
 
+      final reminderDate = parsedDate.subtract(
+        const Duration(days: daysBefore),
+      );
 
-      print('Scheduling notification for $parsedDate');
-      await NotificationService.scheduleNotificationAt(id: 50, title: 'Agendamento Realizado', body: 'O serviço de $service para $name foi agendado!', scheduledDate: DateTime.now().add(const Duration(days: 1)));
+      // Evita agendar notificação no passado
+      if (reminderDate.isAfter(DateTime.now())) {
+        await NotificationService.scheduleNotificationAt(
+          id: DateTime.now().millisecondsSinceEpoch ~/ 1000, // id único
+          title: 'Aviso de $service - Atalaia',
+          body:
+              'Lembrete: seu serviço de $service está agendado para ${DateFormat('dd/MM/yyyy').format(parsedDate)}',
+          scheduledDate: reminderDate,
+        );
+      }
 
-      // NotificationService.scheduleNotification(title: "Notificação", body: "O serviço de $service para $name foi agendado!", delay: const Duration(seconds: 5));
-      
-
-     // --- WHATSAPP ---
+      // --- WHATSAPP ---
       String message =
           'Olá! Gostaria de solicitar um agendamento:\n\n*Cliente:* $name\n*Serviço:* $service\n*Data Sugerida:* $date';
       if (notes.isNotEmpty) message += '\n*Observações:* $notes';
@@ -204,8 +220,9 @@ class _AgendaPageState extends State<AgendaPage> {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                         ),
-                        validator: (value) =>
-                            value == null || value.isEmpty ? 'Campo obrigatório' : null,
+                        validator: (value) => value == null || value.isEmpty
+                            ? 'Campo obrigatório'
+                            : null,
                       ),
                       const SizedBox(height: 12),
                       TextFormField(
@@ -219,8 +236,9 @@ class _AgendaPageState extends State<AgendaPage> {
                         ),
                         readOnly: true,
                         onTap: _pickDate,
-                        validator: (value) =>
-                            value == null || value.isEmpty ? 'Campo obrigatório' : null,
+                        validator: (value) => value == null || value.isEmpty
+                            ? 'Campo obrigatório'
+                            : null,
                       ),
                       const SizedBox(height: 12),
                       DropdownButtonFormField<String>(
@@ -231,22 +249,24 @@ class _AgendaPageState extends State<AgendaPage> {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                         ),
-                        items: [
-                          'Higienização',
-                          'Manutenção',
-                          'Instalação',
-                          'Infraestrutura',
-                          'Outros',
-                        ]
-                            .map(
-                              (label) => DropdownMenuItem(
-                                value: label,
-                                child: Text(label),
-                              ),
-                            )
-                            .toList(),
+                        items:
+                            [
+                                  'Higienização',
+                                  'Manutenção',
+                                  'Instalação',
+                                  'Infraestrutura',
+                                  'Outros',
+                                ]
+                                .map(
+                                  (label) => DropdownMenuItem(
+                                    value: label,
+                                    child: Text(label),
+                                  ),
+                                )
+                                .toList(),
                         onChanged: (value) {
-                          if (value != null) setState(() => _selectedService = value);
+                          if (value != null)
+                            setState(() => _selectedService = value);
                         },
                       ),
                       const SizedBox(height: 12),
