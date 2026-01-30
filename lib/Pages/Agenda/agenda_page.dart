@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/Agenda/Models/appointments_model.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/notification_service.dart';
 import 'package:flutter/material.dart';
@@ -127,7 +125,7 @@ class _AgendaPageState extends State<AgendaPage> {
         customerName: name,
         service: service,
         date: parsedDate,
-        notes: notes,
+        notes: notes, 
       );
 
       setState(() {
@@ -138,22 +136,28 @@ class _AgendaPageState extends State<AgendaPage> {
       await _saveAppointments();
 
       // Quantos dias antes você quer avisar
-      const int daysBefore = 1;
+      final int baseId = newAppointment.id.hashCode;
 
-      final reminderDate = parsedDate.subtract(
-        const Duration(days: daysBefore),
-      );
+      final reminderDate = parsedDate.subtract(const Duration(days: 1));
 
       // Evita agendar notificação no passado
       if (reminderDate.isAfter(DateTime.now())) {
         await NotificationService.scheduleNotificationAt(
-          id: DateTime.now().millisecondsSinceEpoch ~/ 1000, // id único
+          id: baseId,
           title: 'Aviso de $service - Atalaia',
-          body:
-              'Lembrete: seu serviço de $service está agendado para ${DateFormat('dd/MM/yyyy').format(parsedDate)}',
+          body: 'Lembrete: seu serviço de $service está agendado para amanhã!',
           scheduledDate: reminderDate,
         );
       }
+      final monthlyStartDate = parsedDate.add(const Duration(days: 30));
+      
+      await NotificationService.scheduleMonthlyNotification(
+        id: baseId + 1, // ID diferente para não sobrescrever a primeira
+        title: 'Revisão Atalaia',
+        body: 'Olá! Faz um mês da sua higienização. Tudo certo com seu aparelho?',
+        startDate: monthlyStartDate, // O nome aqui deve ser igual ao do Service
+      );
+      
 
       // --- WHATSAPP ---
       String message =
