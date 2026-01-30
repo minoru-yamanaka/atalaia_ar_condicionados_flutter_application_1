@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:convert';
+import 'dart:math'; // Adicione este import lá em cima
 
 // --- MODELO DE DADOS ---
 
@@ -125,7 +126,7 @@ class _AgendaPageState extends State<AgendaPage> {
         customerName: name,
         service: service,
         date: parsedDate,
-        notes: notes, 
+        notes: notes,
       );
 
       setState(() {
@@ -149,15 +150,39 @@ class _AgendaPageState extends State<AgendaPage> {
           scheduledDate: reminderDate,
         );
       }
+
       final monthlyStartDate = parsedDate.add(const Duration(days: 30));
-      
-      await NotificationService.scheduleMonthlyNotification(
-        id: baseId + 1, // ID diferente para não sobrescrever a primeira
-        title: 'Revisão Atalaia',
-        body: 'Olá! Faz um mês da sua higienização. Tudo certo com seu aparelho?',
-        startDate: monthlyStartDate, // O nome aqui deve ser igual ao do Service
-      );
-      
+
+      // Lista de frases criativas
+      final List<String> frasesAleatorias = [
+        'Olá $name! Já faz um mês desde a sua $service. Manter o filtro limpo garante um ar puro para sua família. Vamos agendar a próxima? 🍃',
+        'Oi $name, como está o desempenho após a $service? Lembre-se: manutenção em dia evita gastos extras com energia. Tudo certo por aí? ❄️',
+        'Passou rápido, $name! Faz 30 dias que realizamos a $service. O seu conforto é nossa prioridade; precisa de alguma ajuda hoje? 📅',
+        'Economia inteligente, $name! 💡 Aparelho limpo gasta menos. Já faz um mês da sua $service, quer garantir a eficiência máxima hoje?',
+        'Respire fundo, $name! 🌬️ A qualidade do ar depende da frequência da sua $service. Faz um mês da última, que tal um check-up?',
+      ];
+
+
+
+      // Sorteia uma frase da lista
+      final String fraseSorteada =
+          frasesAleatorias[Random().nextInt(frasesAleatorias.length)];
+
+          if (reminderDate.isAfter(DateTime.now())) {
+        await NotificationService.scheduleNotificationAt(
+          id: baseId +1,
+          title: 'Atalaia Ar Condicionado',
+          body: fraseSorteada,
+          scheduledDate: monthlyStartDate,
+        );
+      }
+
+      // await NotificationService.scheduleMonthlyNotification(
+      //   id: baseId + 1,
+      //   title: 'Atalaia Ar Condicionado',
+      //   body: fraseSorteada,
+      //   startDate: monthlyStartDate,
+      // );
 
       // --- WHATSAPP ---
       String message =
