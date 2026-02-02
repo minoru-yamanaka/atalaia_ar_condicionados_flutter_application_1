@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/Agenda/Models/appointments_model.dart';
 import 'package:atalaia_ar_condicionados_flutter_application/Pages/notification_service.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:convert';
+import 'dart:math'; // Adicione este import lá em cima
 
 // --- MODELO DE DADOS ---
 
@@ -138,22 +137,50 @@ class _AgendaPageState extends State<AgendaPage> {
       await _saveAppointments();
 
       // Quantos dias antes você quer avisar
-      const int daysBefore = 1;
+      final int baseId = newAppointment.id.hashCode;
 
-      final reminderDate = parsedDate.subtract(
-        const Duration(days: daysBefore),
-      );
+      final reminderDate = parsedDate.subtract(const Duration(days: 1));
 
       // Evita agendar notificação no passado
       if (reminderDate.isAfter(DateTime.now())) {
         await NotificationService.scheduleNotificationAt(
-          id: DateTime.now().millisecondsSinceEpoch ~/ 1000, // id único
+          id: baseId,
           title: 'Aviso de $service - Atalaia',
-          body:
-              'Lembrete: seu serviço de $service está agendado para ${DateFormat('dd/MM/yyyy').format(parsedDate)}',
+          body: 'Lembrete: seu serviço de $service está agendado para amanhã!',
           scheduledDate: reminderDate,
         );
       }
+
+      final monthlyStartDate = parsedDate.add(const Duration(days: 30));
+
+      // Lista de frases criativas
+      final List<String> frasesAleatorias = [
+        'Olá $name! Já faz um mês desde a sua $service. Manter o filtro limpo garante um ar puro para sua família. Vamos agendar a próxima? 🍃',
+        'Oi $name, como está o desempenho após a $service? Lembre-se: manutenção em dia evita gastos extras com energia. Tudo certo por aí? ❄️',
+        'Passou rápido, $name! Faz 30 dias que realizamos a $service. O seu conforto é nossa prioridade; precisa de alguma ajuda hoje? 📅',
+        'Economia inteligente, $name! 💡 Aparelho limpo gasta menos. Já faz um mês da sua $service, quer garantir a eficiência máxima hoje?',
+        'Respire fundo, $name! 🌬️ A qualidade do ar depende da frequência da sua $service. Faz um mês da última, que tal um check-up?',
+      ];
+
+      // Sorteia uma frase da lista
+      final String fraseSorteada =
+          frasesAleatorias[Random().nextInt(frasesAleatorias.length)];
+
+      if (reminderDate.isAfter(DateTime.now())) {
+        await NotificationService.scheduleNotificationAt(
+          id: baseId + 1,
+          title: 'Atalaia Ar Condicionado',
+          body: fraseSorteada,
+          scheduledDate: monthlyStartDate,
+        );
+      }
+
+      // await NotificationService.scheduleMonthlyNotification(
+      //   id: baseId + 1,
+      //   title: 'Atalaia Ar Condicionado',
+      //   body: fraseSorteada,
+      //   startDate: monthlyStartDate,
+      // );
 
       // --- WHATSAPP ---
       String message =
