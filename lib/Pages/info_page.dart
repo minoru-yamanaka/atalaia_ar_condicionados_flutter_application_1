@@ -44,7 +44,7 @@ class InfoPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Informações'),
+        title: Text("Informações"),
         backgroundColor: const Color(0xFF0C1D34),
         foregroundColor: Colors.white,
         elevation: 1,
@@ -74,7 +74,7 @@ class InfoPage extends StatelessWidget {
           Card(
             elevation: 2,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12)
             ),
             clipBehavior: Clip.antiAlias,
             child: Column(
@@ -82,14 +82,14 @@ class InfoPage extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
-                  ),
+                   topLeft: Radius.circular(12),
+                   topRight: Radius.circular(12),
+                   ),
                   child: Image.asset(
                     'assets/img/higienizacao.png',
                     width: 410,
                     height: 200,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.cover
                   ),
                 ),
                 const Padding(
@@ -122,7 +122,7 @@ class InfoPage extends StatelessWidget {
                 ClipRRect(
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
+                    topRight: Radius.circular(12)
                   ),
                   child: Image.asset(
                     'assets/img/economizar.png',
@@ -164,7 +164,7 @@ class InfoPage extends StatelessWidget {
                 ClipRRect(
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
+                    topRight: Radius.circular(12)
                   ),
                   child: Image.asset(
                     'assets/img/manutencao.png',
@@ -177,7 +177,6 @@ class InfoPage extends StatelessWidget {
                   padding: EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-
                     children: [
                       Text(
                         "Sinais de que seu ar precisa de manutenção",

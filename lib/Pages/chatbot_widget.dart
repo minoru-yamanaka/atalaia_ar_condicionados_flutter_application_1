@@ -30,7 +30,7 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
   bool _isLoading = false;
 
   final Map<String, String> _respostasPredefinidas = {
-    "olá":
+    "Olá":
         "Olá! Sou o assistente virtual da Atalaia Ar Condicionados. Como posso ajudar?",
     "oi":
         "Olá! Sou o assistente virtual da Atalaia Ar Condicionados. Como posso ajudar?",
@@ -53,7 +53,6 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
     "agendar":
         "Para agendar uma visita técnica, por favor, entre em contato pelo nosso WhatsApp.",
     "obrigado": "De nada! Se precisar de mais alguma coisa, é só perguntar.",
-
     "qual o horário de atendimento?":
         "Nosso horário de atendimento é de segunda a sexta, das 8h às 18h, e aos sábados das 8h às 12h.",
     "vocês atendem na minha região?":
@@ -105,6 +104,7 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      _handleSendMessageText();
       if (mounted) {
         setState(() {
           _messages.add(
@@ -117,6 +117,60 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
         });
       }
     });
+  }
+
+  void _handleSendMessageText() async {
+    final text = _controller.text.trim();
+    if (text.isEmpty || _isLoading) return;
+
+    _controller.clear();
+
+    setState(() {
+      _messages.add(ChatMessage(text: text, isUserMessage: true));
+      _isLoading = true;
+    });
+    _scrollToBottom();
+
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    String? predefinedAnswer;
+    for (var key in _respostasPredefinidas.keys) {
+      if (text.toLowerCase().contains(key)) {
+        predefinedAnswer = _respostasPredefinidas[key];
+        break;
+      }
+    }
+
+    if (predefinedAnswer != null) {
+      setState(() {
+        _messages.add(
+          ChatMessage(text: predefinedAnswer!, isUserMessage: false),
+        );
+        _isLoading = false;
+      });
+    } else {
+      try {
+        final response = await _getApiResponse(text);
+        setState(() {
+          _messages.add(ChatMessage(text: response, isUserMessage: false));
+        });
+      } catch (e) {
+        setState(() {
+          _messages.add(
+            ChatMessage(
+              text:
+                  "Desculpe, estou com dificuldades na minha conexão. Tente novamente mais tarde.",
+              isUserMessage: false,
+            ),
+          );
+        });
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+    _scrollToBottom();
   }
 
   void _handleSendMessage() async {
@@ -221,7 +275,11 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
           padding: const EdgeInsets.all(16.0),
           child: Text(
             "Assistente Virtual",
-            style: Theme.of(context).textTheme.titleLarge,
+            style: TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 14, 2, 82),
+            ),
           ),
         ),
         Expanded(
@@ -280,9 +338,14 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
           Expanded(
             child: TextField(
               controller: _controller,
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                 hintText: "Digite sua mensagem...",
-                border: InputBorder.none,
+                enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0), 
+                borderSide: BorderSide(color: Colors.grey, width: 2.0)),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                  borderSide: BorderSide(color:Color(0xFF343B6C), width:2.0),
+                ),
                 filled: true,
                 fillColor: Color(0xFFF0F0F0),
                 contentPadding: EdgeInsets.symmetric(
