@@ -208,29 +208,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
             const SizedBox(height: 20),
-            // const SizedBox(width: 300, child: Divider()),
-            // const SizedBox(height: 20),
 
-            // // CORREÇÃO: Trocado TextButton por um simples Text, pois não tinha ação.
-            // const Text(
-            //   'Ou continue com',
-            //   style: TextStyle(color: Color.fromARGB(255, 6, 0, 90)),
-            // ),
-            // const SizedBox(height: 10),
-
-            // // --- ÍCONES SOCIAIS ---
-            // Row(
-            //   // CORREÇÃO: Removida a propriedade 'spacing', que não existe em Row.
-            //   // O espaçamento já é feito com os SizedBox.
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: const [
-            //     FaIcon(FontAwesomeIcons.google, size: 30, color: Colors.red),
-            //     SizedBox(width: 20),
-            //     FaIcon(FontAwesomeIcons.apple, size: 30, color: Colors.black),
-            //     SizedBox(width: 20),
-            //     FaIcon(FontAwesomeIcons.facebook, size: 30, color: Colors.blue),
-            //   ],
-            // ),
             const SizedBox(height: 20),
           ],
         ),

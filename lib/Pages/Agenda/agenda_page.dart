@@ -180,7 +180,8 @@ class _AgendaPageState extends State<AgendaPage> {
           'Olá! Gostaria de solicitar um agendamento:\n\n*Cliente:* $name\n*Serviço:* $service\n*Data Sugerida:* $date';
       if (notes.isNotEmpty) message += '\n*Observações:* $notes';
 
-      final phoneNumber = '5511959473402';
+      final phoneNumber =
+          '5511948887050'; // Número no formato internacional sem espaços ou símbolos
       final Uri whatsappUri = Uri.parse(
         'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}',
       );

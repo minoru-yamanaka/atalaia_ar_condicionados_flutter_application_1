@@ -246,45 +246,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 SizedBox(height: 50),
-
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: TextButton(
-                      onPressed: () {
-                        // Ação para "Esqueceu a senha
-                      },
-                      child: const Text(
-                        'Ou continue com',
-                        style: TextStyle(color: Color.fromARGB(255, 6, 0, 90)),
-                      ),
-                    ),
-                  ),
-                ),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    FaIcon(
-                      FontAwesomeIcons.google,
-                      size: 30,
-                      color: Colors.red,
-                    ),
-                    SizedBox(width: 10),
-                    FaIcon(
-                      FontAwesomeIcons.apple,
-                      size: 30,
-                      color: Colors.black,
-                    ),
-                    SizedBox(width: 10),
-                    FaIcon(
-                      FontAwesomeIcons.facebook,
-                      size: 30,
-                      color: Colors.blue,
-                    ),
-                  ],
-                ),
               ],
             ),
           ],

@@ -24,13 +24,13 @@ class LocalizacaoPage extends StatelessWidget {
 
   // NOVO: Função para abrir o discador do telefone
   void _launchPhone(BuildContext context) {
-    final Uri url = Uri.parse('tel:+5511987654321'); // Use o formato tel:+55...
+    final Uri url = Uri.parse('tel:+5511948887050'); // Use o formato tel:+55...
     _launchUrl(context, url);
   }
 
   // NOVO: Função para abrir o cliente de e-mail
   void _launchEmail(BuildContext context) {
-    final Uri url = Uri.parse('mailto:contato@suaempresa.com.br');
+    final Uri url = Uri.parse('atalaiaarcondicionado@gmail.com');
     _launchUrl(context, url);
   }
 
