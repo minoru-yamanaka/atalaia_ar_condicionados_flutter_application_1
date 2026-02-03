@@ -175,13 +175,6 @@ class _AgendaPageState extends State<AgendaPage> {
         );
       }
 
-      // await NotificationService.scheduleMonthlyNotification(
-      //   id: baseId + 1,
-      //   title: 'Atalaia Ar Condicionado',
-      //   body: fraseSorteada,
-      //   startDate: monthlyStartDate,
-      // );
-
       // --- WHATSAPP ---
       String message =
           'Olá! Gostaria de solicitar um agendamento:\n\n*Cliente:* $name\n*Serviço:* $service\n*Data Sugerida:* $date';
